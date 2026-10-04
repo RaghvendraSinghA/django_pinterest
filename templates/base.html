@@ -17,6 +17,7 @@
 
 </head>
 
+
 <body>
 
     <div class="app">
@@ -26,30 +27,54 @@
 
             <div class="sidebar-top">
 
-                <div class="logo">
-                    Pinterest
-                </div>
+                <a href="{% url 'home' %}" class="sidebar-logo">
+                    <!-- <div class="logo">
+                        Pinterest
+                    </div> -->
+
+                    <img class="logo pin-logo" src="{% static 'images/pinterest.png' %}" alt="Pinterest">
+
+                </a>
 
                 <nav class="sidebar-navigation">
 
-                    <a href="#">Home</a>
+                    <a href="{% url 'home' %}">
+                        <!-- Home -->
+                        <img class="logo" src="{% static 'images/home.png' %}" alt="Pinterest">
+                    </a>
 
-                    <a href="#">Explore</a>
+                    <a href="#">
+                        <!-- Explore -->
+                        <img class="logo" src="{% static 'images/explore.png' %}" alt="Pinterest">
+                    </a>
 
-                    <a href="#">Boards</a>
+                    <a href="#">
+                        <!-- Boards -->
+                        <img class="logo" src="{% static 'images/boards.png' %}" alt="Pinterest">
+                    </a>
 
-                    <button type="button">Create</button>
+                    <button type="button" id="create-button">
+                        <!-- Create -->
+                        <img class="logo" src="{% static 'images/add.png' %}" alt="Pinterest">
+                    </button>
 
-                    <button type="button">Notifications</button>
+                    <button type="button">
+                        <!-- Notifications -->
+                        <img class="logo" src="{% static 'images/notification.png' %}" alt="Pinterest">
+                    </button>
 
-                    <button type="button">Messages</button>
+                    <button type="button">
+                        <!-- Messages -->
+                        <img class="logo message" src="{% static 'images/messenge.png' %}" alt="Pinterest">
+                    </button>
 
                 </nav>
 
             </div>
 
             <div class="sidebar-bottom">
-                <button type="button">Settings</button>
+                <!-- <button type="button">Settings</button> -->
+                 <img class="logo" src="{% static 'images/setting.png' %}" alt="setting">
             </div>
 
         </aside>
@@ -59,11 +84,11 @@
         <aside class="slider">
 
             <!-- Create Slider -->
-            <div class="slider-panel create-panel">
+            <div class="slider-panel create-panel" id="create-panel">
 
                 <h2>Create</h2>
 
-                <button type="button">
+                <button type="button" id="create-pin-button" onclick="window.location.href='{% url 'create_pin' %}'">
                     Pin
                 </button>
 
@@ -143,10 +168,14 @@
                 </div>
 
                 <button type="button" class="profile">
-                    Profile
+                    {% if request.user.is_authenticated %}
+                    {{ request.user.username }}
+                    {% else %}
+                    Guest
+                    {% endif %}
                 </button>
 
-                <button type="button" class="logout">
+                <button type="button" class="logout" onclick="window.location.href='{% url 'logout' %}'">
                     Logout
                 </button>
 
@@ -164,6 +193,8 @@
         </main>
 
     </div>
+
+    <script src="{% static 'home/js/script.js' %}"></script>
 
 </body>
 

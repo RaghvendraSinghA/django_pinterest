@@ -266,7 +266,7 @@
 /* Every nested reply moves right */
 
 .comment-thread .comment-thread {
-    margin-left: 28px;
+    /* margin-left: 28px; */
     border-left: 2px solid #e5e5e5;
 }
 
@@ -471,11 +471,6 @@
 
 /* Every nested comment moves right */
 
-.comment-thread .comment-thread {
-    margin-left: 28px;
-
-    border-left: 2px solid #e5e5e5;
-}
 
 
 /* =========================
@@ -594,7 +589,7 @@
 }
 
 .reply-form button:hover {
-    opacity: 0.85;
+    background: #5a5959;
 }
 
 

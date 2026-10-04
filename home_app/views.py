@@ -3,7 +3,7 @@ from pin_app.models import Pin, Like, Comment
 from pin_app.forms import CommentForm
 from django.contrib.auth.decorators import login_required
 
-
+# @login_required
 def home(request):
     pins = Pin.objects.all()
 

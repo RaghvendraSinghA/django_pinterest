@@ -39,17 +39,18 @@ body {
    ========================= */
 
 .sidebar {
-    width: 240px;
+    width: 70px;
     height: 100vh;
 
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items:center;
 
     flex-shrink: 0;
 
     padding: 20px 12px;
-    border-right: 1px solid #eeeeee;
+    border-right: 1px solid #d0cccc;
 }
 
 
@@ -58,12 +59,29 @@ body {
    ========================= */
 
 .logo {
-    padding: 12px 16px;
-    margin-bottom: 24px;
+    padding: 12px 12px;
+    /* margin-bottom: 24px; */
 
     font-size: 24px;
     font-weight: 700;
+    text-decoration:none;
+    color:#111111;
+    height:3rem;
+    width:auto;
 }
+
+a{
+    text-decoration:none;
+}
+
+.pin-logo{
+    margin-bottom:20px;
+}
+
+.message{
+    transform: scaleX(-1);
+}
+
 
 
 /* =========================
@@ -73,7 +91,7 @@ body {
 .sidebar-navigation {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 18px;
 }
 
 .sidebar-navigation a,
@@ -81,7 +99,7 @@ body {
 .sidebar-bottom button {
     width: 100%;
 
-    padding: 14px 16px;
+    /* padding: 14px 16px; */
 
     border: none;
     border-radius: 12px;
@@ -112,7 +130,7 @@ body {
    ========================= */
 
 .sidebar-bottom {
-    padding: 0 4px;
+    padding: 0px;
 }
 
 
@@ -121,7 +139,7 @@ body {
    ========================= */
 
 .slider {
-    width: 0;
+    width: 100px;
     height: 100vh;
 
     overflow: hidden;
@@ -141,6 +159,7 @@ body {
     flex-direction: column;
 
     overflow: hidden;
+    padding-top:5px;
 }
 
 /* =========================
@@ -256,8 +275,13 @@ body {
    ========================= */
 
 .pin-grid {
-    column-count: 5;
-    column-gap: 16px;
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fill,
+        minmax(210px, 1fr)
+    );
+
+    gap: 16px;
 }
 
 .pin {
@@ -295,15 +319,27 @@ body {
    ========================= */
 
 .slider {
-    width: 0px;
+    width: 0;
     height: 100vh;
 
     overflow: hidden;
     flex-shrink: 0;
 
     background: #ffffff;
-    border-right: 1px solid #eeeeee;
+
+    transition: width 0.35s ease;
 }
+
+
+.open {
+    width:350px;
+    border-right: 1px solid #cec7c7;
+}
+
+
+
+
+
 
 .slider-panel {
     width: 320px;

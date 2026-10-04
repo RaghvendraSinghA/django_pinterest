@@ -1,12 +1,8 @@
 
-const searchInput = document.querySelector("#searchInput");
 
+const createButton = document.querySelector("#create-button");
+const slider = document.querySelector(".slider");
 
-searchInput.addEventListener("input", () => {
-
-    console.log(
-        "Searching for:",
-        searchInput.value
-    );
-
+createButton.addEventListener("click", () => {
+    slider.classList.toggle("open");
 });

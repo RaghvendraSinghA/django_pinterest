@@ -1,4 +1,7 @@
-<div class="comment-thread">
+<div
+    class="comment-thread"
+    style="margin-left: {{ level }}px;"
+>
 
     <div class="comment">
 
@@ -10,40 +13,53 @@
             {{ comment.text }}
         </p>
 
-        <!-- if user own comment then show delete button -->
+        <div class="comment-actions">
 
-        {% if request.user == comment.user %}
+            <form
+                method="POST"
+                action="{% url 'add_reply' pin.id comment.id %}"
+                class="reply-form"
+            >
+                {% csrf_token %}
 
-        <form method="POST" action="{% url 'delete_comment' comment.id %}" class="delete-comment-form">
-            {% csrf_token %}
+                <textarea
+                    name="text"
+                    placeholder="Reply..."
+                    rows="2"
+                ></textarea>
 
-            <button type="submit">
-                Delete
-            </button>
-        </form>
+                <button type="submit">
+                    Reply
+                </button>
 
-        {% endif %}
+            </form>
 
-        <!-- Reply form -->
 
-        <form method="POST" action="{% url 'add_reply' pin.id comment.id %}" class="reply-form">
-            {% csrf_token %}
+            {% if request.user == comment.user %}
 
-            <textarea name="text" placeholder="Reply..." rows="2"></textarea>
+                <form
+                    method="POST"
+                    action="{% url 'delete_comment' comment.id %}"
+                    class="delete-comment-form"
+                >
+                    {% csrf_token %}
 
-            <button type="submit">
-                Reply
-            </button>
-        </form>
+                    <button type="submit">
+                        Delete
+                    </button>
+
+                </form>
+
+            {% endif %}
+
+        </div>
 
     </div>
 
 
-    <!-- Replies -->
-
     {% for reply in comment.replies.all %}
 
-    {% include "home/components/comment.html" with comment=reply %}
+        {% include "home/components/comment.html" with comment=reply level=level|add:"28" %}
 
     {% endfor %}
 
