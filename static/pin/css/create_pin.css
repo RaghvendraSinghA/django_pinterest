@@ -1,0 +1,114 @@
+.create-pin-page {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+
+    padding: 32px 20px;
+}
+
+
+.create-pin-card {
+    width: 100%;
+    max-width: 700px;
+
+    padding: 32px;
+
+    background: #ffffff;
+
+    border-radius: 24px;
+}
+
+
+.create-pin-card h1 {
+    margin: 0 0 28px;
+
+    font-size: 28px;
+}
+
+
+.create-pin-card form {
+    display: flex;
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+
+.create-pin-card p {
+    margin: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+
+.create-pin-card label {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+
+.create-pin-card input[type="text"],
+.create-pin-card textarea {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    border: 1px solid #d8d8d8;
+    border-radius: 12px;
+
+    font-size: 15px;
+
+    outline: none;
+}
+
+
+.create-pin-card textarea {
+    min-height: 120px;
+
+    resize: vertical;
+}
+
+
+.create-pin-card input[type="file"] {
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px dashed #cfcfcf;
+    border-radius: 12px;
+
+    cursor: pointer;
+}
+
+
+.create-pin-card input:focus,
+.create-pin-card textarea:focus {
+    border-color: #888888;
+}
+
+
+.create-pin-card button {
+    width: 100%;
+
+    padding: 14px;
+
+    border: none;
+    border-radius: 24px;
+
+    background: #111111;
+    color: #ffffff;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+.create-pin-card button:hover {
+    opacity: 0.85;
+}

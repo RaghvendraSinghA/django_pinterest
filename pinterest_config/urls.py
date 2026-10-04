@@ -16,10 +16,25 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("home_app.urls")),
-    # For URLs starting with /, look inside home_app.urls to find the actual URL."
-    # The "" matches the /.
+    # "For URLs starting with "" (the root), look inside home_app.urls to find the actual URL pattern."
+    # here urls is urls.py, In python we don't use extension of files. home_app is folder.
+
+    path(
+        "account/",
+        include("account_app.urls")
+    ),
+
+    path("pin/", include("pin_app.urls")),
 ]
+
+
+urlpatterns += static(
+    settings.MEDIA_URL,
+    document_root=settings.MEDIA_ROOT
+)

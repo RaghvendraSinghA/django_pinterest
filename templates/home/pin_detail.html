@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Pin
+{% endblock %}
+
+{% block content %}
+
+
+{% block extra_css %}
+
+<link rel="stylesheet" href="{% static 'home/css/pin_detail.css' %}">
+
+{% endblock %}
+
+<section class="pin-detail-page">
+
+    <!-- PIN DETAIL -->
+    <div class="pin-detail">
+
+        <a href="{% url 'home' %}" class="back-button">
+            ← Back
+        </a>
+
+        <div class="pin-detail-body">
+
+            <!-- IMAGE -->
+            <div class="pin-image">
+                <img src="{{ pin.image.url }}" alt="{{ pin.title }}">
+            </div>
+
+            <!-- INFORMATION -->
+            <div class="pin-information">
+
+                <div class="pin-info">
+
+                    <h2>{{ pin.title }}</h2>
+
+                    <p>
+                        {{ pin.description }}
+                    </p>
+
+                </div>
+
+                <!-- ACTIONS -->
+                <div class="pin-actions">
+
+
+
+
+                    <form method="POST" action="{% url 'like_pin' pin.id %}">
+
+                        {% csrf_token %}
+
+                        <button type="submit">
+
+                            {% if user_liked %}
+                            Unlike
+                            {% else %}
+                            Like
+                            {% endif %}
+
+                        </button>
+
+                    </form>
+
+                    <p class="like-count">{{ like_count }} likes</p>
+
+
+
+
+                    <form method="POST" action="{% url 'delete_pin' pin.id %}">
+
+                        {% csrf_token %}
+
+                        <button type="submit">
+                            Delete
+                        </button>
+
+                    </form>
+
+
+
+
+
+
+                </div>
+
+                <!-- COMMENTS -->
+                <div class="comments">
+
+                    <h3>Comments</h3>
+
+                    <form method="POST" action="{% url 'add_comment' pin.id %}">
+                        {% csrf_token %}
+
+                        {{ comment_form.as_p }}
+
+                        <button type="submit">
+                            Comment
+                        </button>
+                    </form>
+
+                    <!-- Existing comments -->
+
+                    <div class="comment-list">
+
+                        {% for comment in comments %}
+
+                        {% include "home/components/comment.html" with comment=comment %}
+
+                        {% empty %}
+
+                        <p>No comments yet.</p>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PINS ON RIGHT -->
+    <div class="side-pins">
+
+        {% for pin in other_pins %}
+
+        {% include "home/components/pin_card.html" %}
+
+        {% empty %}
+
+        <p>No other pins.</p>
+
+        {% endfor %}
+
+    </div>
+
+
+    <!-- PINS BELOW -->
+    <div class="bottom-pins">
+
+        {% for pin in other_pins %}
+
+        {% include "home/components/pin_card.html" %}
+
+        {% empty %}
+
+        <p>No other pins.</p>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

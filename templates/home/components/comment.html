@@ -1,0 +1,50 @@
+<div class="comment-thread">
+
+    <div class="comment">
+
+        <strong>
+            {{ comment.user.username }}
+        </strong>
+
+        <p>
+            {{ comment.text }}
+        </p>
+
+        <!-- if user own comment then show delete button -->
+
+        {% if request.user == comment.user %}
+
+        <form method="POST" action="{% url 'delete_comment' comment.id %}" class="delete-comment-form">
+            {% csrf_token %}
+
+            <button type="submit">
+                Delete
+            </button>
+        </form>
+
+        {% endif %}
+
+        <!-- Reply form -->
+
+        <form method="POST" action="{% url 'add_reply' pin.id comment.id %}" class="reply-form">
+            {% csrf_token %}
+
+            <textarea name="text" placeholder="Reply..." rows="2"></textarea>
+
+            <button type="submit">
+                Reply
+            </button>
+        </form>
+
+    </div>
+
+
+    <!-- Replies -->
+
+    {% for reply in comment.replies.all %}
+
+    {% include "home/components/comment.html" with comment=reply %}
+
+    {% endfor %}
+
+</div>

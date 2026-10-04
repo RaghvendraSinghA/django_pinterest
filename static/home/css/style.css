@@ -1,0 +1,679 @@
+/* =========================
+   RESET
+   ========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #ffffff;
+    color: #111111;
+}
+
+
+/* =========================
+   APP
+   ========================= */
+
+.app {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+
+/* =========================
+   SIDEBAR
+   ========================= */
+
+.sidebar {
+    width: 240px;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    flex-shrink: 0;
+
+    padding: 20px 12px;
+    border-right: 1px solid #eeeeee;
+}
+
+
+/* =========================
+   LOGO
+   ========================= */
+
+.logo {
+    padding: 12px 16px;
+    margin-bottom: 24px;
+
+    font-size: 24px;
+    font-weight: 700;
+}
+
+
+/* =========================
+   SIDEBAR NAVIGATION
+   ========================= */
+
+.sidebar-navigation {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sidebar-navigation a,
+.sidebar-navigation button,
+.sidebar-bottom button {
+    width: 100%;
+
+    padding: 14px 16px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: transparent;
+
+    color: #111111;
+
+    font-size: 16px;
+    font-weight: 500;
+
+    text-align: left;
+
+    text-decoration: none;
+
+    cursor: pointer;
+}
+
+.sidebar-navigation a:hover,
+.sidebar-navigation button:hover,
+.sidebar-bottom button:hover {
+    background: #f2f2f2;
+}
+
+
+/* =========================
+   SIDEBAR BOTTOM
+   ========================= */
+
+.sidebar-bottom {
+    padding: 0 4px;
+}
+
+
+/* =========================
+   SLIDER
+   ========================= */
+
+.slider {
+    width: 0;
+    height: 100vh;
+
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+
+/* =========================
+   MAIN
+   ========================= */
+.main {
+    flex: 1;
+    min-width: 0;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+}
+
+/* =========================
+   HEADER
+   ========================= */
+
+.header {
+    width: 100%;
+    height: 72px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 16px 20px;
+
+    position: relative;
+    z-index: 10;
+}
+
+
+
+/* =========================
+   HEADER BUTTONS
+   ========================= */
+
+.profile,
+.logout {
+    border: none;
+    border-radius: 20px;
+
+    padding: 12px 18px;
+
+    background: transparent;
+
+    color: #111111;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.profile:hover,
+.logout:hover {
+    background: #f2f2f2;
+}
+
+
+/* =========================
+   CONTENT
+   ========================= */
+
+.content {
+    width: 100%;
+    flex: 1;
+    overflow-y: auto;
+
+    padding: 8px 20px 30px;
+
+    scrollbar-width: none;
+}
+
+.content::-webkit-scrollbar {
+    display: none;
+}
+
+
+
+
+
+
+/* =========================
+   HOME FEED
+   ========================= */
+
+.home-content {
+    width: 100%;
+}
+
+
+/* =========================
+   FEED FILTER
+   ========================= */
+
+.feed-filter {
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+.feed-filter button {
+    border: none;
+    background: transparent;
+
+    padding: 10px 4px;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.feed-filter-active {
+    border-bottom: 2px solid #111111 !important;
+}
+
+
+/* =========================
+   MASONRY GRID
+   ========================= */
+
+.pin-grid {
+    column-count: 5;
+    column-gap: 16px;
+}
+
+.pin {
+    width: 100%;
+
+    break-inside: avoid;
+
+    margin-bottom: 16px;
+
+    border-radius: 16px;
+
+    overflow: hidden;
+}
+
+.pin img {
+    width: 100%;
+    height: auto;
+
+    display: block;
+
+    border-radius: 16px;
+}
+
+
+
+
+
+
+
+
+
+
+/* =========================
+   SLIDER
+   ========================= */
+
+.slider {
+    width: 0px;
+    height: 100vh;
+
+    overflow: hidden;
+    flex-shrink: 0;
+
+    background: #ffffff;
+    border-right: 1px solid #eeeeee;
+}
+
+.slider-panel {
+    width: 320px;
+    height: 100%;
+
+    padding: 24px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.slider-panel h2 {
+    margin-bottom: 16px;
+
+    font-size: 22px;
+}
+
+.slider-panel button {
+    width: 100%;
+
+    padding: 14px 16px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: transparent;
+
+    font-size: 16px;
+    text-align: left;
+
+    cursor: pointer;
+}
+
+.slider-panel button:hover {
+    background: #f2f2f2;
+}
+
+
+
+
+
+/* =========================
+   HEADER
+   ========================= */
+
+.header {
+    width: 100%;
+    height: 72px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+    padding: 12px 20px;
+
+    position: relative;
+    z-index: 100;
+}
+
+
+/* =========================
+   SEARCH WRAPPER
+   ========================= */
+
+.search-wrapper {
+    flex: 1;
+    min-width: 0;
+
+    position: relative;
+
+    z-index: 200;
+}
+
+
+/* =========================
+   SEARCH BAR
+   ========================= */
+
+.search-bar {
+    width: 100%;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 0 18px;
+
+    background: #f1f1f1;
+
+    border-radius: 0.75rem;
+
+    cursor: pointer;
+}
+
+.search-icon {
+    font-size: 18px;
+}
+
+.search-placeholder {
+    font-size: 16px;
+    color: #555555;
+}
+
+
+/* =========================
+   SEARCH PANEL
+   ========================= */
+
+.search-panel {
+    display: none;
+
+    position: absolute;
+
+    top: 48px;
+    left: 0;
+
+    width: 100%;
+
+    padding: 20px;
+
+    background: #f1f1f1;
+
+    /* border-radius: 0 0 24px 24px; */
+
+    z-index: 300;
+}
+
+
+/* =========================
+   SEARCH OPEN
+   ========================= */
+
+.search-open .search-bar {
+    border-radius: 24px 24px 0 0;
+}
+
+.search-open .search-panel {
+    display: block;
+}
+
+
+
+
+
+
+
+/* =========================
+   PIN DETAIL PAGE
+   ========================= */
+
+.pin-detail-page {
+    display: grid;
+
+    grid-template-columns: 60% 40%;
+
+    gap: 20px;
+
+    padding-top: 16px;
+}
+
+
+/* =========================
+   PIN DETAIL
+   ========================= */
+
+.pin-detail {
+    width: 100%;
+
+    background: #ffffff;
+
+    border-radius: 24px;
+
+    overflow: hidden;
+}
+
+
+/* =========================
+   BACK BUTTON
+   ========================= */
+
+.back-button {
+    margin: 16px;
+
+    padding: 10px 16px;
+
+    border: none;
+
+    border-radius: 20px;
+
+    background: #f1f1f1;
+
+    cursor: pointer;
+}
+
+
+/* =========================
+   PIN IMAGE + INFORMATION
+   ========================= */
+
+.pin-detail-body {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    min-height: 600px;
+}
+
+
+/* =========================
+   PIN IMAGE
+   ========================= */
+
+.pin-image {
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+}
+
+.pin-image img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+
+/* =========================
+   PIN INFORMATION
+   ========================= */
+
+.pin-information {
+    padding: 24px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 24px;
+}
+
+
+/* =========================
+   ACTIONS
+   ========================= */
+
+.pin-actions {
+    display: flex;
+
+    gap: 12px;
+}
+
+.pin-actions button {
+    padding: 10px 18px;
+
+    border: none;
+
+    border-radius: 20px;
+
+    cursor: pointer;
+}
+
+
+/* =========================
+   COMMENTS
+   ========================= */
+
+.comments {
+    flex: 1;
+
+    overflow-y: auto;
+}
+
+.comment {
+    margin-bottom: 16px;
+}
+
+.comment p {
+    margin: 4px 0 0;
+}
+
+
+/* =========================
+   COMMENT FORM
+   ========================= */
+
+.comment-form {
+    display: flex;
+
+    gap: 8px;
+
+    margin-top: 20px;
+}
+
+.comment-form input {
+    flex: 1;
+
+    padding: 10px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 20px;
+}
+
+.comment-form button {
+    padding: 10px 16px;
+
+    border: none;
+
+    border-radius: 20px;
+
+    cursor: pointer;
+}
+
+
+/* =========================
+   SIDE PINS
+   ========================= */
+
+.side-pins {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 16px;
+
+    align-content: start;
+}
+
+
+/* =========================
+   BOTTOM PINS
+   ========================= */
+
+.bottom-pins {
+    grid-column: 1 / -1;
+
+    display: grid;
+
+    grid-template-columns: repeat(5, 1fr);
+
+    gap: 16px;
+}
+
+
+/* =========================
+   PIN CARD
+   ========================= */
+
+.pin-card {
+    overflow: hidden;
+
+    border-radius: 16px;
+
+    cursor: pointer;
+}
+
+.pin-card img {
+    width: 100%;
+
+    display: block;
+
+    border-radius: 16px;
+
+    object-fit: cover;
+}
+
+.pin-card h3 {
+    margin: 8px 4px;
+}

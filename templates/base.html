@@ -1,0 +1,170 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Pinterest{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'home/css/style.css' %}">
+
+
+    {% block extra_css %}
+    {% endblock %}
+
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <div class="sidebar-top">
+
+                <div class="logo">
+                    Pinterest
+                </div>
+
+                <nav class="sidebar-navigation">
+
+                    <a href="#">Home</a>
+
+                    <a href="#">Explore</a>
+
+                    <a href="#">Boards</a>
+
+                    <button type="button">Create</button>
+
+                    <button type="button">Notifications</button>
+
+                    <button type="button">Messages</button>
+
+                </nav>
+
+            </div>
+
+            <div class="sidebar-bottom">
+                <button type="button">Settings</button>
+            </div>
+
+        </aside>
+
+
+        <!-- SLIDER -->
+        <aside class="slider">
+
+            <!-- Create Slider -->
+            <div class="slider-panel create-panel">
+
+                <h2>Create</h2>
+
+                <button type="button">
+                    Pin
+                </button>
+
+                <button type="button">
+                    Collage
+                </button>
+
+                <button type="button">
+                    Board
+                </button>
+
+            </div>
+
+
+            <!-- Messages Slider -->
+            <div class="slider-panel messages-panel">
+
+                <h2>Messages</h2>
+
+                <!-- Messages will come later -->
+
+            </div>
+
+
+            <!-- Notifications Slider -->
+            <div class="slider-panel notifications-panel">
+
+                <h2>Notifications</h2>
+
+                <!-- Notifications will come later -->
+
+            </div>
+
+        </aside>
+
+
+        <!-- MAIN -->
+        <main class="main">
+
+            <!-- HEADER -->
+            <header class="header">
+
+                <div class="search-wrapper">
+
+                    <div class="search-bar">
+
+                        <span class="search-icon">🔍</span>
+
+                        <span class="search-placeholder">
+                            Search
+                        </span>
+
+                    </div>
+
+                    <div class="search-panel">
+
+                        <h3>Recommended</h3>
+
+                        <button type="button">
+                            🔍 Fashion
+                        </button>
+
+                        <button type="button">
+                            🔍 Home decor
+                        </button>
+
+                        <button type="button">
+                            🔍 Travel
+                        </button>
+
+                        <button type="button">
+                            🔍 Photography
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <button type="button" class="profile">
+                    Profile
+                </button>
+
+                <button type="button" class="logout">
+                    Logout
+                </button>
+
+            </header>
+
+
+            <!-- PAGE CONTENT -->
+            <section class="content">
+
+                {% block content %}
+                {% endblock %}
+
+            </section>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>

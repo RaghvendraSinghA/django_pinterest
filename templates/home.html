@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}
+Home - Pinterest
+{% endblock %}
+
+{% block content %}
+
+<div class="home-content">
+
+    <!-- FEED FILTER -->
+    <div class="feed-filter">
+
+        <button type="button" class="feed-filter-active">
+            All
+        </button>
+
+    </div>
+
+
+    <!-- MASONRY FEED -->
+    <div class="pin-grid">
+
+        <!-- PIN -->
+        <article class="pin">
+            <img src="https://picsum.photos/400/600" alt="Pin">
+        </article>
+
+
+
+        {% for pin in pins %}
+
+            <a href="{% url 'pin_detail' pin.id %}" class="pin">
+
+                <img src="{{ pin.image.url }}" alt="{{ pin.title }}">
+
+            </a>
+
+        {% empty %}
+
+            <p>No pins available.</p>
+
+        {% endfor %}
+
+
+
+        <article class="pin">
+            <img src="https://picsum.photos/400/600" alt="Pin">
+        </article>
+
+        <article class="pin">
+            <img src="https://picsum.photos/400/500" alt="Pin">
+        </article>
+
+        <article class="pin">
+            <img src="https://picsum.photos/400/700" alt="Pin">
+        </article>
+
+        <article class="pin">
+            <img src="https://picsum.photos/400/450" alt="Pin">
+        </article>
+
+        <article class="pin">
+            <img src="https://picsum.photos/400/650" alt="Pin">
+        </article>
+
+        <article class="pin">
+            <img src="https://picsum.photos/400/650" alt="Pin">
+        </article>
+
+        <article class="pin">
+            <img src="https://picsum.photos/400/650" alt="Pin">
+        </article>
+
+        <article class="pin">
+            <img src="https://picsum.photos/400/650" alt="Pin">
+        </article>
+
+
+        <article class="pin">
+            <img src="https://picsum.photos/400/650" alt="Pin">
+        </article>
+
+        <article class="pin">
+            <img src="https://picsum.photos/400/550" alt="Pin">
+        </article>
+
+        <article class="pin">
+            <img src="https://picsum.photos/400/750" alt="Pin">
+        </article>
+
+        <article class="pin">
+            <img src="https://picsum.photos/400/480" alt="Pin">
+        </article>
+
+    </div>
+
+</div>
+
+{% endblock %}
