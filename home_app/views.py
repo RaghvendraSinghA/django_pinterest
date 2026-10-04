@@ -53,7 +53,7 @@ def pin_detail(request, pin_id):
     )
 
 
-
+@login_required
 def delete_pin(request, pin_id):
 
     pin = get_object_or_404(Pin, id=pin_id)
@@ -72,7 +72,7 @@ def delete_pin(request, pin_id):
     return redirect("pin_detail", pin_id=pin.id)
 
 
-
+@login_required
 def like_pin(request, pin_id):
 
     pin = get_object_or_404(Pin, id=pin_id)

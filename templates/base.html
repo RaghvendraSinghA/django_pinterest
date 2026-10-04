@@ -74,7 +74,7 @@
 
             <div class="sidebar-bottom">
                 <!-- <button type="button">Settings</button> -->
-                 <img class="logo" src="{% static 'images/setting.png' %}" alt="setting">
+                <img class="logo" src="{% static 'images/setting.png' %}" alt="setting">
             </div>
 
         </aside>
@@ -175,9 +175,19 @@
                     {% endif %}
                 </button>
 
+                {% if request.user.is_authenticated %}
+
                 <button type="button" class="logout" onclick="window.location.href='{% url 'logout' %}'">
                     Logout
                 </button>
+
+                {% else %}
+
+                <button type="button" class="login logout" onclick="window.location.href='{% url 'login' %}'">
+                    Login
+                </button>
+
+                {% endif %}
 
             </header>
 

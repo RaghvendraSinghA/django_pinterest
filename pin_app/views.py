@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from .forms import PinForm
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def create_pin(request):
 
     if request.method == "POST":
