@@ -43,6 +43,49 @@
     justify-content:center;
 }
 
+.follow-btn{
+    margin-top:0.5rem;
+    padding: 7px 18px;
+    border: none;
+    border-radius: 20px;
+    background: #de5050;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    color:white;
+}
+
+.follow-btn:hover{
+    background-color:#c7c5c5;
+}
+
+
+.followers-count{
+    margin-top:0.5rem;
+    padding: 7px 18px;
+    border: none;
+    border-radius: 20px;
+    background: #f1f1f1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+
+}
+
+.comment-btn{
+    margin-top:0.5rem;
+    padding: 7px 18px;
+    border: none;
+    border-radius: 20px;
+    background: #f1f1f1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+}
+
 
 /* =========================
    IMAGE + INFORMATION

@@ -14,20 +14,25 @@ def signup_view(request):
             user = form.save()
 
             login(request, user)
+            # It creates login session for user.
 
             return redirect("home")
+
+        # on successful signup redirect
 
     else:
 
         form = SignupForm()
-        # create and return an empty form.
+        # create an empty form and then return will execute.
+        # also,  The request is POST but the form is invalid → show the form
+        # again with the submitted values and validation errors using bound form technique.
 
     return render(
+        # this will also execute when there is no post method but, it is initial get method to get form fillup page,
+        # In django we even return the frontend from backend.
         request,
         "account/signup.html",
-        {
-            "form": form
-        }
+        {"form": form},
     )
 
 
@@ -35,10 +40,7 @@ def login_view(request):
 
     if request.method == "POST":
 
-        form = LoginForm(
-            request,
-            data=request.POST
-        )
+        form = LoginForm(request, data=request.POST)
 
         # request is passed because, AuthenticationForm uses the request during authentication.
 
@@ -54,13 +56,7 @@ def login_view(request):
 
         form = LoginForm()
 
-    return render(
-        request,
-        "account/login.html",
-        {
-            "form": form
-        }
-    )
+    return render(request, "account/login.html", {"form": form})
 
 
 def logout_view(request):

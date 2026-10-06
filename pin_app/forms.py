@@ -13,8 +13,6 @@ class PinForm(forms.ModelForm):
         ]
 
 
-
-
 class CommentForm(forms.ModelForm):
 
     class Meta:

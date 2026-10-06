@@ -4,11 +4,7 @@ from django.contrib.auth.models import User
 
 class Pin(models.Model):
 
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name="pins"
-    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="pins")
 
     title = models.CharField(max_length=200)
 
@@ -35,53 +31,28 @@ class Pin(models.Model):
 # Pin object (3)
 
 
-
-
 class Like(models.Model):
 
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE
-    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    pin = models.ForeignKey(
-        Pin,
-        on_delete=models.CASCADE
-    )
+    pin = models.ForeignKey(Pin, on_delete=models.CASCADE)
 
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(
-                fields=["user", "pin"],
-                name="unique_user_pin_like"
-            )
+            models.UniqueConstraint(fields=["user", "pin"], name="unique_user_pin_like")
         ]
-
-
-
 
 
 class Comment(models.Model):
 
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE
-    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    pin = models.ForeignKey(
-        Pin,
-        on_delete=models.CASCADE,
-        related_name="comments"
-    )
+    pin = models.ForeignKey(Pin, on_delete=models.CASCADE, related_name="comments")
 
     parent = models.ForeignKey(
-        "self",
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
-        related_name="replies"
+        "self", on_delete=models.CASCADE, null=True, blank=True, related_name="replies"
     )
 
     text = models.TextField()
@@ -90,3 +61,23 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.text
+
+
+class Follow(models.Model):
+
+    follower = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="following"
+    )
+
+    following = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="followers"
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["follower", "following"], name="unique_follow"
+            )
+        ]

@@ -39,7 +39,7 @@ body {
    ========================= */
 
 .sidebar {
-    width: 70px;
+    width: 72px;
     height: 100vh;
 
     display: flex;
@@ -49,7 +49,7 @@ body {
 
     flex-shrink: 0;
 
-    padding: 20px 12px;
+    padding: 16px 12px;
     border-right: 1px solid #d0cccc;
 }
 
@@ -137,14 +137,14 @@ a{
 /* =========================
    SLIDER
    ========================= */
-
+/* 
 .slider {
     width: 100px;
     height: 100vh;
 
     overflow: hidden;
     flex-shrink: 0;
-}
+} */
 
 
 /* =========================
@@ -219,7 +219,7 @@ a{
     flex: 1;
     overflow-y: auto;
 
-    padding: 8px 20px 30px;
+    padding: 8px 16px 30px;
 
     scrollbar-width: none;
 }
@@ -251,16 +251,18 @@ a{
     align-items: center;
 
     margin-bottom: 20px;
+    padding-top:10px;
 }
 
 .feed-filter button {
     border: none;
     background: transparent;
 
-    padding: 10px 4px;
+    padding:0px;
 
     font-size: 16px;
-    font-weight: 600;
+    padding-bottom:3px;
+    margin-left:17px;
 
     cursor: pointer;
 }
@@ -275,13 +277,9 @@ a{
    ========================= */
 
 .pin-grid {
-    display: grid;
-    grid-template-columns: repeat(
-        auto-fill,
-        minmax(210px, 1fr)
-    );
-
-    gap: 16px;
+    /* column-width:210px; */
+    column-width:13.125rem;
+    /* columns:4; */
 }
 
 .pin {
@@ -328,12 +326,13 @@ a{
     background: #ffffff;
 
     transition: width 0.35s ease;
+    border:none;
 }
 
 
 .open {
-    width:350px;
-    border-right: 1px solid #cec7c7;
+    width:368px;
+    border-right: 1px solid #d3cfcf;
 }
 
 
@@ -394,7 +393,7 @@ a{
     align-items: center;
 
     gap: 12px;
-    padding: 12px 20px;
+    padding: 12px 16px;
 
     position: relative;
     z-index: 100;

@@ -14,27 +14,23 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
     path("", include("home_app.urls")),
     # "For URLs starting with "" (the root), look inside home_app.urls to find the actual URL pattern."
     # here urls is urls.py, In python we don't use extension of files. home_app is folder.
-
-    path(
-        "account/",
-        include("account_app.urls")
-    ),
-
+    path("account/", include("account_app.urls")),
     path("pin/", include("pin_app.urls")),
 ]
 
 
-urlpatterns += static(
-    settings.MEDIA_URL,
-    document_root=settings.MEDIA_ROOT
-)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# urlpatterns += static(prefix,view,*kwargs)
+# document_root , named keyword of django, it will search in that path of project to search files.

@@ -43,6 +43,50 @@ Pin
 
                 </div>
 
+
+
+                <div class="pin-creator">
+
+                    <p>
+                        Created by:
+                        <strong>{{ pin.user.username }}</strong>
+                    </p>
+
+                    {% if request.user.is_authenticated and request.user != pin.user %}
+
+                    <form method="POST" action="{% url 'follow_user' pin.user.id %}">
+                        {% csrf_token %}
+
+                        <input type="hidden" name="pin_id" value="{{ pin.id }}">
+
+                        <button type="submit" class="follow-btn">
+
+                            {% if followed %}
+                            Unfollow
+                            {% else %}
+                            + Follow
+                            {% endif %}
+
+                        </button>
+                    </form>
+
+                    {% endif %}
+
+
+                    <p class="followers-count">
+                        {{ pin.user.followers.count }}M followers
+                    </p>
+
+
+                </div>
+
+
+
+
+
+
+
+
                 <!-- ACTIONS -->
                 <div class="pin-actions">
 
@@ -65,7 +109,7 @@ Pin
 
                     </form>
 
-                    <p class="like-count">{{ like_count }} likes</p>
+                    <p class="like-count">{{ like_count }}M likes</p>
 
 
 
@@ -97,7 +141,7 @@ Pin
 
                         {{ comment_form.as_p }}
 
-                        <button type="submit">
+                        <button type="submit" class="comment-btn">
                             Comment
                         </button>
                     </form>
@@ -134,10 +178,6 @@ Pin
 
         {% include "home/components/pin_card.html" %}
 
-        {% empty %}
-
-        <p>No other pins.</p>
-
         {% endfor %}
 
     </div>
@@ -149,10 +189,6 @@ Pin
         {% for pin in other_pins %}
 
         {% include "home/components/pin_card.html" %}
-
-        {% empty %}
-
-        <p>No other pins.</p>
 
         {% endfor %}
 
