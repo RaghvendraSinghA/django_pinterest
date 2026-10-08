@@ -39,7 +39,7 @@ def pin_detail(request, pin_id):
 
     return render(
         request,
-        "home/pin_detail.html",
+        "home/pin_detail2.html",
         {
             "pin": pin,
             "other_pins": other_pins,

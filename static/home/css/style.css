@@ -478,13 +478,8 @@ a {
 
 .pin {
     width: 100%;
-
     break-inside: avoid;
-
-    margin-bottom: 16px;
-
-    border-radius: 16px;
-
+    border-radius: 1rem;
     overflow: hidden;
 }
 
