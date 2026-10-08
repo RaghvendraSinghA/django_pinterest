@@ -27,6 +27,13 @@
         <!-- SIDEBAR -->
         <aside class="sidebar">
 
+            <!-- sidebar popup -->
+
+            <div class="sidebar-popup"></div>
+
+
+            <!-- sidebar popup -->
+
             <div class="sidebar-top">
 
                 <a href="{% url 'home' %}" class="sidebar-logo">
@@ -130,74 +137,162 @@
         <!-- MAIN -->
         <main class="main">
 
-            <!-- HEADER -->
+            <!-- HEADER and search bar -->
             <header class="header">
 
-                <div class="search-wrapper">
-
-                    <div class="search-bar">
-
-                        <span class="search-icon">🔍</span>
-
-                        <span class="search-placeholder">
-                            Search
-                        </span>
-
+                <div class="search-bar">
+                    <div class="icon-placeholder">
+                        <img class="search-icon" src="{% static 'images/search.png' %}">
+                        <div class="search-placeholder">Search</div>
                     </div>
 
-                    <div class="search-panel">
+                    <div class="cam-and-mic">
+                        <img class="cam" src="{% static 'images/camera.png' %}">
+                        <img class="mic" src="{% static 'images/microphone.png' %}">
+                    </div>
+                </div>
 
-                        <h3>Recommended</h3>
 
-                        <button type="button">
-                            🔍 Fashion
-                        </button>
 
-                        <button type="button">
-                            🔍 Home decor
-                        </button>
+                <!-- profile and logout -->
+                <div class="profile-login">
 
-                        <button type="button">
-                            🔍 Travel
-                        </button>
+                    <button type="button" class="profile">
+                        {% if request.user.is_authenticated %}
+                        {{ request.user.username }}
+                        {% else %}
+                        Guest
+                        {% endif %}
+                    </button>
 
-                        <button type="button">
-                            🔍 Photography
-                        </button>
+                    {% if request.user.is_authenticated %}
 
+                    <button type="button" class="logout" onclick="window.location.href='{% url 'logout' %}'">
+                        Logout
+                    </button>
+
+                    {% else %}
+
+                    <button type="button" class="login logout" onclick="window.location.href='{% url 'login' %}'">
+                        Login
+                    </button>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- searchbar - popup -->
+
+                <div class="popup-container">
+
+                    <header class="header">
+
+                        <div class="search-bar">
+                            <input class="searchbar-input" placeholder="Search">
+
+                            <div class="cam-and-mic">
+                                <img class="cam" src="{% static 'images/camera.png' %}">
+                                <img class="mic" src="{% static 'images/microphone.png' %}">
+                            </div>
+                        </div>
+
+                        <!-- profile and logout -->
+                        <div class="profile-login">
+
+                            <button type="button" class="profile">
+                                {% if request.user.is_authenticated %}
+                                {{ request.user.username }}
+                                {% else %}
+                                Guest
+                                {% endif %}
+                            </button>
+
+                            {% if request.user.is_authenticated %}
+
+                            <button type="button" class="logout" onclick="window.location.href='{% url 'logout' %}'">
+                                Logout
+                            </button>
+
+                            {% else %}
+
+                            <button type="button" class="login logout"
+                                onclick="window.location.href='{% url 'login' %}'">
+                                Login
+                            </button>
+
+                            {% endif %}
+
+                        </div>
+
+                    </header>
+
+
+                    <div class="popup-slider">
+
+                        <div class="search-results">
+
+                            <div class="search-result">
+                                <img class="search-img" src="{% static 'images/microphone.png' %}">
+                                <div class="search-item-name">Mame</div>
+                            </div>
+
+                            <div class="search-result">
+                                <img class="search-img" src="{% static 'images/microphone.png' %}">
+                                <div class="search-item-name">name</div>
+                            </div>
+
+                            <div class="search-result">
+                                <img class="search-img" src="{% static 'images/microphone.png' %}">
+                                <div class="search-item-name">name</div>
+                            </div>
+
+                            <div class="search-result">
+                                <img class="search-img" src="{% static 'images/microphone.png' %}">
+                                <div class="search-item-name">name</div>
+                            </div>
+
+                            <div class="search-result">
+                                <img class="search-img" src="{% static 'images/microphone.png' %}">
+                                <div class="search-item-name">name</div>
+                            </div>
+
+                            <div class="search-result">
+                                <img class="search-img" src="{% static 'images/microphone.png' %}">
+                                <div class="search-item-name">name</div>
+                            </div>
+
+                            <div class="search-result">
+                                <img class="search-img" src="{% static 'images/microphone.png' %}">
+                                <div class="search-item-name">name</div>
+                            </div>
+
+                            <div class="search-result">
+                                <img class="search-img" src="{% static 'images/microphone.png' %}">
+                                <div class="search-item-name">name</div>
+                            </div>
+
+                            <div class="search-result">
+                                <img class="search-img" src="{% static 'images/microphone.png' %}">
+                                <div class="search-item-name">name</div>
+                            </div>
+
+                        </div>
+                            
                     </div>
 
                 </div>
 
-                <button type="button" class="profile">
-                    {% if request.user.is_authenticated %}
-                    {{ request.user.username }}
-                    {% else %}
-                    Guest
-                    {% endif %}
-                </button>
-
-                {% if request.user.is_authenticated %}
-
-                <button type="button" class="logout" onclick="window.location.href='{% url 'logout' %}'">
-                    Logout
-                </button>
-
-                {% else %}
-
-                <button type="button" class="login logout" onclick="window.location.href='{% url 'login' %}'">
-                    Login
-                </button>
-
-                {% endif %}
+                <!-- popup-end -->
 
             </header>
 
 
             <!-- PAGE CONTENT -->
             <section class="content">
-
+                <!-- this whole block is in content so, even it will be overwritten by other child pages who extend it. -->
                 {% block content %}
+
                 {% endblock %}
 
             </section>
