@@ -550,9 +550,14 @@
     }
 
     .profile-save .profile-delete{
-        padding:3px;
+        padding:2px;
         height:2rem;
+        /* border:1px solid red; */
         /* width:50%; */
+        font-size:14px;
+        padding-left:10px;
+        padding-right:10px;
+        margin-left:0.3rem;
     }
 
     .like-share{

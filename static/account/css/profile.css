@@ -190,6 +190,12 @@
     word-break: break-word;
 }
 
+.created-pins{
+    margin-bottom:1rem;
+    font-family:Helvetica;
+    color:#0b0032;
+}
+
 /* Tablet */
 
 @media screen and (max-width: 1024px) {

@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="{% static 'home/css/style.css' %}">
 
     <link rel="icon" type="image/png" href="{% static '/images/pinterest_circle.png' %}">
+    <!-- <link rel="stylesheet" href="{% static 'home/css/search.css' %}"> -->
+
 
 
     {% block extra_css %}
@@ -222,7 +224,7 @@
                     <header class="header">
 
                         <div class="search-bar">
-                            <input class="searchbar-input" placeholder="Search">
+                            <input id ="search-input" class="searchbar-input" placeholder="Search">
 
                             <div class="cam-and-mic">
                                 <img class="cam" src="{% static 'images/camera.png' %}">
@@ -263,52 +265,7 @@
 
                     <div class="popup-slider">
 
-                        <div class="search-results">
-
-                            <div class="search-result">
-                                <img class="search-img" src="{% static 'images/microphone.png' %}">
-                                <div class="search-item-name">Mame</div>
-                            </div>
-
-                            <div class="search-result">
-                                <img class="search-img" src="{% static 'images/microphone.png' %}">
-                                <div class="search-item-name">name</div>
-                            </div>
-
-                            <div class="search-result">
-                                <img class="search-img" src="{% static 'images/microphone.png' %}">
-                                <div class="search-item-name">name</div>
-                            </div>
-
-                            <div class="search-result">
-                                <img class="search-img" src="{% static 'images/microphone.png' %}">
-                                <div class="search-item-name">name</div>
-                            </div>
-
-                            <div class="search-result">
-                                <img class="search-img" src="{% static 'images/microphone.png' %}">
-                                <div class="search-item-name">name</div>
-                            </div>
-
-                            <div class="search-result">
-                                <img class="search-img" src="{% static 'images/microphone.png' %}">
-                                <div class="search-item-name">name</div>
-                            </div>
-
-                            <div class="search-result">
-                                <img class="search-img" src="{% static 'images/microphone.png' %}">
-                                <div class="search-item-name">name</div>
-                            </div>
-
-                            <div class="search-result">
-                                <img class="search-img" src="{% static 'images/microphone.png' %}">
-                                <div class="search-item-name">name</div>
-                            </div>
-
-                            <div class="search-result">
-                                <img class="search-img" src="{% static 'images/microphone.png' %}">
-                                <div class="search-item-name">name</div>
-                            </div>
+                        <div class="search-results" id="search-results">
 
                         </div>
 
@@ -335,6 +292,7 @@
     </div>
 
     <script src="{% static 'home/js/script.js' %}"></script>
+    <script src="{% static 'home/js/search.js' %}" defer></script>
 
     {% block extra_js %}
     {% endblock extra_js %}

@@ -750,62 +750,6 @@ a {
 }
 
 
-/* =========================
-   SIDE PINS
-   ========================= */
-
-/* .side-pins {
-    display: grid;
-
-    grid-template-columns: repeat(2, 1fr);
-
-    gap: 16px;
-
-    align-content: start;
-}
-
-
-/* =========================
-   BOTTOM PINS
-   ========================= */
-
-/* .bottom-pins {
-    grid-column: 1 / -1;
-
-    display: grid;
-
-    grid-template-columns: repeat(5, 1fr);
-
-    gap: 16px;
-} */
-
-
-/* =========================
-   PIN CARD
-   ========================= */
-
-/* .pin-card {
-    overflow: hidden;
-
-    border-radius: 16px;
-
-    cursor: pointer;
-}
-
-.pin-card img {
-    width: 100%;
-
-    display: block;
-
-    border-radius: 16px;
-
-    object-fit: cover;
-}
-
-.pin-card h3 {
-    margin: 8px 4px;
-}  */
-
 
 
 
@@ -901,6 +845,40 @@ a {
 
     .popup-container .profile-login{
         display:none;
+    }
+}
+
+
+@media screen and (max-width:395px){
+    .search-bar .searchbar-input{
+        width:100%;
+        padding-left:0.5rem;
+    }
+
+    .search-bar .cam-and-mic{
+        gap:0.6rem;
+    }
+}
+
+
+@media screen and (max-width:500px){
+
+    .popup-container .popup-slider .search-results .search-result{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:0.5rem;
+        padding-top:0.5rem;
+    }
+
+
+    .search-result .search-img{
+        /* height:3rem; */
+        max-width:3.5rem;
+        max-height:3rem;
+    }
+
+    .popup-container .popup-slider .search-results .search-result .search-item-name{
+        font-size:10px;
     }
 }
 

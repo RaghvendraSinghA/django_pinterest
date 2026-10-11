@@ -6,6 +6,10 @@ from pin_app.models import Follow
 from django.contrib.auth.models import User
 from pin_app.models import Board
 
+from django.http import JsonResponse
+from django.db.models import Q
+
+
 
 # @login_required
 def home(request):
@@ -174,3 +178,23 @@ def follow_user(request, user_id):
             follow.delete()
 
     return redirect("pin_detail", pin_id=pin_id)
+
+
+def search_pins(request):
+    query = request.GET.get("q", "").strip()
+
+    pins = Pin.objects.filter(
+        Q(title__icontains=query) |
+        Q(description__icontains=query)
+    )[:10] if query else []
+
+    results = [
+        {
+            "title": pin.title,
+            "image": pin.image.url,
+            "url": f"/pin/{pin.id}/",
+        }
+        for pin in pins
+    ]
+
+    return JsonResponse({"results": results})

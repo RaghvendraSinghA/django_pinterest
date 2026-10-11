@@ -140,6 +140,7 @@ Pin
                         <!-- <img src="{% static '/images/pinterest.png' %}" alt="profle_pic"> -->
                         <img src="{{ user.profile.image.url|default:'/static/images/pinterest.png' }}"
                             alt="profile_pic">
+                        
                     </div>
 
                     <div class="username">{{ pin.user.username }}</div>

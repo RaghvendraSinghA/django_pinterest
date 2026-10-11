@@ -57,10 +57,9 @@
     </div>
 
     <div class="profile-content">
-        <h2>Created pins</h2>
 
         <div class="profile-pins">
-            <h2>Created pins</h2>
+            <h3 class="created-pins">Own pins</h3>
 
             <div class="pins-grid">
                 {% for pin in pins %}
@@ -74,12 +73,11 @@
             </div>
         </div>
 
-        <h2>Boards</h2>
 
 
         <div class="profile-boards">
             <div class="boards-heading">
-                <h2>Boards</h2>
+                <h3>Boards</h3>
 
                 {% if request.user == profile_user %}
                 <a href="{% url 'create_board' %}" class="create-board-link">

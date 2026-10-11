@@ -17,4 +17,6 @@ urlpatterns = [
         "comment/<int:comment_id>/delete/", views.delete_comment, name="delete_comment"
     ),
     path("user/<int:user_id>/follow/", views.follow_user, name="follow_user"),
+
+    path("search/", views.search_pins, name="search_pins"),
 ]
