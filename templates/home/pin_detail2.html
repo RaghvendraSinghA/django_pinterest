@@ -17,7 +17,190 @@ Pin
 
 <section class="pin-page-container">
 
-    <div class="pin-detail-container">
+    <div class="pin-detail-container pint">
+
+        <div class="pin-img-container">
+            <img src="{{ pin.image.url }}" alt="{{ pin.title }}">
+        </div>
+
+
+
+        <div class="pin-desc-and-comment">
+
+            <div class="like-share-profile-save">
+
+                <div class="like-share">
+                    <div class="like-count">
+
+                        <!-- {% if user_liked %}
+                        <img class="red-heart" src="{% static '/images/favorite.png' %}" alt="like">
+                        {% else %}
+                        <img src="{% static '/images/heart.png' %}" alt="like">
+                        {% endif %} -->
+
+
+                        <form method="POST" action="{% url 'like_pin' pin.id %}">
+                            {% csrf_token %}
+
+                            <button class="like-btn" type="submit" class="like-button">
+                                {% if user_liked %}
+                                <img class="red-heart" src="{% static 'images/love.png' %}" alt="Unlike">
+                                {% else %}
+                                <img src="{% static 'images/heart.png' %}" alt="Like">
+                                {% endif %}
+                            </button>
+                        </form>
+
+
+                        <div class="like-count-text">{{ like_count }}</div>
+                    </div>
+
+
+
+                    <img src="{% static '/images/export.png' %}" alt="like">
+                    <img src="{% static '/images/meatball-menu.png' %}" alt="like">
+                </div>
+
+                <div class="profile-save profile-save-p">
+
+                    <form method="POST" action="{% url 'delete_pin' pin.id %}">
+
+                        {% csrf_token %}
+
+                        <button class="profile-delete" type="submit">
+                            Delete
+                        </button>
+
+                        <!-- <div class="profile-delete">Delete</div> -->
+
+                    </form>
+
+                    <!-- <div class="profile-delete">Delete</div> -->
+
+
+
+
+                    <div class="profile-save">Save</div>
+                </div>
+
+            </div>
+
+            <!-- like share profile end here -->
+
+            <div class="profile-username-follow">
+
+                <div class="comment-username">
+
+                    <div class="comment-profile">
+                        <!-- <img src="{% static '/images/pinterest.png' %}" alt="profle_pic"> -->
+                        <img src="{{ user.profile.image.url|default:'/static/images/pinterest.png' }}" alt="profile_pic">
+                    </div>
+
+                    <div class="username">{{ pin.user.username }}</div>
+
+                </div>
+
+                <!-- <div>follow +</div> -->
+
+                <div class="follow-followers">
+                    {% if request.user.is_authenticated and request.user != pin.user %}
+
+                    <form method="POST" action="{% url 'follow_user' pin.user.id %}">
+                        {% csrf_token %}
+
+                        <input type="hidden" name="pin_id" value="{{ pin.id }}">
+
+                        <button type="submit" class="follow-btn">
+
+                            {% if followed %}
+                            Unfollow
+                            {% else %}
+                            + Follow
+                            {% endif %}
+
+                        </button>
+                    </form>
+
+                    {% endif %}
+
+
+
+                    <p class="followers-count">
+                        {{ pin.user.followers.count }} follower(s)
+                    </p>
+                </div>
+            </div>
+
+            <!-- profile and follow ends here -->
+
+            <div class="pin-title">
+                
+                {{pin.title}}
+            </div>
+
+
+            <div class="visit-site">
+                Visit site
+            </div>
+
+
+            <div class="description-and-comments">
+
+                <div class="description-title">
+                    Description
+                    <!-- {{pin.title}} -->
+                </div>
+
+                <div class="pin-description">
+                    <!-- The Air Force 1 is a classic Swoosh silhouette. Equal parts court staple and street soldier, the AF1
+                    would is one of the most loved shoes worldwide. This women’s ‘Oatmeal’ colourway will -->
+                    {{pin.description}}
+                </div>
+
+                <div class="comments-title">
+                    Comments
+                </div>
+
+                <!-- COMMENTS -->
+                <div class="comments" id="comments">
+                    <!-- Existing comments -->
+
+                    <div class="comment-list">
+
+                        {% for comment in comments %}
+
+                        {% include "home/components/comment.html" with comment=comment level=0 %}
+
+                        {% empty %}
+
+                        <p>No comments yet.</p>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- comment-box -->
+
+            <form method="POST" action="{% url 'add_comment' pin.id %}">
+                {% csrf_token %}
+
+
+                <div class="comment-box">
+                    <input type="text" name="text" class="comment-input" placeholder="Add a comment...">
+
+                    <button type="submit" class="comment-btn">
+                        >
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+
 
     </div>
 
@@ -100,4 +283,4 @@ Pin
 
 <script src="{% static 'pin/js/pinDetail.js' %}"></script>
 
-{% endblock extra_js %} 
+{% endblock extra_js %}

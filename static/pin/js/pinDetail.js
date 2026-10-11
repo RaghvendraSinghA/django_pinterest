@@ -27,27 +27,102 @@ document.querySelectorAll(".pint").forEach(pin => {
 
 //putting observer on each image to make them resize.
 
+// document.querySelectorAll(".pint").forEach(pin => {
+
+//     console.log("pin",pin)
+
+//     console.log("pin classes", pin.classList.contains("pin-detail-container"))
+
+//     if(pin.classList.contains("pin-detail-container")){
+        
+//         console.log("abc")
+
+//     }
+
+//     const image = pin.querySelector("img");
+
+//     const observer = new ResizeObserver(() => {
+
+//         console.log("observer called")
+
+//         const height = image.getBoundingClientRect().height;
+
+//         let span = Math.floor(
+//             (height + gap) / (rowHeight + gap)
+//         );
+
+//         // span = Math.ceil(span/2)
+
+//         pin.style.gridRowEnd = `span ${span}`;
+
+//     });
+
+//     observer.observe(pin);
+// });
+
+
+
+//pin detail container fixing for 768px and below
+
+const pinDetailContainer = document.querySelector(".pin-detail-container");
+const pinPageContainer = document.querySelector(".pin-page-container");
+
 document.querySelectorAll(".pint").forEach(pin => {
 
-    const image = pin.querySelector("img");
+    console.log("pin",pin)
 
-    const observer = new ResizeObserver(() => {
+    if(pin.classList.contains("pin-detail-container")){
+        
+        console.log("abc")
 
-        console.log("observer called")
+        const pinDetailContainer = document.querySelector(".pin-detail-container");
 
-        const height = image.getBoundingClientRect().height;
+        const observer = new ResizeObserver(() => {
 
-        let span = Math.floor(
-            (height + gap) / (rowHeight + gap)
-        );
+            console.log("observer called")
 
-        // span = Math.ceil(span/2)
+            const height = pinDetailContainer.getBoundingClientRect().height;
 
-        pin.style.gridRowEnd = `span ${span}`;
+            let span = Math.floor(
+                (height + gap) / (rowHeight + gap)
+            );
 
-    });
+            console.log("height",height)
 
-    observer.observe(pin);
+            console.log("span",span)
+
+            // span = Math.ceil(span/2)
+
+            pinDetailContainer.style.gridRowEnd = `span ${span}`;
+            // pinDetailContainer.style.gridRow = `span ${span}`;
+
+        });
+
+        observer.observe(pin);
+
+    }else{
+
+        const image = pin.querySelector("img");
+
+        const observer = new ResizeObserver(() => {
+
+            console.log("observer called")
+
+            const height = image.getBoundingClientRect().height;
+
+            let span = Math.floor(
+                (height + gap) / (rowHeight + gap)
+            );
+
+            // span = Math.ceil(span/2)
+
+            pin.style.gridRowEnd = `span ${span}`;
+
+            // pin.style.gridRow = `span ${span}`;
+
+        });
+
+        observer.observe(pin);
+
+    }
 });
-
-

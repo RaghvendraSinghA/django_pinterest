@@ -152,8 +152,6 @@
                     </div>
                 </div>
 
-
-
                 <!-- profile and logout -->
                 <div class="profile-login">
 
@@ -178,6 +176,39 @@
                     </button>
 
                     {% endif %}
+
+                </div>
+
+                
+
+                <div class="profile-replace">
+                    <img class="profile-replace-icon" src="{% static 'images/down-arrow.png' %}">
+
+                    <div class="profile-login2">
+
+                    <button type="button" class="profile">
+                        {% if request.user.is_authenticated %}
+                        {{ request.user.username }}
+                        {% else %}
+                        Guest
+                        {% endif %}
+                    </button>
+
+                    {% if request.user.is_authenticated %}
+
+                    <button type="button" class="logout" onclick="window.location.href='{% url 'logout' %}'">
+                        Logout
+                    </button>
+
+                    {% else %}
+
+                    <button type="button" class="login logout" onclick="window.location.href='{% url 'login' %}'">
+                        Login
+                    </button>
+
+                    {% endif %}
+
+                </div>
 
                 </div>
 

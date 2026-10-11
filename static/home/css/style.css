@@ -189,6 +189,7 @@ a {
     padding-left:1rem;
     padding-top:0.5rem;
     position:relative;
+    gap:1rem;
 }
 
 
@@ -204,6 +205,8 @@ a {
     background-color:#e5e5e0;
     
     cursor:pointer;
+
+    /* border:1px solid red; */
 }
 
 .search-bar:hover{
@@ -272,6 +275,7 @@ a {
     left:0px;
     background: rgba(0, 0, 0, 0.5);
     display:none;
+    z-index:1;
 
 }
 
@@ -309,7 +313,7 @@ a {
 
 
 .popup-container .header{
-    /* border:1px solid red; */
+    
 }
 
 .popup-container .popup-slider{
@@ -472,8 +476,13 @@ a {
 
 .pin-grid {
     /* column-width:210px; */
-    column-width: 13.125rem;
+    /* column-width: 13.125rem; */
     /* columns:4; */
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    grid-auto-rows:1rem;
+    gap:1rem;
+
 }
 
 .pin {
@@ -693,11 +702,11 @@ a {
    COMMENTS
    ========================= */
 
-.comments {
+/* .comments {
     flex: 1;
 
     overflow-y: auto;
-}
+} */
 
 .comment {
     margin-bottom: 16px;
@@ -745,7 +754,7 @@ a {
    SIDE PINS
    ========================= */
 
-.side-pins {
+/* .side-pins {
     display: grid;
 
     grid-template-columns: repeat(2, 1fr);
@@ -760,7 +769,7 @@ a {
    BOTTOM PINS
    ========================= */
 
-.bottom-pins {
+/* .bottom-pins {
     grid-column: 1 / -1;
 
     display: grid;
@@ -768,14 +777,14 @@ a {
     grid-template-columns: repeat(5, 1fr);
 
     gap: 16px;
-}
+} */
 
 
 /* =========================
    PIN CARD
    ========================= */
 
-.pin-card {
+/* .pin-card {
     overflow: hidden;
 
     border-radius: 16px;
@@ -795,8 +804,105 @@ a {
 
 .pin-card h3 {
     margin: 8px 4px;
+}  */
+
+
+
+
+
+
+
+.search-bar{
+    /* border:2px solid red; */
 }
 
+.profile-replace{
+    height:30px;
+    width:30px;
+    /* border:1px solid red; */
+    padding:1.2rem;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    position:relative;
+    display:none;
+
+}
+
+.profile-login2{
+    position:absolute;
+    border:1px solid rgb(230, 225, 225);
+    top:45px;
+    left:-150px;
+    z-index:1000;
+    background-color:#ffffff;
+    border-radius:10px;
+
+    display:none;
+}
+
+.profile-replace:hover{
+    background-color:rgb(243, 238, 238);
+    border-radius:10px;
+}
+
+.profile-replace img{
+    height:30px;
+    width:30px;
+}
+
+
+
+@media screen and (max-width:821px){
+    .pin-grid {
+        grid-template-columns:repeat(3, 1fr);
+    }
+}
+
+@media screen and (max-width:470px){
+    .pin-grid {
+        grid-template-columns:repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width:768px){
+    /* .cam-and-mic{
+        display: none !important;
+    }
+
+    .profile-login{
+        display: none !important;
+    } */
+
+    /* .search-bar{
+        width:20rem;
+    } */
+}
+
+@media screen and (max-width:774px){
+    
+
+    .profile-login{
+        display:none;
+        border:1px solid red;
+    }
+
+    .header{
+        gap:1rem;
+    }
+    .profile-replace{
+        display:flex;
+    }
+}
+
+@media screen and (max-width:668px){
+    
+
+    .popup-container .profile-login{
+        display:none;
+    }
+}
 
 
 .remove-none{

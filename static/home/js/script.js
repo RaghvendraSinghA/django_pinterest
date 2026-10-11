@@ -1,6 +1,3 @@
-
-
-
 // slider popup
 const createButton = document.querySelector("#create-button");
 const slider = document.querySelector(".slider");
@@ -26,7 +23,7 @@ const searchBarInput = document.querySelector(".popup-container .searchbar-input
 const sidebar = document.querySelector(".sidebar");
 
 
-searchBarDiv.addEventListener("click",()=>{
+searchBarDiv.addEventListener("click", () => {
     searchBarPopup.classList.toggle("remove-none")
     sideBarPopup.classList.toggle("remove-none")
     searchBar.classList.add("selected-searchbar");
@@ -35,22 +32,97 @@ searchBarDiv.addEventListener("click",()=>{
 })
 
 
-searchBarPopup.addEventListener("click",()=>{
+searchBarPopup.addEventListener("click", () => {
     searchBarPopup.classList.toggle("remove-none")
     sideBarPopup.classList.toggle("remove-none")
-    searchBarInput.value=""
+    searchBarInput.value = ""
     sidebar.style.borderRight = "1px solid rgb(149, 148, 148)";
 })
 
-sideBarPopup.addEventListener("click",()=>{
+sideBarPopup.addEventListener("click", () => {
     searchBarPopup.classList.toggle("remove-none")
     sideBarPopup.classList.toggle("remove-none")
-    searchBarInput.value=""
+    searchBarInput.value = ""
     sidebar.style.borderRight = "1px solid rgb(149, 148, 148)";
 })
 
 
 //end of popup setting on searchbar
 
+
+const profileReplaceBtn = document.querySelector(".profile-replace")
+const profileLogin = document.querySelector(".profile-login2")
+
+profileReplaceBtn.addEventListener("click", () => {
+    profileLogin.classList.toggle("remove-none")
+})
+
+
+
+
+//home pins
+
+
+
+console.log("loaded pinDetail")
+
+
+const homePinGrid = document.querySelector(".pin-grid")
+
+if (homePinGrid) {
+
+    homePinGrid.querySelectorAll(".pin").forEach(pin => {
+
+        const rowHeight = 16;
+        const gap = 16;
+
+        const image = pin.querySelector("img");
+
+        image.addEventListener("load", () => {
+
+            const height = image.getBoundingClientRect().height;
+
+            let span = Math.ceil(
+                (height) / (rowHeight)
+            );
+
+            span = Math.ceil(span / 2)
+            pin.style.gridRowEnd = `span ${span}`;
+        });
+
+    });
+
+
+    // putting observer on each image to make them resize.
+
+    homePinGrid.querySelectorAll(".pin").forEach(pin => {
+
+        const rowHeight = 16;
+        const gap = 16;
+
+        console.log("pin", pin)
+
+        const image = pin.querySelector("img");
+
+        const observer = new ResizeObserver(() => {
+
+            console.log("observer called")
+
+            const height = image.getBoundingClientRect().height;
+
+            let span = Math.ceil(
+                (height + gap) / (rowHeight + gap)
+            );
+
+            // span = Math.ceil(span/2)
+
+            pin.style.gridRowEnd = `span ${span}`;
+
+        });
+
+        observer.observe(pin);
+    });
+
+}
 
 

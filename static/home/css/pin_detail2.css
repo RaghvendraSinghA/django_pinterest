@@ -9,14 +9,9 @@
 
 
 
-.pin-detail-container{
-    grid-column:1/5;
-    grid-row:span 17;
-    border:1px solid rgb(192, 190, 190);
-    border-radius:16px;
+/* pin detail page pins settings in masonary effect */
 
-}
-
+/* pint means pin */
 .pint {
     width: 100%;
     break-inside: avoid;
@@ -24,7 +19,7 @@
     overflow: hidden;
     /* margin:20px */
 
-    border:1px solid red;;
+    /* border:1px solid red;*/
 }
 
 /* .pint img {
@@ -50,7 +45,435 @@
 
 
 
-@media screen and (max-width:964px){
+
+
+/* pin detail page pin detail container  */
+
+.pin-detail-container{
+    grid-column:1/5;
+    grid-row-end:span 17;
+    border:1px solid rgb(192, 190, 190);
+    border-radius:16px;
+    /* border:1px solid blue; */
+    display:flex;
+}
+
+
+.pin-detail-container .pin-img-container{
+    width:50%;
+    /* border:1px solid red; */
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+}
+
+
+.pin-detail-container .pin-img-container img{
+    width: 100%;
+    display: block;
+    /* border-radius: 1rem; */
+    height:100%;
+    object-fit:contain;
+
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+}
+
+
+    /* pin detail desc and comment */
+.pin-detail-container .pin-desc-and-comment{
+    width:50%;
+    /* border:1px solid pink; */
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    padding:1rem;
+    padding-top:0;
+    /* border:1px solid orange; */
+    position:relative;
+}
+
+
+.pin-detail-container .pin-desc-and-comment .like-share-profile-save{
+    /* border:1px solid red; */
+    height:3rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:0.625rem;
+}
+
+
+.pin-detail-container .pin-desc-and-comment .like-share-profile-save .like-share{
+    display:flex;
+    gap:1.5rem;
+}
+
+.pin-detail-container .pin-desc-and-comment .like-share-profile-save .like-share .like-count{
+    display:flex;
+    gap:0.5rem;
+}
+
+.pin-detail-container .pin-desc-and-comment .like-share-profile-save .profile-save{
+    display:flex;
+    gap:1rem;
+}
+
+
+
+
+.pin-detail-container .pin-desc-and-comment .profile-username-follow{
+    display:flex;
+    /* align-items:center; */
+    /* gap:0.5rem; */
+    margin-top:1rem;
+    /* height:1.875rem; */
+    flex-direction:column;
+    gap:0.4rem;
+}
+
+.comment-username{
+    display:flex;
+    align-items:center;
+    gap:0.5rem;
+}
+
+.follow-followers{
+    /* border:1px solid red; */
+    display:flex;
+    margin-left:1rem;
+    gap:0.5rem;
+}
+
+.followers-count{
+    border:1px solid rgb(220, 218, 218);
+    font-family:Helvetica ;
+    /* margin-left:2.5rem; */
+    width:100px;
+    font-size:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:10px;
+    padding:2px;
+    color:rgb(1, 1, 88);
+
+}
+
+
+.pin-detail-container .pin-desc-and-comment .profile-username-follow .comment-username-follow{
+    display:flex;
+    /* align-items:center;
+    gap:0.5rem;
+    margin-top:1rem;
+    height:1.875rem; */
+    /* border:1px solid red; */
+    gap:1rem;
+    align-items:center;
+}
+
+
+
+.pin-detail-container .pin-desc-and-comment .profile-username-follow .comment-profile{
+    height:1.375rem;
+    width:1.375rem;
+}
+
+.pin-detail-container .pin-desc-and-comment .profile-username-follow .username{
+    font-size:14px;
+}
+
+.pin-detail-container .pin-desc-and-comment .profile-username-follow img{
+    height:100%;
+    width:100%;
+    object-fit:cover;
+    /* border:1px solid red; */
+}
+
+.pin-detail-container .pin-desc-and-comment .pin-title{
+    font-size:1.4rem;
+    font-weight:bold;
+    font-family:Helvetica;
+    letter-spacing:0.3px;
+    padding-top:0.7rem;
+}
+
+
+.pin-detail-container .pin-desc-and-comment .description-and-comments{
+    
+    overflow-y:scroll;
+    height:240px;
+    overflow-x:hidden;
+}
+
+.pin-detail-container .pin-desc-and-comment .description-and-comments::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+}
+
+.pin-detail-container .pin-desc-and-comment .description-title{
+    font-weight:bold;
+    letter-spacing:0.2px;
+    padding-top:0.7rem;
+}
+
+.pin-detail-container .pin-desc-and-comment .pin-description{
+    font-weight:390;
+    color:grey;
+    letter-spacing:0.2px;
+    padding-top:0.7rem;
+    font-family:Helvetica;
+    padding-bottom:1rem;
+    font-size:0.9375rem;;
+}
+
+.pin-detail-container .pin-desc-and-comment .comments-title{
+    letter-spacing:0.1px;
+    padding-top:0.7rem;
+    font-weight:501;
+    border-top:1px solid rgb(223, 220, 220);
+}
+
+.pin-detail-container .pin-desc-and-comment .comments{
+    margin-top:0.7rem;
+    border:1px solid rgb(223, 220, 220);
+    border-radius:10px;
+    margin-left:10px;
+    /* overflow-x:hidden; vertical-bar comes from here */
+    /* overflow-y:scroll; */
+}
+
+.like-count-text{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.red-heart{
+    /* border:1px solid red; */
+    padding:0;
+}
+
+.like-btn{
+    border:1px solid red;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+
+}
+
+
+
+
+/* like share */
+
+
+.like-share img{
+    /* height:20px;
+    width:20px; */
+    /* padding:1px; */
+
+    object-fit:contain;
+    height:25px;
+    width:30px;
+}
+
+.profile-save .profile-delete{
+    /* height:100%; */
+    padding:10px;
+    /* border:1px solid blue; */
+    border-radius:10px;
+    padding-top:14px;
+    padding-bottom:14px;
+    /* padding:0; */
+    /* background:none; */
+    border:none;
+    font-size:1rem;
+    cursor:pointer;
+}
+
+.profile-save .profile-delete:hover{
+    background-color:red;
+    color:white;
+
+}
+
+.follow-btn{
+    background-color:red;
+    border:none;
+    height:1.4rem;
+    color:white;
+    border-radius:5px;
+    width:5rem;
+}
+
+.follow-btn:hover{
+    background-color:rgb(157, 4, 4);
+}
+
+
+/* .profile-save .profile-delete:hover{
+    background-color:rgb(237, 234, 234);
+} */
+
+.profile-save .profile-save{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:16px;
+    padding-top:14px;
+    padding-bottom:14px;
+    background-color:red;
+    color:white;
+    border-radius:14px;
+    font-family:Helvetica;
+    cursor:pointer;
+}
+
+.profile-save .profile-save:hover{
+    background-color:rgb(149, 3, 3);
+}
+
+.visit-site{
+    margin-top:0.9rem;
+    background-color:#e5e5e0;
+    height:3rem;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:1rem;
+    font-family: Helvetica;
+    letter-spacing:0.14px;
+}
+
+.visit-site:hover{
+    background-color:#d2d2d0;
+}
+
+
+
+
+.comment-list{
+    padding:1rem;
+}
+
+
+
+.comment-box{
+    position:absolute;
+    bottom:0;
+    height:3rem;
+    width:94%;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    /* border:1px solid red; */
+    gap:0.2rem;
+}
+
+.comment-box .comment-input{
+    border:1px solid rgb(214, 213, 213);
+    flex:1;
+    height:100%;
+    border-radius:1.5rem;
+    font-size:1.3rem;
+    padding-left:1rem;
+    color:grey;
+}
+
+.comment-box .comment-input::placeholder{
+    padding-left:1rem;
+    font-size:1rem;
+}
+
+.comment-box .comment-btn{
+    /* border:1px solid red; */
+    height:100%;
+    width:100px;
+    font-size:2rem;
+    border:none;
+    border:1px solid rgb(215, 213, 213);
+    border-radius:1rem;
+
+}
+
+
+.comment-box .comment-btn:hover{
+    /* border:1px solid red; */
+    background-color:red;
+    color:white;
+    border:none;
+
+}
+
+
+.comment{
+    border:1px solid rgb(233, 231, 231);
+    border-radius:1rem;
+    padding:1rem;
+}
+
+.commenter-text{
+    margin:0;
+    /* padding:0.5rem; */
+    padding-bottom:0.5rem;
+}
+
+
+
+.reply-textarea{
+    border:1px solid rgb(233, 231, 231);
+    border-radius:8px;
+    padding:5px;
+}
+
+.reply-textarea::placeholder{
+    padding-left:5px;
+}
+
+.reply-btn{
+    border:none;
+    background-color:red;
+    color:white;
+    border-radius:5px;
+    padding:3px;
+    margin-left:10px;
+}
+
+.reply-btn:hover{
+    background-color:rgb(142, 6, 6);
+}
+
+.reply-delete{
+    background-color:rgb(2, 2, 87);
+    color:white;
+    padding:2px;
+    border-radius:5px;
+}
+
+.reply-delete:hover{
+    background-color:rgb(44, 44, 187);
+}
+
+
+.comment-thread {
+    position: relative;
+}
+
+.nested-thread::before {
+    content: "";
+    position: absolute;
+    left: -14px;
+    top: 0px;
+    width: 12px;
+    height: 4rem;
+    border-left: 2px solid #ddd;
+    border-bottom: 2px solid #ddd;
+    border-bottom-left-radius: 10px;
+}
+
+
+
+@media screen and (max-width:1080px){
     .pin-page-container{
         min-height:100vh;
         display:grid;
@@ -69,21 +492,134 @@
     }
 }
 
-@media screen and (max-width:637px){
+
+
+
+@media screen and (max-width:768px){
+    
     .pin-page-container{
         min-height:100vh;
-        display:grid;
-        grid-template-columns:repeat(1, 1fr);
+        /* grid-template-columns:repeat(2, 1fr);
         grid-auto-rows:1rem;
-        gap:1rem;
+        gap:1rem; */
+        display:flex;
+        flex-direction:column;
     }
 
 
     .pin-detail-container{
-        grid-column:1/2;
-        grid-row:span 17;
+        grid-column:1/3;
+        /* grid-row:span 40; */
         border:1px solid rgb(192, 190, 190);
         border-radius:16px;
+    }
 
+    .pin-detail-container{
+        flex-direction:column;
+    }
+
+    /* .pint{
+        border:1px solid red;
+    } */
+
+    .pin-detail-container .pin-img-container{
+        width:100%;
+    }
+    .pin-detail-container .pin-desc-and-comment{
+        width:100%;
+    }
+
+    /* .profile-login{
+        display:flex;
+    } */
+}
+
+
+@media screen and (max-width:485px){
+
+    .pin-detail-container .pin-desc-and-comment .like-share-profile-save{
+        flex-direction:column;
+        margin-top:1.3rem;
+        justify-content:center;
+        align-items:flex-start;
+        height:6rem;
+        gap:0.7rem;
+        border:1px solid rgb(200, 198, 198);
+        border-radius:1rem;
+        padding:0.2rem;
+    }
+
+    .profile-save .profile-delete{
+        padding:3px;
+        height:2rem;
+        /* width:50%; */
+    }
+
+    .like-share{
+        padding-bottom:0.2rem;
+        border-bottom:1px solid rgb(185, 181, 181);
+    }
+
+    .profile-save .profile-save{
+        padding:3px;
+        height:2rem;
+        width:100px;
+        margin-right:1rem;
+    }
+
+    .pin-detail-container .pin-desc-and-comment .like-share-profile-save .profile-save-p{
+        justify-content:space-between;
+        width:100%;
+    }
+}
+
+@media screen and (max-width:571px){
+    .reply-btn{
+        margin-bottom:0.5rem;
+        margin-top:0.5rem;
+    }
+}
+
+@media screen and (max-width:480px){
+    .reply-textarea{
+        width:100%;
+    }
+}
+
+@media screen and (max-width:375px){
+    .commenter-name{
+        /* border:1px solid red; */
+        overflow-wrap: break-word;
+        /* font-weight:1; */
+        font-size:12px;
+
+    }
+
+    .commenter-text{
+        font-size:12px;
+    }
+
+    .reply-delete{
+        padding-top:1px;
+        padding-bottom:1px;
+    }
+}
+
+@media screen and (max-width:450px){
+    .comment-box .comment-input{
+        width:70%;
+        height:2rem;
+        padding-left:5px;
+    }
+
+    .comment-box .comment-input::placeholder{
+        padding-left:5px;
+    }
+
+    .comment-box .comment-btn{
+        height:2rem;
+        font-size:1rem;
+        width:30%;
+        border-radius:10px;
     }
 }

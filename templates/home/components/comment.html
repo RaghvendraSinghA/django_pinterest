@@ -1,15 +1,15 @@
 <div
-    class="comment-thread"
+    class="comment-thread {% if level != 0 %}nested-thread{% endif %}"
     style="margin-left: {{ level }}px;"
 >
 
     <div class="comment">
 
-        <strong>
-            {{ comment.user.username }}
+        <strong class="commenter-name">
+            {{ comment.user.username }} :
         </strong>
 
-        <p>
+        <p class="commenter-text">
             {{ comment.text }}
         </p>
 
@@ -26,9 +26,10 @@
                     name="text"
                     placeholder="Reply..."
                     rows="2"
+                    class="reply-textarea"
                 ></textarea>
 
-                <button type="submit">
+                <button class="reply-btn" type="submit">
                     Reply
                 </button>
 
@@ -44,7 +45,7 @@
                 >
                     {% csrf_token %}
 
-                    <button type="submit">
+                    <button class="reply-delete" type="submit">
                         Delete
                     </button>
 
