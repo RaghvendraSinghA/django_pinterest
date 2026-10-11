@@ -1,0 +1,273 @@
+
+/* ==========================
+   Boards section
+========================== */
+
+.profile-boards {
+    width: 100%;
+    margin-top: 40px;
+    box-sizing: border-box;
+}
+
+.boards-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.boards-heading h2 {
+    margin: 0;
+    color: #222;
+    font-size: clamp(1.35rem, 3vw, 1.7rem);
+    font-weight: 750;
+    letter-spacing: -0.5px;
+}
+
+.create-board-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: #e60023;
+    color: #fff;
+
+    font-size: 0.9rem;
+    font-weight: 650;
+    text-decoration: none;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.create-board-link:hover {
+    background: #ad081b;
+    transform: translateY(-1px);
+}
+
+/* ==========================
+   Responsive board grid
+========================== */
+
+.boards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 24px 18px;
+    align-items: start;
+    width: 100%;
+}
+
+/* ==========================
+   Individual board card
+========================== */
+
+.board-card {
+    min-width: 0;
+    overflow: hidden;
+    border-radius: 18px;
+    background: #fff;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.board-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.09);
+}
+
+/* Image container */
+
+.board-image-link {
+    display: block;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1.25 / 1;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #f1f1f1;
+    text-decoration: none;
+}
+
+.board-cover {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    transition: transform 0.3s ease;
+}
+
+.board-card:hover .board-cover {
+    transform: scale(1.04);
+}
+
+/* Empty board placeholder */
+
+.board-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+
+    background:
+        radial-gradient(circle at 20% 20%, #f9dfe5, transparent 45%),
+        radial-gradient(circle at 80% 80%, #e5e5fa, transparent 45%),
+        #f5f2f2;
+
+    color: #777;
+    font-size: 0.85rem;
+    font-weight: 550;
+}
+
+.board-placeholder-icon {
+    display: grid;
+    place-items: center;
+
+    width: 48px;
+    height: 48px;
+    border-radius: 15px;
+
+    background: rgba(255, 255, 255, 0.75);
+    color: #a7a0a0;
+    font-size: 2rem;
+}
+
+/* Board details */
+
+.board-info {
+    padding: 12px 3px 5px;
+}
+
+.board-name {
+    margin: 0;
+    color: #222;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.4;
+
+    overflow-wrap: anywhere;
+}
+
+.board-description {
+    margin: 6px 0 0;
+    color: #767676;
+    font-size: 0.87rem;
+    line-height: 1.5;
+
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+}
+
+.board-pin-count {
+    margin: 7px 0 0;
+    color: #777;
+    font-size: 0.82rem;
+}
+
+/* Empty boards collection */
+
+.boards-empty {
+    grid-column: 1 / -1;
+    padding: 32px 20px;
+    border: 1px dashed #d8d8d8;
+    border-radius: 18px;
+    text-align: center;
+}
+
+.boards-empty h3 {
+    margin: 0 0 8px;
+    color: #333;
+}
+
+.boards-empty p {
+    margin: 0;
+    color: #777;
+    line-height: 1.6;
+}
+
+/* ==========================
+   Tablet
+========================== */
+
+@media (max-width: 768px) {
+    .profile-boards {
+        margin-top: 30px;
+    }
+
+    .boards-grid {
+        grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+        gap: 20px 14px;
+    }
+
+    .board-image-link {
+        border-radius: 14px;
+    }
+}
+
+/* ==========================
+   Mobile
+========================== */
+
+@media (max-width: 480px) {
+    .boards-heading {
+        align-items: center;
+        gap: 10px;
+    }
+
+    .create-board-link {
+        padding: 9px 12px;
+        font-size: 0.82rem;
+    }
+
+    .boards-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px 12px;
+    }
+
+    .board-image-link {
+        aspect-ratio: 1 / 1;
+        border-radius: 12px;
+    }
+
+    .board-info {
+        padding-top: 9px;
+    }
+
+    .board-name {
+        font-size: 0.93rem;
+    }
+
+    .board-description {
+        font-size: 0.82rem;
+    }
+
+    .board-pin-count {
+        font-size: 0.78rem;
+    }
+}
+
+/* Reduced motion accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+    .board-card,
+    .board-cover,
+    .create-board-link {
+        transition: none;
+    }
+}

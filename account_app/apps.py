@@ -5,6 +5,9 @@ class AccountAppConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
     name = "account_app"
 
+    def ready(self):
+        import account_app.signals
+
 
 # What is AppConfig?
 # Django needs information about each application.

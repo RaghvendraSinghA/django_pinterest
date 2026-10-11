@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # custom apps
-    "account_app",
+    "account_app.apps.AccountAppConfig",
     "home_app",
     "pin_app",
 ]

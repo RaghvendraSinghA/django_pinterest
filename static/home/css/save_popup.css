@@ -1,0 +1,169 @@
+/* Dark background */
+
+.save-popup-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    padding: 16px;
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.save-popup-overlay.is-open {
+    display: flex;
+}
+
+/* Popup container */
+
+.save-popup {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-sizing: border-box;
+
+    padding: 28px 20px 20px;
+    border-radius: 20px;
+    background: #fff;
+    color: #222;
+}
+
+.save-popup h2 {
+    margin: 0 35px 20px 0;
+    font-size: 1.4rem;
+}
+
+/* Close button */
+
+.save-popup-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 50%;
+
+    background: #eee;
+    color: #222;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+/* Board list */
+
+.save-popup-boards {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.save-board-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    width: 100%;
+    padding: 8px;
+
+    border: 1px solid transparent;
+    border-radius: 12px;
+    background: #f6f6f6;
+    color: #222;
+
+    text-align: left;
+    font: inherit;
+    cursor: pointer;
+
+    transition: background-color 0.15s ease;
+}
+
+.save-board-option:hover {
+    background: #eee;
+}
+
+/* Selected/saved board */
+
+.save-board-option.is-saved {
+    background: #d9f5df;
+    border-color: #9bd9a8;
+}
+
+.save-board-option:disabled {
+    cursor: wait;
+    opacity: 0.7;
+}
+
+/* Board thumbnail */
+
+.save-board-image,
+.save-board-placeholder {
+    flex-shrink: 0;
+    width: 54px;
+    height: 54px;
+    border-radius: 9px;
+    object-fit: cover;
+}
+
+.save-board-placeholder {
+    display: grid;
+    place-items: center;
+    background: #e8e8e8;
+    color: #777;
+    font-size: 26px;
+}
+
+.save-board-name {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+/* Create board link */
+
+.save-popup-create {
+    display: block;
+    margin-top: 16px;
+    padding: 12px;
+
+    border-radius: 24px;
+    background: #eee;
+    color: #222;
+
+    text-align: center;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.save-popup-create:hover {
+    background: #e2e2e2;
+}
+
+.save-popup-empty {
+    color: #777;
+    text-align: center;
+    line-height: 1.5;
+}
+
+/* Mobile */
+
+@media (max-width: 480px) {
+    .save-popup {
+        padding: 25px 15px 16px;
+        border-radius: 18px;
+    }
+
+    .save-board-image,
+    .save-board-placeholder {
+        width: 48px;
+        height: 48px;
+    }
+}

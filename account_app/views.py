@@ -1,6 +1,11 @@
 from django.contrib.auth import login, logout
 from django.shortcuts import render, redirect
 from .forms import SignupForm, LoginForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
+from .forms import UserUpdateForm, ProfileUpdateForm
+from .models import Profile
 
 
 def signup_view(request):
@@ -64,3 +69,78 @@ def logout_view(request):
     logout(request)
 
     return redirect("home")
+
+
+
+
+
+def profile_view(request, username):
+    profile_user = get_object_or_404(User, username=username)
+
+    profile, _ = Profile.objects.get_or_create(
+        user=profile_user
+    )
+
+    pins = profile_user.pins.all()
+
+    boards = profile_user.boards.all()
+
+    # The _ is a normal Python variable name that programmers conventionally use when they don't need a returned value.
+    # profile, created = Profile.objects.get_or_create(user=request.user). We ignored created .
+    return render(
+        request,
+        "account/profile.html",
+        {
+            "profile_user": profile_user,
+            "profile": profile,
+            "boards": boards,
+            "pins" : pins,
+        },
+    )
+
+
+@login_required
+def edit_profile_view(request):
+    profile, _ = Profile.objects.get_or_create(
+        user=request.user
+    )
+
+    if request.method == "POST":
+        user_form = UserUpdateForm(
+            request.POST,
+            instance=request.user,
+        )
+
+        profile_form = ProfileUpdateForm(
+            request.POST,
+            request.FILES,
+            instance=profile,
+        )
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+
+            return redirect(
+                "profile",
+                username=request.user.username,
+            )
+
+    else:
+        user_form = UserUpdateForm(
+            instance=request.user
+        )
+
+        profile_form = ProfileUpdateForm(
+            instance=profile
+        )
+
+    return render(
+        request,
+        "account/edit_profile.html",
+        {
+            "user_form": user_form,
+            "profile_form": profile_form,
+        },
+    )
+

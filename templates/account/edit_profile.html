@@ -1,0 +1,193 @@
+
+{% extends "base.html" %}
+
+{% load static %}
+
+  {% block extra_css %}
+    <link rel="stylesheet" href="{% static 'account/css/profile.css' %}">
+  {% endblock %}
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block content %}
+<div class="edit-profile-page">
+
+    <h1>Edit profile</h1>
+    <p>Update your personal information.</p>
+
+    <form
+        method="POST"
+        enctype="multipart/form-data"
+        class="edit-profile-form"
+    >
+        {% csrf_token %}
+
+        <!-- Profile picture -->
+        <div class="form-group profile-picture-group">
+            <label for="{{ profile_form.profile_pic.id_for_label }}">
+                Profile picture
+            </label>
+
+            {% if profile_form.instance.profile_pic %}
+                <img
+                    src="{{ profile_form.instance.profile_pic.url }}"
+                    alt="Current profile picture"
+                    class="profile-picture-preview"
+                >
+            {% else %}
+                <img
+                    src="{% static 'images/profile.png' %}"
+                    alt="Default profile picture"
+                    class="profile-picture-preview"
+                >
+            {% endif %}
+
+            {{ profile_form.profile_pic }}
+
+            {% for error in profile_form.profile_pic.errors %}
+                <p class="field-error">{{ error }}</p>
+            {% endfor %}
+        </div>
+
+        <!-- Username -->
+        <div class="form-group">
+            <label for="{{ user_form.username.id_for_label }}">
+                Username
+            </label>
+
+            <input
+                type="text"
+                name="{{ user_form.username.html_name }}"
+                id="{{ user_form.username.id_for_label }}"
+                value="{{ user_form.username.value|default_if_none:'' }}"
+                placeholder="Enter your username"
+                maxlength="150"
+                required
+            >
+
+            {% for error in user_form.username.errors %}
+                <p class="field-error">{{ error }}</p>
+            {% endfor %}
+        </div>
+
+        <!-- First name -->
+        <div class="form-group">
+            <label for="{{ user_form.first_name.id_for_label }}">
+                First name
+            </label>
+
+            <input
+                type="text"
+                name="{{ user_form.first_name.html_name }}"
+                id="{{ user_form.first_name.id_for_label }}"
+                value="{{ user_form.first_name.value|default_if_none:'' }}"
+                placeholder="Enter your first name"
+            >
+
+            {% for error in user_form.first_name.errors %}
+                <p class="field-error">{{ error }}</p>
+            {% endfor %}
+        </div>
+
+        <!-- Last name -->
+        <div class="form-group">
+            <label for="{{ user_form.last_name.id_for_label }}">
+                Last name
+            </label>
+
+            <input
+                type="text"
+                name="{{ user_form.last_name.html_name }}"
+                id="{{ user_form.last_name.id_for_label }}"
+                value="{{ user_form.last_name.value|default_if_none:'' }}"
+                placeholder="Enter your last name"
+            >
+
+            {% for error in user_form.last_name.errors %}
+                <p class="field-error">{{ error }}</p>
+            {% endfor %}
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+            <label for="{{ user_form.email.id_for_label }}">
+                Email
+            </label>
+
+            <input
+                type="email"
+                name="{{ user_form.email.html_name }}"
+                id="{{ user_form.email.id_for_label }}"
+                value="{{ user_form.email.value|default_if_none:'' }}"
+                placeholder="Enter your email"
+                required
+            >
+
+            {% for error in user_form.email.errors %}
+                <p class="field-error">{{ error }}</p>
+            {% endfor %}
+        </div>
+
+        <!-- Bio -->
+        <div class="form-group">
+            <label for="{{ profile_form.bio.id_for_label }}">
+                Bio
+            </label>
+
+            <textarea
+                name="{{ profile_form.bio.html_name }}"
+                id="{{ profile_form.bio.id_for_label }}"
+                placeholder="Tell us about yourself"
+                maxlength="300"
+                rows="4"
+            >{{ profile_form.bio.value|default_if_none:'' }}</textarea>
+
+            {% for error in profile_form.bio.errors %}
+                <p class="field-error">{{ error }}</p>
+            {% endfor %}
+        </div>
+
+        <!-- Website -->
+        <div class="form-group">
+            <label for="{{ profile_form.website.id_for_label }}">
+                Website
+            </label>
+
+            <input
+                type="url"
+                name="{{ profile_form.website.html_name }}"
+                id="{{ profile_form.website.id_for_label }}"
+                value="{{ profile_form.website.value|default_if_none:'' }}"
+                placeholder="https://example.com"
+            >
+
+            {% for error in profile_form.website.errors %}
+                <p class="field-error">{{ error }}</p>
+            {% endfor %}
+        </div>
+
+        {% if user_form.non_field_errors %}
+            <div class="form-errors">
+                {{ user_form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        {% if profile_form.non_field_errors %}
+            <div class="form-errors">
+                {{ profile_form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        <div class="form-actions">
+            <a href="{% url 'profile' request.user.username %}">
+                Cancel
+            </a>
+
+            <button type="submit">
+                Save changes
+            </button>
+        </div>
+
+    </form>
+</div>
+{% endblock %}

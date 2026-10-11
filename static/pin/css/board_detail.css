@@ -1,0 +1,159 @@
+
+.board-detail-page {
+    width: min(100% - 32px, 1200px);
+    margin: 32px auto;
+    color: #222;
+}
+
+.board-detail-header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.board-back-link {
+    display: inline-block;
+    margin-bottom: 22px;
+    color: #555;
+    font-size: 0.92rem;
+    text-decoration: none;
+}
+
+.board-back-link:hover {
+    color: #e60023;
+}
+
+.board-detail-header h1 {
+    margin: 0;
+    font-size: clamp(1.8rem, 4vw, 2.7rem);
+    font-weight: 750;
+    overflow-wrap: anywhere;
+}
+
+.board-detail-description {
+    max-width: 600px;
+    margin: 12px auto;
+    color: #767676;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.board-detail-count {
+    margin-top: 12px;
+    color: #777;
+    font-size: 0.9rem;
+}
+
+/* Pinterest-style masonry-like columns */
+
+.board-pins-grid {
+    columns: 5 190px;
+    column-gap: 18px;
+}
+
+.board-pin-card {
+    display: inline-block;
+    width: 100%;
+    margin: 0 0 20px;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #fff;
+    break-inside: avoid;
+}
+
+.board-pin-card a {
+    display: block;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #f3f3f3;
+}
+
+.board-pin-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform 0.25s ease;
+}
+
+.board-pin-card:hover img {
+    transform: scale(1.025);
+}
+
+.board-pin-info {
+    padding: 10px 3px;
+}
+
+.board-pin-info h3 {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.board-pin-info p {
+    margin: 6px 0 0;
+    color: #777;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.board-no-pins {
+    column-span: all;
+    padding: 45px 20px;
+    border: 1px dashed #ddd;
+    border-radius: 18px;
+    text-align: center;
+}
+
+.board-no-pins h2 {
+    margin: 0 0 10px;
+    font-size: 1.3rem;
+}
+
+.board-no-pins p {
+    margin: 0;
+    color: #777;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .board-pins-grid {
+        columns: 3 150px;
+        column-gap: 14px;
+    }
+
+    .board-pin-card {
+        margin-bottom: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .board-detail-page {
+        width: calc(100% - 24px);
+        margin: 22px auto;
+    }
+
+    .board-detail-header {
+        margin-bottom: 22px;
+    }
+
+    .board-pins-grid {
+        columns: 2 120px;
+        column-gap: 12px;
+    }
+
+    .board-pin-card {
+        margin-bottom: 14px;
+        border-radius: 12px;
+    }
+
+    .board-pin-card a {
+        border-radius: 12px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .board-pin-card img {
+        transition: none;
+    }
+}

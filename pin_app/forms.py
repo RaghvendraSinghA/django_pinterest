@@ -1,5 +1,5 @@
 from django import forms
-from .models import Pin, Comment
+from .models import Pin, Comment, Board
 
 
 class PinForm(forms.ModelForm):
@@ -28,4 +28,25 @@ class CommentForm(forms.ModelForm):
                     "rows": 3,
                 }
             )
+        }
+
+
+
+class BoardForm(forms.ModelForm):
+    class Meta:
+        model = Board
+        fields = ["name", "description"]
+
+        widgets = {
+            "name": forms.TextInput(
+                attrs={
+                    "placeholder": "Give your board a name",
+                }
+            ),
+            "description": forms.Textarea(
+                attrs={
+                    "placeholder": "Describe your board...",
+                    "rows": 3,
+                }
+            ),
         }

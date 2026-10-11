@@ -105,7 +105,7 @@
                     Collage
                 </button>
 
-                <button type="button">
+                <button type="button" onclick="window.location.href='{% url 'create_board' %}'">
                     Board
                 </button>
 
@@ -155,7 +155,8 @@
                 <!-- profile and logout -->
                 <div class="profile-login">
 
-                    <button type="button" class="profile">
+                    <button type="button" class="profile"
+                        onclick="window.location.href='{% if request.user.is_authenticated %}{% url 'profile' request.user.username %}{% else %}{% url 'login' %}{% endif %}'">
                         {% if request.user.is_authenticated %}
                         {{ request.user.username }}
                         {% else %}
@@ -179,36 +180,37 @@
 
                 </div>
 
-                
+
 
                 <div class="profile-replace">
                     <img class="profile-replace-icon" src="{% static 'images/down-arrow.png' %}">
 
                     <div class="profile-login2">
 
-                    <button type="button" class="profile">
+                        <button type="button" class="profile"
+                            onclick="window.location.href='{% if request.user.is_authenticated %}{% url 'profile' request.user.username %}{% else %}{% url 'login' %}{% endif %}'">
+                            {% if request.user.is_authenticated %}
+                            {{ request.user.username }}
+                            {% else %}
+                            Guest
+                            {% endif %}
+                        </button>
+
                         {% if request.user.is_authenticated %}
-                        {{ request.user.username }}
+
+                        <button type="button" class="logout" onclick="window.location.href='{% url 'logout' %}'">
+                            Logout
+                        </button>
+
                         {% else %}
-                        Guest
+
+                        <button type="button" class="login logout" onclick="window.location.href='{% url 'login' %}'">
+                            Login
+                        </button>
+
                         {% endif %}
-                    </button>
 
-                    {% if request.user.is_authenticated %}
-
-                    <button type="button" class="logout" onclick="window.location.href='{% url 'logout' %}'">
-                        Logout
-                    </button>
-
-                    {% else %}
-
-                    <button type="button" class="login logout" onclick="window.location.href='{% url 'login' %}'">
-                        Login
-                    </button>
-
-                    {% endif %}
-
-                </div>
+                    </div>
 
                 </div>
 
@@ -309,7 +311,7 @@
                             </div>
 
                         </div>
-                            
+
                     </div>
 
                 </div>
@@ -335,7 +337,7 @@
     <script src="{% static 'home/js/script.js' %}"></script>
 
     {% block extra_js %}
-    {% endblock extra_js %} 
+    {% endblock extra_js %}
 
 </body>
 

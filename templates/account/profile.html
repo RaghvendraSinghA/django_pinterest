@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'account/css/profile.css' %}">
+<link rel="stylesheet" href="{% static 'account/css/boards.css' %}">
+
+{% endblock %}
+
+{% block title %}{{ profile_user.username }}'s Profile{% endblock %}
+
+{% block content %}
+<div class="profile-page">
+
+    <div class="profile-header">
+
+        <div class="profile-picture-container">
+            {% if profile.profile_pic %}
+            <img src="{{ profile.profile_pic.url }}" alt="{{ profile_user.username }}'s profile picture"
+                class="profile-picture">
+            {% else %}
+            <img src="{% static 'images/profile.png' %}" alt="Default profile picture" class="profile-picture">
+            {% endif %}
+        </div>
+
+        <h1>
+            {% if profile_user.first_name or profile_user.last_name %}
+            {{ profile_user.first_name }} {{ profile_user.last_name }}
+            {% else %}
+            {{ profile_user.username }}
+            {% endif %}
+        </h1>
+
+        <p class="profile-username">
+            @{{ profile_user.username }}
+        </p>
+
+        {% if profile.bio %}
+        <p class="profile-bio">{{ profile.bio }}</p>
+        {% endif %}
+
+        {% if profile.website %}
+        <a href="{{ profile.website }}" target="_blank" rel="noopener noreferrer" class="profile-website">
+            {{ profile.website }}
+        </a>
+        {% endif %}
+
+        {% if request.user == profile_user %}
+        <div class="profile-actions">
+            <a href="{% url 'edit_profile' %}">
+                Edit profile
+            </a>
+        </div>
+        {% endif %}
+
+    </div>
+
+    <div class="profile-content">
+        <h2>Created pins</h2>
+
+        <div class="profile-pins">
+            <h2>Created pins</h2>
+
+            <div class="pins-grid">
+                {% for pin in pins %}
+                <a href="{% url 'pin_detail' pin.id %}">
+                    <img src="{{ pin.image.url }}" alt="{{ pin.title }}">
+                    <p>{{ pin.title }}</p>
+                </a>
+                {% empty %}
+                <p>No pins created yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <h2>Boards</h2>
+
+
+        <div class="profile-boards">
+            <div class="boards-heading">
+                <h2>Boards</h2>
+
+                {% if request.user == profile_user %}
+                <a href="{% url 'create_board' %}" class="create-board-link">
+                    + Create board
+                </a>
+                {% endif %}
+            </div>
+
+            <div class="boards-grid">
+                {% for board in boards %}
+                <article class="board-card">
+
+                    <a href="{% url 'board_detail' board.id %}" class="board-image-link">
+                        {% with first_pin=board.pins.first %}
+                        {% if first_pin %}
+                        <img src="{{ first_pin.image.url }}" alt="{{ board.name }}" class="board-cover" loading="lazy">
+                        {% else %}
+                        <div class="board-placeholder">
+                            <span class="board-placeholder-icon">▧</span>
+                            <span>No pins yet</span>
+                        </div>
+                        {% endif %}
+                        {% endwith %}
+                    </a>
+
+                    <div class="board-info">
+                        <h3 class="board-name">{{ board.name }}</h3>
+
+                        {% if board.description %}
+                        <p class="board-description">
+                            {{ board.description }}
+                        </p>
+                        {% endif %}
+
+                        <p class="board-pin-count">
+                            {{ board.pins.count }} pins
+                        </p>
+                    </div>
+
+                </article>
+                {% empty %}
+                <div class="boards-empty">
+                    <h3>No boards yet</h3>
+                    <p>Create your first board to organize your favorite pins.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

@@ -4,6 +4,7 @@ from pin_app.forms import CommentForm
 from django.contrib.auth.decorators import login_required
 from pin_app.models import Follow
 from django.contrib.auth.models import User
+from pin_app.models import Board
 
 
 # @login_required
@@ -30,6 +31,12 @@ def pin_detail(request, pin_id):
 
     comment_form = CommentForm()
 
+    boards = (
+        Board.objects.filter(user=request.user)
+        if request.user.is_authenticated
+        else Board.objects.none()
+    )
+
     followed = False
 
     if request.user.is_authenticated:
@@ -48,6 +55,7 @@ def pin_detail(request, pin_id):
             "comments": comments,
             "comment_form": comment_form,
             "followed": followed,
+            "boards":boards,
         },
     )
 

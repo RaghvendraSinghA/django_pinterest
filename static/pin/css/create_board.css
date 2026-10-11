@@ -1,0 +1,217 @@
+
+/* ==============================
+   Create Board Page
+================================= */
+
+.create-board-page {
+    width: min(100% - 32px, 620px);
+    margin: 48px auto;
+    padding: 36px;
+    box-sizing: border-box;
+
+    background: #ffffff;
+    border: 1px solid #eeeeee;
+    border-radius: 24px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+
+    color: #222222;
+}
+
+/* Heading */
+
+.create-board-page h1 {
+    margin: 0 0 10px;
+    font-size: clamp(1.7rem, 4vw, 2.2rem);
+    font-weight: 750;
+    letter-spacing: -0.8px;
+    line-height: 1.2;
+}
+
+.create-board-page > p {
+    margin: 0 0 30px;
+    color: #767676;
+    font-size: 0.98rem;
+    line-height: 1.6;
+}
+
+/* Form layout */
+
+.create-board-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.create-board-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    min-width: 0;
+}
+
+/* Labels */
+
+.create-board-form label {
+    color: #333333;
+    font-size: 0.94rem;
+    font-weight: 650;
+}
+
+/* Inputs */
+
+.create-board-form input,
+.create-board-form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 14px 16px;
+
+    border: 1.5px solid #dedede;
+    border-radius: 14px;
+    background: #fafafa;
+
+    color: #222222;
+    font: inherit;
+    font-size: 0.96rem;
+
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.create-board-form input {
+    min-height: 50px;
+}
+
+.create-board-form textarea {
+    min-height: 120px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+.create-board-form input::placeholder,
+.create-board-form textarea::placeholder {
+    color: #999999;
+}
+
+/* Focus state */
+
+.create-board-form input:focus,
+.create-board-form textarea:focus {
+    outline: none;
+    border-color: #e60023;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(230, 0, 35, 0.09);
+}
+
+/* Create button */
+
+.create-board-form button {
+    width: 100%;
+    min-height: 52px;
+    margin-top: 4px;
+    padding: 14px 22px;
+
+    border: none;
+    border-radius: 999px;
+    background: #e60023;
+    color: #ffffff;
+
+    font: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.create-board-form button:hover {
+    background: #ad081b;
+    box-shadow: 0 5px 14px rgba(230, 0, 35, 0.2);
+    transform: translateY(-1px);
+}
+
+.create-board-form button:active {
+    transform: translateY(0);
+}
+
+.create-board-form button:focus-visible {
+    outline: 3px solid rgba(230, 0, 35, 0.35);
+    outline-offset: 3px;
+}
+
+/* Validation errors */
+
+.create-board-form .field-error {
+    margin: 0;
+    color: #c62828;
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+/* ==============================
+   Tablet
+================================= */
+
+@media screen and (max-width: 768px) {
+    .create-board-page {
+        margin: 32px auto;
+        padding: 28px;
+        border-radius: 20px;
+    }
+
+    .create-board-form {
+        gap: 20px;
+    }
+}
+
+/* ==============================
+   Mobile
+================================= */
+
+@media screen and (max-width: 480px) {
+    .create-board-page {
+        width: calc(100% - 24px);
+        margin: 20px auto;
+        padding: 22px 18px;
+
+        border-radius: 18px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.045);
+    }
+
+    .create-board-page h1 {
+        letter-spacing: -0.5px;
+    }
+
+    .create-board-page > p {
+        margin-bottom: 24px;
+        font-size: 0.92rem;
+    }
+
+    .create-board-form {
+        gap: 18px;
+    }
+
+    .create-board-form input,
+    .create-board-form textarea {
+        padding: 13px 14px;
+        font-size: 16px;
+    }
+
+    .create-board-form button {
+        min-height: 50px;
+    }
+}
+
+/* Respect reduced motion preferences */
+
+@media (prefers-reduced-motion: reduce) {
+    .create-board-form input,
+    .create-board-form textarea,
+    .create-board-form button {
+        transition: none;
+    }
+}

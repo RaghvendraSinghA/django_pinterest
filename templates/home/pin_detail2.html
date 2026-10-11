@@ -7,6 +7,7 @@ Pin
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'home/css/pin_detail2.css' %}">
+<link rel="stylesheet" href="{% static 'home/css/save_popup.css' %}">
 {% endblock extra_css %}
 
 
@@ -79,8 +80,52 @@ Pin
 
 
 
+                    <div type="button" class="profile-save" id="open-save-popup">Save</div>
 
-                    <div class="profile-save">Save</div>
+                    <!-- <div class="profile-save">Save</div> -->
+
+
+
+                    <!-- <div class="profile-save save-pin-container">
+
+                        {% if request.user.is_authenticated %}
+
+                        {% if boards %}
+                        <form method="POST" action="{% url 'save_pin_to_board' pin.id %}" class="save-pin-form">
+                            {% csrf_token %}
+
+                            <select name="board_id" required aria-label="Choose a board">
+                                <option value="" selected disabled>
+                                    Choose a board
+                                </option>
+
+                                {% for board in boards %}
+                                <option value="{{ board.id }}">
+                                    {{ board.name }}
+                                </option>
+                                {% endfor %}
+                            </select>
+
+                            <button type="submit" class="save-pin-btn">
+                                Save
+                            </button>
+                        </form>
+
+                        {% else %}
+                        <a href="{% url 'create_board' %}" class="save-pin-btn">
+                            Create a board
+                        </a>
+                        {% endif %}
+
+                        {% else %}
+                        <a href="{% url 'login' %}" class="save-pin-btn">
+                            Log in to save
+                        </a>
+                        {% endif %}
+
+                    </div> -->
+
+
                 </div>
 
             </div>
@@ -93,7 +138,8 @@ Pin
 
                     <div class="comment-profile">
                         <!-- <img src="{% static '/images/pinterest.png' %}" alt="profle_pic"> -->
-                        <img src="{{ user.profile.image.url|default:'/static/images/pinterest.png' }}" alt="profile_pic">
+                        <img src="{{ user.profile.image.url|default:'/static/images/pinterest.png' }}"
+                            alt="profile_pic">
                     </div>
 
                     <div class="username">{{ pin.user.username }}</div>
@@ -134,7 +180,7 @@ Pin
             <!-- profile and follow ends here -->
 
             <div class="pin-title">
-                
+
                 {{pin.title}}
             </div>
 
@@ -274,6 +320,75 @@ Pin
         <img src="https://picsum.photos/seed/pin050/400/600" alt="Pin">
     </article>
 
+
+
+    <!-- Save Pin Popup -->
+
+    <!-- Save to Board Popup -->
+    <div class="save-popup-overlay" id="save-popup" aria-hidden="true">
+
+        <section class="save-popup" role="dialog" aria-modal="true">
+
+            <button type="button" class="save-popup-close" id="close-save-popup" aria-label="Close popup">
+                &times;
+            </button>
+
+            <h2>Save to board</h2>
+
+            {% if request.user.is_authenticated %}
+
+            <!-- Form supplies the URL and CSRF token to JavaScript -->
+            <form id="save-pin-form" method="POST" action="{% url 'save_pin_to_board' pin.id %}" hidden>
+                {% csrf_token %}
+            </form>
+
+            <div class="save-popup-boards" id="save-popup-boards">
+
+                {% for board in boards %}
+                <button type="button" class="save-board-option" data-board-id="{{ board.id }}">
+
+                    {% with first_pin=board.pins.first %}
+                    {% if first_pin %}
+                    <img src="{{ first_pin.image.url }}" alt="" class="save-board-image">
+                    {% else %}
+                    <span class="save-board-placeholder">▧</span>
+                    {% endif %}
+                    {% endwith %}
+
+                    <span class="save-board-name">
+                        {{ board.name }}
+                    </span>
+
+                </button>
+
+                {% empty %}
+                <p class="save-popup-empty">
+                    You haven't created any boards yet.
+                </p>
+                {% endfor %}
+
+            </div>
+
+            <a href="{% url 'create_board' %}" class="save-popup-create">
+                + Create a board
+            </a>
+
+            {% else %}
+
+            <p class="save-popup-empty">
+                Log in to save this pin.
+            </p>
+
+            <a href="{% url 'login' %}" class="save-popup-create">
+                Log in
+            </a>
+
+            {% endif %}
+
+        </section>
+    </div>
+
+
 </section>
 
 {% endblock content %}
@@ -282,5 +397,6 @@ Pin
 {% block extra_js %}
 
 <script src="{% static 'pin/js/pinDetail.js' %}"></script>
+<script src="{% static 'pin/js/savePinPopup.js' %}"></script>
 
 {% endblock extra_js %}

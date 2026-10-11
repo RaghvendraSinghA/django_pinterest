@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ board.name }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'pin/css/board_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="board-detail-page">
+
+    <header class="board-detail-header">
+        <a href="{% url 'profile' board.user.username %}"
+           class="board-back-link">
+            ← Back to profile
+        </a>
+
+        <h1>{{ board.name }}</h1>
+
+        {% if board.description %}
+            <p class="board-detail-description">
+                {{ board.description }}
+            </p>
+        {% endif %}
+
+        <p class="board-detail-count">
+            {{ pins|length }} pins
+        </p>
+    </header>
+
+    <div class="board-pins-grid">
+        {% for pin in pins %}
+            <article class="board-pin-card">
+                <a href="{% url 'pin_detail' pin.id %}">
+                    <img
+                        src="{{ pin.image.url }}"
+                        alt="{{ pin.title }}"
+                        loading="lazy"
+                    >
+                </a>
+
+                <div class="board-pin-info">
+                    <h3>{{ pin.title }}</h3>
+
+                    {% if pin.description %}
+                        <p>{{ pin.description }}</p>
+                    {% endif %}
+                </div>
+            </article>
+        {% empty %}
+            <div class="board-no-pins">
+                <h2>This board is empty</h2>
+                <p>Save some pins to this board and they will appear here.</p>
+            </div>
+        {% endfor %}
+    </div>
+
+</section>
+{% endblock %}
