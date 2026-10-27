@@ -45,7 +45,7 @@ Pin
 
                             <button class="like-btn" type="submit" class="like-button">
                                 {% if user_liked %}
-                                <img class="red-heart" src="{% static 'images/love.png' %}" alt="Unlike">
+                                <img class="red-heart" src="{% static 'images/red-heart.png' %}" alt="Unlike">
                                 {% else %}
                                 <img src="{% static 'images/heart.png' %}" alt="Like">
                                 {% endif %}
@@ -173,7 +173,7 @@ Pin
 
 
                     <p class="followers-count">
-                        {{ pin.user.followers.count }} follower(s)
+                        Followers: {{ pin.user.followers.count }}
                     </p>
                 </div>
             </div>
@@ -320,6 +320,26 @@ Pin
     <article class="pint">
         <img src="https://picsum.photos/seed/pin050/400/600" alt="Pin">
     </article>
+
+
+
+    {% for pin in other_pins %}
+
+        <a href="{% url 'pin_detail' pin.id %}" class="pint">
+
+            <article class="pint">
+
+                <img src="{{ pin.image.url }}" alt="{{ pin.title }}">
+
+            </article>
+
+        </a>
+
+        {% empty %}
+
+        <p>No pins available to pin detail component.</p>
+
+        {% endfor %}
 
 
 

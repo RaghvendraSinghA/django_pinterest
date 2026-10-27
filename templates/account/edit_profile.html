@@ -12,9 +12,6 @@
 {% block content %}
 <div class="edit-profile-page">
 
-    <h1>Edit profile</h1>
-    <p>Update your personal information.</p>
-
     <form
         method="POST"
         enctype="multipart/form-data"
@@ -24,29 +21,41 @@
 
         <!-- Profile picture -->
         <div class="form-group profile-picture-group">
-            <label for="{{ profile_form.profile_pic.id_for_label }}">
-                Profile picture
+
+            <label for = "profile-pic-input">
+                {% if profile_form.instance.profile_pic %}
+                    <img
+                        src="{{ profile_form.instance.profile_pic.url }}"
+                        alt="Current profile picture"
+                        class="profile-picture-preview"
+                        id = "profile-picture-preview"
+                    >
+                {% else %}
+                    <img
+                        src="{% static 'images/profile.png' %}"
+                        alt="Default profile picture"
+                        class="profile-picture-preview"
+                        id = "profile-picture-preview"
+                    >
+                {% endif %}
             </label>
 
-            {% if profile_form.instance.profile_pic %}
-                <img
-                    src="{{ profile_form.instance.profile_pic.url }}"
-                    alt="Current profile picture"
-                    class="profile-picture-preview"
-                >
-            {% else %}
-                <img
-                    src="{% static 'images/profile.png' %}"
-                    alt="Default profile picture"
-                    class="profile-picture-preview"
-                >
-            {% endif %}
+            <!-- added hidden input button to upload image -->
 
-            {{ profile_form.profile_pic }}
+             <input
+                type="file"
+                name="{{ profile_form.profile_pic.html_name }}"
+                id="profile-pic-input"
+                accept="image/*"
+                hidden
+            >
+
+            <!-- input button till here-->
 
             {% for error in profile_form.profile_pic.errors %}
                 <p class="field-error">{{ error }}</p>
             {% endfor %}
+
         </div>
 
         <!-- Username -->
@@ -178,16 +187,21 @@
             </div>
         {% endif %}
 
-        <div class="form-actions">
+        <div class="form-actions save-form">
             <a href="{% url 'profile' request.user.username %}">
                 Cancel
             </a>
 
             <button type="submit">
-                Save changes
+                Save
             </button>
         </div>
 
     </form>
 </div>
 {% endblock %}
+
+
+{% block extra_js %}
+    <script src="{% static 'account/js/auth.js' %}"></script>
+{% endblock extra_js %}

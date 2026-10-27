@@ -4,6 +4,24 @@
     max-width: 720px;
     margin: 32px auto;
     padding: 24px;
+    border:1px solid rgb(229, 226, 226);
+    border-radius:1rem;
+    box-shadow: 2px 4px 10px gray;
+
+}
+
+.profile-page-name{
+    font-size:1.5rem;
+}
+
+.profile-actions{
+    margin-top:-1rem;
+}
+
+
+.profile-page-name{
+    color:rgb(2, 20, 82);
+    font-family:Helvetica;
 }
 
 .edit-profile-form {
@@ -16,6 +34,21 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+}
+
+
+.profile-picture-group{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.save-form{
+    
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
 }
 
 .form-group input,
@@ -36,8 +69,8 @@
 
 .profile-picture-preview,
 .profile-picture {
-    width: 120px;
-    height: 120px;
+    width: 6.25rem;
+    height: 6.25rem;
     border-radius: 50%;
     object-fit: cover;
 }
@@ -57,6 +90,7 @@
     display: flex;
     align-items: center;
     gap: 12px;
+    border-radius:0.5rem;
 }
 
 .form-actions a,
@@ -68,6 +102,10 @@
     text-decoration: none;
     cursor: pointer;
     font: inherit;
+}
+
+.profile-actions a {
+    color:rgb(193, 7, 7);
 }
 
 .form-actions button {
@@ -99,6 +137,11 @@
 
 .profile-content {
     margin-top: 40px;
+}
+
+
+.profile-picture-preview{
+    cursor:pointer;
 }
 
 @media (max-width: 600px) {
@@ -134,7 +177,7 @@
 
 .pins-grid {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 20px 16px;
 
     width: 100%;
@@ -245,4 +288,32 @@
     .pins-grid > a {
         transition: none;
     }
+}
+
+
+@media screen and (max-width:467px){
+    .profile-page-name{
+        font-size:1.2rem;
+        white-space:normal;
+    }
+
+    .profile-username{
+        margin-top:-0.5rem;
+    }
+
+    .profile-actions a{
+        font-size:0.78rem;
+    }
+
+    .profile-picture-preview, .profile-picture {
+        width: 5rem;
+        height: 5rem;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+}
+
+@media screen and (max-width:768px){
+
 }
