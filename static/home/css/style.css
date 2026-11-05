@@ -479,7 +479,8 @@ a {
     /* column-width: 13.125rem; */
     /* columns:4; */
     display:grid;
-    grid-template-columns:repeat(5, 1fr);
+    /* grid-template-columns:repeat(5, 1fr); */
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
     grid-auto-rows:1rem;
     gap:1rem;
 
@@ -797,14 +798,21 @@ a {
 }
 
 
+@media screen and (max-width:1380px){
+    .pin-grid {
+        grid-template-columns:repeat(4, 1fr);
+    }
+}
 
-@media screen and (max-width:821px){
+
+
+@media screen and (max-width:1000px){
     .pin-grid {
         grid-template-columns:repeat(3, 1fr);
     }
 }
 
-@media screen and (max-width:470px){
+@media screen and (max-width:768px){
     .pin-grid {
         grid-template-columns:repeat(2, 1fr);
     }
