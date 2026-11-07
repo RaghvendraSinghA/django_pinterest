@@ -61,7 +61,9 @@
 
                     <a href="#">
                         <!-- Boards -->
-                        <img class="logo" src="{% static 'images/boards.png' %}" alt="Pinterest">
+                        <img class="logo" src="{% static 'images/boards.png' %}" alt="Pinterest"
+                            onclick="window.location.href='{% if request.user.is_authenticated %}{% url 'profile' request.user.username %}{% else %}{% url 'login' %}{% endif %}'">
+
                     </a>
 
                     <button type="button" id="create-button">
@@ -224,7 +226,7 @@
                     <header class="header">
 
                         <div class="search-bar">
-                            <input id ="search-input" class="searchbar-input" placeholder="Search">
+                            <input id="search-input" class="searchbar-input" placeholder="Search">
 
                             <div class="cam-and-mic">
                                 <img class="cam" src="{% static 'images/camera.png' %}">

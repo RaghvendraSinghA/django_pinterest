@@ -376,13 +376,14 @@
     flex:1;
     height:100%;
     border-radius:1.5rem;
-    font-size:1.3rem;
+    font-size:1rem;
     padding-left:1rem;
-    color:grey;
+    color:rgb(1, 1, 56);
+    outline:none;
 }
 
 .comment-box .comment-input::placeholder{
-    padding-left:1rem;
+    padding-left:0rem;
     font-size:1rem;
 }
 
