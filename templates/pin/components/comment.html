@@ -60,7 +60,7 @@
 
     {% for reply in comment.replies.all %}
 
-        {% include "home/components/comment.html" with comment=reply level=level|add:"28" %}
+        {% include "pin/components/comment.html" with comment=reply level=level|add:"28" %}
 
     {% endfor %}
 

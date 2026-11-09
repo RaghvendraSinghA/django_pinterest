@@ -25,40 +25,7 @@ document.querySelectorAll(".pint").forEach(pin => {
 });
 
 
-//putting observer on each image to make them resize.
 
-// document.querySelectorAll(".pint").forEach(pin => {
-
-//     console.log("pin",pin)
-
-//     console.log("pin classes", pin.classList.contains("pin-detail-container"))
-
-//     if(pin.classList.contains("pin-detail-container")){
-        
-//         console.log("abc")
-
-//     }
-
-//     const image = pin.querySelector("img");
-
-//     const observer = new ResizeObserver(() => {
-
-//         console.log("observer called")
-
-//         const height = image.getBoundingClientRect().height;
-
-//         let span = Math.floor(
-//             (height + gap) / (rowHeight + gap)
-//         );
-
-//         // span = Math.ceil(span/2)
-
-//         pin.style.gridRowEnd = `span ${span}`;
-
-//     });
-
-//     observer.observe(pin);
-// });
 
 
 

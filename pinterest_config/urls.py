@@ -27,6 +27,7 @@ urlpatterns = [
     # here urls is urls.py, In python we don't use extension of files. home_app is folder.
     path("account/", include("account_app.urls")),
     path("pin/", include("pin_app.urls")),
+    path("", include("board_app.urls")),
 ]
 
 

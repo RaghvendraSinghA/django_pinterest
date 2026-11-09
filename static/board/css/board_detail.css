@@ -24,9 +24,10 @@
 
 .board-detail-header h1 {
     margin: 0;
-    font-size: clamp(1.8rem, 4vw, 2.7rem);
-    font-weight: 750;
+    font-size: 1.5rem;
+    font-weight: 601;
     overflow-wrap: anywhere;
+    font-family:Helvetica;
 }
 
 .board-detail-description {
@@ -64,10 +65,10 @@
     display: block;
     overflow: hidden;
     border-radius: 16px;
-    background: #f3f3f3;
+    /* background: #f3f3f3; */
 }
 
-.board-pin-card img {
+.board-pin-card .board-pin-img {
     display: block;
     width: 100%;
     height: auto;
@@ -114,6 +115,65 @@
     margin: 0;
     color: #777;
     line-height: 1.6;
+}
+
+.board-detail-name{
+    color:rgb(175, 5, 5);
+}
+
+.board-name-and-actions{
+    /* border:1px solid red; */
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding-top:0.5rem;
+    padding-bottom:0.5rem;
+}
+
+.delete-board{
+    border:1px solid red;
+    margin-right:1rem;
+    cursor:pointer;
+    height:2rem;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:0.5rem;
+    width:4rem;
+    color:red;
+    background-color:transparent;
+}
+
+.delete-board:hover{
+   background-color:red;
+   color:white;
+}
+
+.board-pin-name-and-actions{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:1rem;
+}
+
+.delete-board-pin-btn{
+    height:30px;
+    width:30px;
+    cursor:pointer;
+    border-radius:100%;
+}
+
+.delete-board-pin-btn:hover{
+    background-color:red;
+}
+
+.delete-board-pin-submit{
+    border:none;
+    background-color:transparent;
+}
+
+.board-pin-name{
+    overflow-wrap: break-word
 }
 
 @media (max-width: 768px) {

@@ -105,7 +105,14 @@
 }
 
 .profile-actions a {
+    margin-top:0.8rem;
     color:rgb(193, 7, 7);
+    font-size:0.9375rem;
+}
+
+.profile-actions a:hover{
+    color:white;
+    background-color:rgb(193, 7, 7);
 }
 
 .form-actions button {
@@ -314,6 +321,3 @@
 
 }
 
-@media screen and (max-width:768px){
-
-}

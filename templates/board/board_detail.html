@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ board.name }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'board/css/board_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="board-detail-page">
+
+    <header class="board-detail-header">
+        <a href="{% url 'profile' board.user.username %}" class="board-back-link">
+            ← Back to profile
+        </a>
+
+        <div class="board-name-and-actions">
+            <h1 class="board-detail-name">{{ board.name }}</h1>
+            <!-- <div class="delete-board">Delete</div> -->
+            <form method="POST" action="{% url 'delete_board' board.id %}"
+                onsubmit="return confirm('Are you sure you want to delete this board?');">
+                {% csrf_token %}
+                <button type="submit" class="delete-board">
+                    Delete
+                </button>
+            </form>
+        </div>
+
+        {% if board.description %}
+        <p class="board-detail-description">
+            {{ board.description }}
+        </p>
+        {% endif %}
+
+    </header>
+
+    <div class="board-pins-grid">
+        {% for pin in pins %}
+        <article class="board-pin-card">
+
+            <a href="{% url 'pin_detail' pin.id %}">
+                <img class="board-pin-img" src="{{ pin.image.url }}" alt="{{ pin.title }}" loading="lazy">
+            </a>
+
+            <div class="board-pin-info">
+                <div class="board-pin-name-and-actions">
+                    <h3 class="board-pin-name">{{ pin.title }}</h3>
+                    <!-- <a>
+                        <img class="delete-board-pin-btn" src="{% static 'images/delete.png' %}" alt="Delete">
+                    </a> -->
+
+                    <form method="POST" action="{% url 'remove_pin_from_board' board.id pin.id %}"
+                        onsubmit="return confirm('Are you sure you want to remove this pin from the board?');">
+                        {% csrf_token %}
+
+                        <button type="submit" class="delete-board-pin-submit">
+                            <img src="{% static 'images/delete.png' %}" alt="Remove pin" class="delete-board-pin-btn">
+                        </button>
+                    </form>
+
+                </div>
+
+                {% if pin.description %}
+                <p>{{ pin.description }}</p>
+                {% endif %}
+            </div>
+        </article>
+        {% empty %}
+        <div class="board-no-pins">
+            <h2>This board is empty</h2>
+            <p>Save some pins to this board and they will appear here.</p>
+        </div>
+        {% endfor %}
+    </div>
+
+</section>
+{% endblock %}

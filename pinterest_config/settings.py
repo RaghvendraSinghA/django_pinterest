@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "account_app.apps.AccountAppConfig",
     "home_app",
     "pin_app",
+    "board_app"
 ]
 
 MIDDLEWARE = [
@@ -126,18 +127,38 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+# All django setting keywords.
+
 
 STATIC_URL = "static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"
+# STATIC_URL = "static/": the URL prefix used to serve static files. A file at static/css/style.css is reached at /static/css/style.css. In templates you write {% load static %} then {% static 'css/style.css' %}, and Django builds the URL for you.
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+# This is for django where it should search for static files after searching static folder of project. A app can also have own static folder this avoides overrides. STATICFILES_DIRS is used to register each app’s static files folder.
 
-# All three are static files django setting keywords.
+STATIC_ROOT = BASE_DIR / "staticfiles"
+# This is for collect static which serves to nginx
+
+
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+# These two settings control user-uploaded files, such as the images people upload when they create a pin. I touched on them in my last answer, so here is the focused version.
+
+# MEDIA_ROOT = BASE_DIR / "media"
+
+# The folder on disk where Django saves uploaded files. BASE_DIR is your project root (next to manage.py), so uploads go into django_pinterest/media/.
+
+# MEDIA_URL = "/media/"
+
+# The URL prefix used to access those files in the browser. A file saved on disk at media/pins/cat.jpg is reached at http://127.0.0.1:8000/media/pins/cat.jpg.
+
+# So one is the disk location and the other is the web address for the same files.
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 

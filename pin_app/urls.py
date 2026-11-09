@@ -1,17 +1,23 @@
 from django.urls import path
 from . import views
 
+
 urlpatterns = [
     path("create/", views.create_pin, name="create_pin"),
-    path("boards/create/", views.create_board_view, name="create_board"),
-    path(
-        "boards/<int:board_id>/",
-        views.board_detail_view,
-        name="board_detail",
+    path("pin/<int:pin_id>/", views.pin_detail, name="pin_detail"),
+    path("pin/<int:pin_id>/delete/", views.delete_pin, name="delete_pin"),
+    path("pin/<int:pin_id>/like/", views.like_pin, name="like_pin"),
+    path("pin/<int:pin_id>/comment/", views.add_comment, name="add_comment"),
+    
+    path("pin/<int:pin_id>/comment/<int:comment_id>/reply/",
+         views.add_reply,
+        name="add_reply"),
+
+    path("comment/<int:comment_id>/delete/",
+          views.delete_comment, 
+          name="delete_comment"
     ),
-    path(
-        "<int:pin_id>/save/",
-        views.save_pin_to_board_view,
-        name="save_pin_to_board",
-    ),
+
+    path("user/<int:user_id>/follow/", views.follow_user, name="follow_user"),
+    path("search/", views.search_pins, name="search_pins"),
 ]

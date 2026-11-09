@@ -75,6 +75,11 @@ class UserUpdateForm(forms.ModelForm):
         ]
 
 
+
+# ProfileUpdateForm refer to different custom model class Profile created by me, check in models.py, thats why we have 2 forms to update the user, we also have 2 tables, 1 user and 1 profile.
+
+# Profile is connected to User table in one to one relationship.
+
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile

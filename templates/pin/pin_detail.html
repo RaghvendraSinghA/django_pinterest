@@ -6,8 +6,8 @@ Pin
 {% endblock title %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'home/css/pin_detail2.css' %}">
-<link rel="stylesheet" href="{% static 'home/css/save_popup.css' %}">
+<link rel="stylesheet" href="{% static 'pin/css/pin_detail.css' %}">
+<link rel="stylesheet" href="{% static 'pin/css/save_pin_popup.css' %}">
 {% endblock extra_css %}
 
 
@@ -32,13 +32,6 @@ Pin
 
                 <div class="like-share">
                     <div class="like-count">
-
-                        <!-- {% if user_liked %}
-                        <img class="red-heart" src="{% static '/images/favorite.png' %}" alt="like">
-                        {% else %}
-                        <img src="{% static '/images/heart.png' %}" alt="like">
-                        {% endif %} -->
-
 
                         <form method="POST" action="{% url 'like_pin' pin.id %}">
                             {% csrf_token %}
@@ -72,58 +65,10 @@ Pin
                             Delete
                         </button>
 
-                        <!-- <div class="profile-delete">Delete</div> -->
 
                     </form>
 
-                    <!-- <div class="profile-delete">Delete</div> -->
-
-
-
                     <div type="button" class="profile-save" id="open-save-popup">Save</div>
-
-                    <!-- <div class="profile-save">Save</div> -->
-
-
-
-                    <!-- <div class="profile-save save-pin-container">
-
-                        {% if request.user.is_authenticated %}
-
-                        {% if boards %}
-                        <form method="POST" action="{% url 'save_pin_to_board' pin.id %}" class="save-pin-form">
-                            {% csrf_token %}
-
-                            <select name="board_id" required aria-label="Choose a board">
-                                <option value="" selected disabled>
-                                    Choose a board
-                                </option>
-
-                                {% for board in boards %}
-                                <option value="{{ board.id }}">
-                                    {{ board.name }}
-                                </option>
-                                {% endfor %}
-                            </select>
-
-                            <button type="submit" class="save-pin-btn">
-                                Save
-                            </button>
-                        </form>
-
-                        {% else %}
-                        <a href="{% url 'create_board' %}" class="save-pin-btn">
-                            Create a board
-                        </a>
-                        {% endif %}
-
-                        {% else %}
-                        <a href="{% url 'login' %}" class="save-pin-btn">
-                            Log in to save
-                        </a>
-                        {% endif %}
-
-                    </div> -->
 
 
                 </div>
@@ -137,7 +82,6 @@ Pin
                 <div class="comment-username">
 
                     <div class="comment-profile">
-                        <!-- <img src="{% static '/images/pinterest.png' %}" alt="profle_pic"> -->
                         <img src="{{ user.profile.image.url|default:'/static/images/pinterest.png' }}"
                             alt="profile_pic">
                         
@@ -199,8 +143,6 @@ Pin
                 </div>
 
                 <div class="pin-description">
-                    <!-- The Air Force 1 is a classic Swoosh silhouette. Equal parts court staple and street soldier, the AF1
-                    would is one of the most loved shoes worldwide. This women’s ‘Oatmeal’ colourway will -->
                     {{pin.description}}
                 </div>
 
@@ -216,7 +158,7 @@ Pin
 
                         {% for comment in comments %}
 
-                        {% include "home/components/comment.html" with comment=comment level=0 %}
+                        {% include "pin/components/comment.html" with comment=comment level=0 %}
 
                         {% empty %}
 

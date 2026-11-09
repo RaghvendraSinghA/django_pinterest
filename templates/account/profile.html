@@ -4,7 +4,7 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'account/css/profile.css' %}">
-<link rel="stylesheet" href="{% static 'account/css/boards.css' %}">
+<link rel="stylesheet" href="{% static 'board/css/boards.css' %}">
 
 {% endblock %}
 
@@ -33,10 +33,6 @@
             {{ profile_user.username }}
             {% endif %}
         </h1>
-
-        <!-- <p class="profile-username">
-            @{{ profile_user.username }}
-        </p> -->
 
         {% if profile.bio %}
         <p class="profile-bio">{{ profile.bio }}</p>
