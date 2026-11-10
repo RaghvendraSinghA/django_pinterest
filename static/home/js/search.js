@@ -16,14 +16,14 @@ searchInput.addEventListener("input", () => {
 
         try {
             const response = await fetch(
-                `/search/?q=${encodeURIComponent(query)}`
+                `/pin/search/?q=${encodeURIComponent(query)}`
             );
 
             const data = await response.json();
 
             searchResults.replaceChildren();
 
-            
+
 
             data.results.forEach(pin => {
                 const result = document.createElement("a");

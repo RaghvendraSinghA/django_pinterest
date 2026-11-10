@@ -104,3 +104,31 @@ def remove_pin_from_board_view(request, board_id, pin_id):
     board.pins.remove(pin)
 
     return redirect("board_detail", board_id=board.id)
+
+
+
+@login_required
+@require_POST
+def edit_board_name(request, board_id):
+
+    board = get_object_or_404(
+        Board,
+        id=board_id,
+        user=request.user
+    )
+
+    name = request.POST.get("name", "").strip()
+
+    if not name:
+        return JsonResponse(
+            {"error": "Board name cannot be empty"},
+            status=400
+        )
+
+    board.name = name
+    board.save(update_fields=["name"])
+
+    return JsonResponse({
+        "success": True,
+        "name": board.name
+    })

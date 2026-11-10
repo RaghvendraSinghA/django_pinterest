@@ -1,0 +1,137 @@
+.edit-pin-container {
+    min-height: calc(100vh - 72px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background: #f7f7f7;
+}
+
+.edit-pin-card {
+    width: 100%;
+    max-width: 950px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 2rem;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+
+/* image section */
+
+.edit-pin-image-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.edit-pin-preview {
+    width: 100%;
+    max-height: 550px;
+    object-fit: contain;
+    border-radius: 12px;
+    cursor:pointer;
+}
+
+.edit-pin-image-input {
+    width: 100%;
+}
+
+
+/* form section */
+
+.edit-pin-details {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.edit-pin-details form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.edit-pin-title,
+.edit-pin-description {
+    width: 100%;
+    padding: 12px;
+    font-family: Helvetica;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.edit-pin-description {
+    resize: vertical;
+}
+
+.edit-pin-title:focus,
+.edit-pin-description:focus {
+    border-color: #888;
+}
+
+
+/* action buttons */
+
+.edit-pin-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+    margin-top: auto;
+}
+
+.edit-pin-actions a,
+.edit-pin-actions button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 20px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.edit-pin-actions a {
+    background: #efefef;
+    color: #222;
+}
+
+.edit-pin-actions button {
+    background: #e60023;
+    color: white;
+}
+
+
+
+/* responsive  */
+
+
+@media (max-width: 700px) {
+    .edit-pin-container {
+        padding: 1rem;
+        align-items: flex-start;
+    }
+
+    .edit-pin-card {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 1.2rem;
+    }
+
+    .edit-pin-preview {
+        max-height: 400px;
+    }
+
+    .edit-pin-details h2 {
+        margin-bottom: 1rem;
+    }
+}

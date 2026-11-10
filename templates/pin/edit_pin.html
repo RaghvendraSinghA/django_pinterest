@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'pin/css/edit_pin.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="edit-pin-container">
+
+    <div class="edit-pin-card">
+
+        <!-- Left: Image preview -->
+        <div class="edit-pin-image-section">
+
+            <label for="pin-image" class="edit-pin-image-label">
+                <img src="{{ pin.image.url }}" alt="{{ pin.title }}" class="edit-pin-preview" id="image-preview">
+            </label>
+
+        </div>
+
+        <!-- Right: Pin details -->
+        <div class="edit-pin-details">
+
+            <form method="POST" enctype="multipart/form-data" action="{% url 'edit_pin' pin.id %}">
+
+                {% csrf_token %}
+                <input type="file" name="image" id="pin-image" accept="image/*" class="edit-pin-image-input" hidden>
+
+                <input type="text" name="title" value="{{ pin.title }}" placeholder="Add your title"
+                    class="edit-pin-title">
+
+                <textarea name="description" placeholder="Add your description" rows="6"
+                    class="edit-pin-description">{{ pin.description }}</textarea>
+
+                <div class="edit-pin-actions">
+                    <a href="{% url 'pin_detail' pin.id %}">Cancel</a>
+                    <button type="submit">Save changes</button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'pin/js/editPin.js' %}"></script>
+{% endblock %}

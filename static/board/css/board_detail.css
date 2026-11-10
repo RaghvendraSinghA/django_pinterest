@@ -28,6 +28,7 @@
     font-weight: 601;
     overflow-wrap: anywhere;
     font-family:Helvetica;
+    cursor:pointer;
 }
 
 .board-detail-description {
@@ -174,6 +175,22 @@
 
 .board-pin-name{
     overflow-wrap: break-word
+}
+
+.edit-board-name-input {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 601;
+    overflow-wrap: anywhere;
+    font-family: Helvetica;
+
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 0;
+    color: inherit;
+    width: 100%;
+    color:rgb(175,5,5);
 }
 
 @media (max-width: 768px) {

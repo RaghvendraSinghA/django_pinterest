@@ -33,10 +33,11 @@ Pin
                 <div class="like-share">
                     <div class="like-count">
 
-                        <form method="POST" action="{% url 'like_pin' pin.id %}">
+                        <form method="POST" action="{% url 'like_pin' pin.id %}" class="like-form"
+                            data-pin-id="{{ pin.id }}">
                             {% csrf_token %}
 
-                            <button class="like-btn" type="submit" class="like-button">
+                            <button class="like-btn" type="submit">
                                 {% if user_liked %}
                                 <img class="red-heart" src="{% static 'images/red-heart.png' %}" alt="Unlike">
                                 {% else %}
@@ -45,31 +46,40 @@ Pin
                             </button>
                         </form>
 
-
                         <div class="like-count-text">{{ like_count }}</div>
+
                     </div>
 
 
-
                     <img src="{% static '/images/export.png' %}" alt="like">
-                    <img src="{% static '/images/meatball-menu.png' %}" alt="like">
+
+                    {% if request.user == pin.user %}
+                    <a href="{% url 'edit_pin' pin.id %}">
+                        <img src="{% static '/images/meatball-menu.png' %}" alt="like">
+                    </a>
+                    {% endif %}
+
                 </div>
+
+
 
                 <div class="profile-save profile-save-p">
 
-                    <form method="POST" action="{% url 'delete_pin' pin.id %}">
+                    {% if request.user == pin.user %}
+                    <form method="POST" action="{% url 'delete_pin' pin.id %}"
+                        onsubmit="return confirm('Are you sure you want to delete this pin?');">
 
                         {% csrf_token %}
 
                         <button class="profile-delete" type="submit">
                             Delete
                         </button>
-
-
                     </form>
+                    {% endif %}
 
-                    <div type="button" class="profile-save" id="open-save-popup">Save</div>
-
+                    <div type="button" class="profile-save" id="open-save-popup">
+                        Save
+                    </div>
 
                 </div>
 
@@ -84,7 +94,7 @@ Pin
                     <div class="comment-profile">
                         <img src="{{ user.profile.image.url|default:'/static/images/pinterest.png' }}"
                             alt="profile_pic">
-                        
+
                     </div>
 
                     <div class="username">{{ pin.user.username }}</div>
@@ -94,41 +104,38 @@ Pin
                 <!-- <div>follow +</div> -->
 
                 <div class="follow-followers">
+
                     {% if request.user.is_authenticated and request.user != pin.user %}
 
-                    <form method="POST" action="{% url 'follow_user' pin.user.id %}">
+                    <form method="POST" action="{% url 'follow_user' pin.user.id %}" class="follow-form">
                         {% csrf_token %}
 
-                        <input type="hidden" name="pin_id" value="{{ pin.id }}">
-
                         <button type="submit" class="follow-btn">
-
                             {% if followed %}
                             Unfollow
                             {% else %}
                             + Follow
                             {% endif %}
-
                         </button>
                     </form>
 
                     {% endif %}
 
-
-
                     <p class="followers-count">
                         Followers: {{ pin.user.followers.count }}
                     </p>
+
                 </div>
+
+
             </div>
 
             <!-- profile and follow ends here -->
 
-            <div class="pin-title">
-
-                {{pin.title}}
+            <div class="pin-title" {% if request.user == pin.user %} data-edit-url="{% url 'edit_pin_title' pin.id %}" 
+            {% endif %}>
+                {{ pin.title }}
             </div>
-
 
             <div class="visit-site">
                 Visit site
@@ -139,12 +146,13 @@ Pin
 
                 <div class="description-title">
                     Description
-                    <!-- {{pin.title}} -->
                 </div>
 
                 <div class="pin-description">
                     {{pin.description}}
                 </div>
+
+
 
                 <div class="comments-title">
                     Comments
@@ -172,21 +180,21 @@ Pin
 
             </div>
 
-            <!-- comment-box -->
+            <!-- comment-input-box -->
 
-            <form method="POST" action="{% url 'add_comment' pin.id %}">
+
+            <form method="POST" action="{% url 'add_comment' pin.id %}" class="add-comment-form">
                 {% csrf_token %}
 
-
                 <div class="comment-box">
-                    <input type="text" name="text" class="comment-input" placeholder="Add a comment...">
+                    <input type="text" name="text" class="comment-input" placeholder="Add a comment..." required>
 
                     <button type="submit" class="comment-btn">
                         >
                     </button>
                 </div>
-
             </form>
+
         </div>
 
 
@@ -267,21 +275,21 @@ Pin
 
     {% for pin in other_pins %}
 
-        <a href="{% url 'pin_detail' pin.id %}" class="pint">
+    <a href="{% url 'pin_detail' pin.id %}" class="pint">
 
-            <article class="pint">
+        <article class="pint">
 
-                <img src="{{ pin.image.url }}" alt="{{ pin.title }}">
+            <img src="{{ pin.image.url }}" alt="{{ pin.title }}">
 
-            </article>
+        </article>
 
-        </a>
+    </a>
 
-        {% empty %}
+    {% empty %}
 
-        <p>No pins available to pin detail component.</p>
+    <p>No pins available to pin detail component.</p>
 
-        {% endfor %}
+    {% endfor %}
 
 
 

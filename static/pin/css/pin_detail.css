@@ -194,6 +194,7 @@
     font-family: Helvetica;
     letter-spacing: 0.3px;
     padding-top: 0.7rem;
+    cursor:pointer;
 }
 
 
@@ -305,6 +306,7 @@
     color: white;
     border-radius: 5px;
     width: 5rem;
+    cursor:pointer;
 }
 
 .follow-btn:hover {
@@ -443,6 +445,7 @@
     border-radius: 5px;
     padding: 3px;
     margin-left: 10px;
+    cursor:pointer;
 }
 
 .reply-btn:hover {
@@ -454,6 +457,7 @@
     color: white;
     padding: 2px;
     border-radius: 5px;
+    cursor:pointer;
 }
 
 .reply-delete:hover {
@@ -476,6 +480,27 @@
     border-bottom: 2px solid #ddd;
     border-bottom-left-radius: 10px;
 }
+
+
+.nested-thread {
+    margin-left: 28px;
+}
+
+
+.edit-comment-input {
+    width: 100%;
+    padding-top: 4px;
+    padding-bottom: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    box-sizing: border-box;
+    border:none;  
+}
+
+
 
 
 
@@ -710,6 +735,22 @@
 
 .save-pin-btn:hover {
     background: #ad081b;
+}
+
+
+.edit-pin-title-input {
+    font-size: 1.4rem;
+    font-weight: bold;
+    font-family: Helvetica;
+    letter-spacing: 0.3px;
+    padding-top: 0.7rem;
+
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: inherit;
+    box-sizing: border-box;
 }
 
 @media (max-width: 480px) {

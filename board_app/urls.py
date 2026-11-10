@@ -25,4 +25,9 @@ urlpatterns = [
         views.remove_pin_from_board_view,
         name="remove_pin_from_board",
     ),
+    path(
+        "boards/<int:board_id>/edit/",
+        views.edit_board_name,
+        name="edit_board_name"
+    ),
 ]

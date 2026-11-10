@@ -1,7 +1,4 @@
-<div
-    class="comment-thread {% if level != 0 %}nested-thread{% endif %}"
-    style="margin-left: {{ level }}px;"
->
+<div class="comment-thread {% if level != 0 %}nested-thread{% endif %}">
 
     <div class="comment">
 
@@ -9,25 +6,21 @@
             {{ comment.user.username }} :
         </strong>
 
-        <p class="commenter-text">
+        <!-- <p class="commenter-text">
+            {{ comment.text }}
+        </p> -->
+
+        <p class="commenter-text" {% if request.user == comment.user %}
+            data-edit-url="{% url 'edit_comment' comment.id %}" {% endif %}>
             {{ comment.text }}
         </p>
 
         <div class="comment-actions">
 
-            <form
-                method="POST"
-                action="{% url 'add_reply' pin.id comment.id %}"
-                class="reply-form"
-            >
+            <form method="POST" action="{% url 'add_reply' pin.id comment.id %}" class="reply-form">
                 {% csrf_token %}
 
-                <textarea
-                    name="text"
-                    placeholder="Reply..."
-                    rows="2"
-                    class="reply-textarea"
-                ></textarea>
+                <textarea name="text" placeholder="Reply..." rows="2" class="reply-textarea"></textarea>
 
                 <button class="reply-btn" type="submit">
                     Reply
@@ -38,18 +31,14 @@
 
             {% if request.user == comment.user %}
 
-                <form
-                    method="POST"
-                    action="{% url 'delete_comment' comment.id %}"
-                    class="delete-comment-form"
-                >
-                    {% csrf_token %}
+            <form method="POST" action="{% url 'delete_comment' comment.id %}" class="delete-comment-form">
+                {% csrf_token %}
 
-                    <button class="reply-delete" type="submit">
-                        Delete
-                    </button>
+                <button class="reply-delete" type="submit">
+                    Delete
+                </button>
 
-                </form>
+            </form>
 
             {% endif %}
 
@@ -58,10 +47,11 @@
     </div>
 
 
-    {% for reply in comment.replies.all %}
+    <div class="current-comment-replies">
+        {% for reply in comment.replies.all %}
+        {% include "pin/components/comment.html" with comment=reply level=1 %}
+        {% endfor %}
+    </div>
 
-        {% include "pin/components/comment.html" with comment=reply level=level|add:"28" %}
-
-    {% endfor %}
 
 </div>
