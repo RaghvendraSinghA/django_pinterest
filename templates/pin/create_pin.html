@@ -2,11 +2,11 @@
 {% load static %}
 
 {% block title %}
-    Create Pin
+Create Pin
 {% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'pin/css/create_pin.css' %}">
+<link rel="stylesheet" href="{% static 'pin/css/create_pin.css' %}">
 {% endblock extra_css %}
 
 {% block content %}
@@ -24,6 +24,11 @@
             {% csrf_token %}
 
             {{ form.as_p }}
+
+            <div>
+                <label for="image">Upload Image</label>
+                <input type="file" name="image" id="image" accept="image/*" required>
+            </div>
 
             <button type="submit">
                 Create Pin

@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from board_app.models import Board
 from django.views.decorators.http import require_POST
 from django.template.loader import render_to_string
-
+from .tasks import upload_pin_image, delete_pin_image
 
 
 
@@ -22,7 +22,13 @@ def create_pin(request):
         if form.is_valid():
             pin = form.save(commit=False)
             pin.user = request.user
+            pin.upload_status = "pending"
+
+            uploaded_image = request.FILES["image"]
+            pin.temp_image = uploaded_image
             pin.save()
+
+            upload_pin_image.delay(pin.id)
 
             return redirect("home")
 
@@ -30,6 +36,7 @@ def create_pin(request):
         form = PinForm()
 
     return render(request, "pin/create_pin.html", {"form": form})
+
 
 
 def pin_detail(request, pin_id):
@@ -83,20 +90,17 @@ def delete_pin(request, pin_id):
 
     pin = get_object_or_404(Pin, id=pin_id)
 
-    print("pin to be delete", pin)
-
-    # Find the Pin whose id is equal to pin_id. If it doesn't exist, return a 404 page using redirect internal http response.
-
     if request.user != pin.user:
         return redirect("pin_detail", pin_id=pin.id)
 
     if request.method == "POST":
-        image_name = pin.image.name
+
+        image_name = pin.image.name if pin.image else None
 
         pin.delete()
 
         if image_name:
-            pin.image.storage.delete(image_name)
+            delete_pin_image.delay(image_name)
 
         return redirect("home")
 
@@ -362,3 +366,4 @@ def edit_pin(request, pin_id):
     return render(request, "pin/edit_pin.html", {
         "pin": pin
     })
+

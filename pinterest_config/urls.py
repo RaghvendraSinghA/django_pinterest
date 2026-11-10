@@ -35,3 +35,9 @@ urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # urlpatterns += static(prefix,view,*kwargs)
 # document_root , named keyword of django, it will search in that path of project to search files.
+
+
+urlpatterns += static(
+    "/temp_uploads/",
+    document_root=settings.BASE_DIR / "temp_uploads"
+)

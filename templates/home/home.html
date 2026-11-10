@@ -28,7 +28,16 @@ Pinterest - Home
 
             <article class="pin">
 
+                {% if pin.upload_status == "uploaded" and pin.image %}
                 <img src="{{ pin.image.url }}" alt="{{ pin.title }}">
+
+                {% elif pin.temp_image %}
+                <img src="{{ pin.temp_image.url }}" alt="{{ pin.title }}">
+
+                {% else %}
+                <p>Image upload failed.</p>
+                {% endif %}
+
 
             </article>
 
@@ -197,7 +206,7 @@ Pinterest - Home
 
         <article class="pin">
             <img src="https://picsum.photos/seed/pin007/400/550" alt="Pin">
-        </article>        
+        </article>
 
     </div>
 

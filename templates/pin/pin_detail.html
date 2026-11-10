@@ -21,7 +21,15 @@ Pin
     <div class="pin-detail-container pint">
 
         <div class="pin-img-container">
+            {% if pin.upload_status == "uploaded" and pin.image %}
             <img src="{{ pin.image.url }}" alt="{{ pin.title }}">
+
+            {% elif pin.temp_image %}
+            <img src="{{ pin.temp_image.url }}" alt="{{ pin.title }}">
+
+            {% else %}
+            <p>Image unavailable.</p>
+            {% endif %}
         </div>
 
 
@@ -288,7 +296,13 @@ Pin
 
         <article class="pint">
 
+            {% if pin.upload_status == "uploaded" and pin.image %}
             <img src="{{ pin.image.url }}" alt="{{ pin.title }}">
+            {% elif pin.upload_status == "pending" %}
+            <p>Image uploading...</p>
+            {% else %}
+            <p>Image unavailable.</p>
+            {% endif %}
 
         </article>
 

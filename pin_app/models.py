@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.files.storage import storages
 
 
 class Pin(models.Model):
@@ -7,13 +8,37 @@ class Pin(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="pins")
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
-    image = models.ImageField(upload_to="pins/")
+    # image = models.ImageField(upload_to="pins/")
+    image = models.ImageField(
+        upload_to="pins/",
+        blank=True,
+        null=True,
+    )
     created_at = models.DateTimeField(auto_now_add=True)
+
+    UPLOAD_STATUS = [
+        ("pending", "Pending"),
+        ("uploaded", "Uploaded"),
+        ("failed", "Failed"),
+    ]
+
+    upload_status = models.CharField(
+        max_length=20,
+        choices=UPLOAD_STATUS,
+        default="uploaded",
+    )
+
+    temp_image = models.FileField(
+        upload_to="temp/pins/",
+        storage=storages["temp"],
+        blank=True,
+        null=True,
+    )
 
     def __str__(self):
         return self.title
 
-
+print("TEMP STORAGE:", Pin._meta.get_field("temp_image").storage.base_url)
 # def __str__(self):    return self.title
 
 

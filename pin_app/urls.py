@@ -34,5 +34,6 @@ urlpatterns = [
         "pin/<int:pin_id>/edit/",
         views.edit_pin,
         name="edit_pin"
-    )
+    ),
+
 ]

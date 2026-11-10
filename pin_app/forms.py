@@ -9,9 +9,9 @@ class PinForm(forms.ModelForm):
         fields = [
             "title",
             "description",
-            "image",
         ]
 
+# image field removed
 
 class CommentForm(forms.ModelForm):
 
