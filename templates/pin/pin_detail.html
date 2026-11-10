@@ -91,10 +91,19 @@ Pin
 
                 <div class="comment-username">
 
-                    <div class="comment-profile">
+                    <!-- <div class="comment-profile">
                         <img src="{{ user.profile.image.url|default:'/static/images/pinterest.png' }}"
                             alt="profile_pic">
 
+                    </div> -->
+
+                    <div class="comment-profile">
+                        {% if pin.user.profile.profile_pic %}
+                        <img src="{{ pin.user.profile.profile_pic.url }}"
+                            alt="{{ pin.user.username }}'s profile picture">
+                        {% else %}
+                        <img src="{% static 'images/profile.png' %}" alt="Default profile picture">
+                        {% endif %}
                     </div>
 
                     <div class="username">{{ pin.user.username }}</div>

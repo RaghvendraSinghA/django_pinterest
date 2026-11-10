@@ -53,8 +53,11 @@ INSTALLED_APPS = [
     "account_app.apps.AccountAppConfig",
     "home_app",
     "pin_app",
-    "board_app"
+    "board_app",
+    "cloudinary",
+    "cloudinary_storage",
 ]
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -168,3 +171,22 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Authentication
 LOGIN_URL = "/account/login/"
+
+
+
+# cloudinary storage steup
+
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
+
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME":os.getenv("CLOUDINARY_CLOUD_NAME"),
+    "API_KEY": os.getenv("CLOUDINARY_API_KEY"),
+    "API_SECRET": os.getenv("CLOUDINARY_API_SECRET")
+}

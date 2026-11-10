@@ -101,46 +101,29 @@ def profile_view(request, username):
 
 @login_required
 def edit_profile_view(request):
-    profile, _ = Profile.objects.get_or_create(
-        user=request.user
-    )
+    profile, _ = Profile.objects.get_or_create(user=request.user)
 
     if request.method == "POST":
-        user_form = UserUpdateForm(
-            request.POST,
-            instance=request.user,
-        )
+        old_image_name = profile.profile_pic.name if profile.profile_pic else None
 
-        profile_form = ProfileUpdateForm(
-            request.POST,
-            request.FILES,
-            instance=profile,
-        )
+        user_form = UserUpdateForm(request.POST, instance=request.user)
+        profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=profile)
 
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
-            profile_form.save()
+            updated_profile = profile_form.save()
 
-            return redirect(
-                "profile",
-                username=request.user.username,
-            )
+            new_image_name = updated_profile.profile_pic.name if updated_profile.profile_pic else None
+            if old_image_name and old_image_name != new_image_name:
+                updated_profile.profile_pic.storage.delete(old_image_name)
 
+            return redirect("profile", username=request.user.username)
     else:
-        user_form = UserUpdateForm(
-            instance=request.user
-        )
-
-        profile_form = ProfileUpdateForm(
-            instance=profile
-        )
+        user_form = UserUpdateForm(instance=request.user)
+        profile_form = ProfileUpdateForm(instance=profile)
 
     return render(
         request,
         "account/edit_profile.html",
-        {
-            "user_form": user_form,
-            "profile_form": profile_form,
-        },
+        {"user_form": user_form, "profile_form": profile_form},
     )
-

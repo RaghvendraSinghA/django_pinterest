@@ -12,6 +12,7 @@ from django.template.loader import render_to_string
 
 
 
+
 @login_required
 def create_pin(request):
 
@@ -90,7 +91,13 @@ def delete_pin(request, pin_id):
         return redirect("pin_detail", pin_id=pin.id)
 
     if request.method == "POST":
+        image_name = pin.image.name
+
         pin.delete()
+
+        if image_name:
+            pin.image.storage.delete(image_name)
+
         return redirect("home")
 
     return redirect("pin_detail", pin_id=pin.id)
@@ -122,24 +129,7 @@ def like_pin(request, pin_id):
     })
 
 
-# @login_required
-# def add_comment(request, pin_id):
 
-#     pin = get_object_or_404(Pin, id=pin_id)
-
-#     if request.method == "POST":
-
-#         form = CommentForm(request.POST)
-
-#         if form.is_valid():
-
-#             comment = form.save(commit=False)
-
-#             comment.user = request.user
-#             comment.pin = pin
-#             comment.save()
-
-#     return redirect("pin_detail", pin_id=pin.id)
 
 
 @login_required
@@ -178,28 +168,7 @@ def add_comment(request, pin_id):
     }, status=400)
 
 
-# @login_required
-# def add_reply(request, pin_id, comment_id):
 
-#     pin = get_object_or_404(Pin, id=pin_id)
-
-#     parent_comment = get_object_or_404(Comment, id=comment_id, pin=pin)
-
-#     if request.method == "POST":
-
-#         form = CommentForm(request.POST)
-
-#         if form.is_valid():
-
-#             reply = form.save(commit=False)
-
-#             reply.user = request.user
-#             reply.pin = pin
-#             reply.parent = parent_comment
-
-#             reply.save()
-
-#     return redirect("pin_detail", pin_id=pin.id)
 
 @login_required
 @require_POST
@@ -247,18 +216,6 @@ def add_reply(request, pin_id, comment_id):
     }, status=400)
 
 
-# @login_required
-# def delete_comment(request, comment_id):
-
-#     comment = get_object_or_404(Comment, id=comment_id)
-
-#     if request.user != comment.user:
-#         return redirect("pin_detail", pin_id=comment.pin.id)
-
-#     if request.method == "POST":
-#         comment.delete()
-
-#     return redirect("pin_detail", pin_id=comment.pin.id)
 
 
 
@@ -384,11 +341,19 @@ def edit_pin(request, pin_id):
     )
 
     if request.method == "POST":
+
         pin.title = request.POST.get("title", "").strip()
         pin.description = request.POST.get("description", "").strip()
 
         if request.FILES.get("image"):
+            old_image_name = pin.image.name
             pin.image = request.FILES["image"]
+
+            if old_image_name and old_image_name != pin.image.name:
+                pin.save()
+                pin.image.storage.delete(old_image_name)
+
+                return redirect("pin_detail", pin_id=pin.id)
 
         pin.save()
 
