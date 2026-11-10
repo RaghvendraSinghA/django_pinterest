@@ -16,9 +16,14 @@
     <div class="profile-header">
 
         <div class="profile-picture-container">
-            {% if profile.profile_pic %}
+            {% if profile.upload_status == "uploaded" and profile.profile_pic %}
             <img src="{{ profile.profile_pic.url }}" alt="{{ profile_user.username }}'s profile picture"
                 class="profile-picture">
+
+            {% elif profile.temp_profile_pic %}
+            <img src="{{ profile.temp_profile_pic.url }}" alt="{{ profile_user.username }}'s profile picture"
+                class="profile-picture">
+
             {% else %}
             <img src="{% static 'images/profile.png' %}" alt="Default profile picture" class="profile-picture">
             {% endif %}

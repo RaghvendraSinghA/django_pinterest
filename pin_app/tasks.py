@@ -1,6 +1,5 @@
 from celery import shared_task
 from django.core.files import File
-from django.core.files.storage import storages
 from pin_app.models import Pin
 import cloudinary.uploader
 

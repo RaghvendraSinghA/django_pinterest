@@ -6,6 +6,8 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from .forms import UserUpdateForm, ProfileUpdateForm
 from .models import Profile
+from .tasks import upload_profile_pic
+import time
 
 
 def signup_view(request):
@@ -99,25 +101,56 @@ def profile_view(request, username):
     )
 
 
+
 @login_required
 def edit_profile_view(request):
     profile, _ = Profile.objects.get_or_create(user=request.user)
 
     if request.method == "POST":
-        old_image_name = profile.profile_pic.name if profile.profile_pic else None
-
         user_form = UserUpdateForm(request.POST, instance=request.user)
-        profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=profile)
+        profile_form = ProfileUpdateForm(
+            request.POST,
+            request.FILES,
+            instance=profile
+        )
 
         if user_form.is_valid() and profile_form.is_valid():
+
+            start = time.perf_counter()
+
             user_form.save()
-            updated_profile = profile_form.save()
+            updated_profile = profile_form.save(commit=False)
 
-            new_image_name = updated_profile.profile_pic.name if updated_profile.profile_pic else None
-            if old_image_name and old_image_name != new_image_name:
-                updated_profile.profile_pic.storage.delete(old_image_name)
+            uploaded_image = request.FILES.get("profile_pic")
 
-            return redirect("profile", username=request.user.username)
+            if uploaded_image:
+                updated_profile.temp_profile_pic = uploaded_image
+                updated_profile.upload_status = "pending"
+
+            updated_profile.save()
+
+            print(
+                "Django save time:",
+                round(time.perf_counter() - start, 4),
+                "seconds"
+            )
+
+            if uploaded_image:
+                task_start = time.perf_counter()
+
+                upload_profile_pic.delay(updated_profile.id)
+
+                print(
+                    "Celery queue time:",
+                    round(time.perf_counter() - task_start, 4),
+                    "seconds"
+                )
+
+            return redirect(
+                "profile",
+                username=request.user.username
+            )
+
     else:
         user_form = UserUpdateForm(instance=request.user)
         profile_form = ProfileUpdateForm(instance=profile)
@@ -125,5 +158,8 @@ def edit_profile_view(request):
     return render(
         request,
         "account/edit_profile.html",
-        {"user_form": user_form, "profile_form": profile_form},
+        {
+            "user_form": user_form,
+            "profile_form": profile_form,
+        },
     )

@@ -2,6 +2,7 @@
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.files.storage import storages
 
 
 class Profile(models.Model):
@@ -25,6 +26,25 @@ class Profile(models.Model):
 
     website = models.URLField(
         blank=True
+    )
+
+    temp_profile_pic = models.FileField(
+        upload_to="temp/profile_pictures/",
+        storage=storages["temp"],
+        blank=True,
+        null=True,  
+    )
+
+    UPLOAD_STATUS = [
+        ("pending", "Pending"),
+        ("uploaded", "Uploaded"),
+        ("failed", "Failed"),
+    ]
+
+    upload_status = models.CharField(
+        max_length=20,
+        choices=UPLOAD_STATUS,
+        default="uploaded",
     )
 
     def __str__(self):

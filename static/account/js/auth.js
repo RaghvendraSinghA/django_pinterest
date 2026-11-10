@@ -7,6 +7,8 @@ console.log(
 );
 
 
+// profile pic preview while updating profile pic
+
 const fileInput = document.getElementById("profile-pic-input")
 const imagePreview = document.getElementById("profile-picture-preview")
 
