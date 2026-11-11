@@ -59,5 +59,3 @@ Gunicorn is used as the production web server.
 
     gunicorn pinterest_config.wsgi:application
 
-
-### Live link: (https://django-pinterest.onrender.com)
