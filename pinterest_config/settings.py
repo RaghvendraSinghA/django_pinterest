@@ -218,3 +218,43 @@ ELASTICSEARCH_HOST = os.getenv(
     "ELASTICSEARCH_HOST",
     "http://localhost:9200"
 )
+
+
+# Error loging
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+
+    "formatters": {
+        "verbose": {
+            "format": (
+                "\n"
+                "%(asctime)s - %(levelname)s - %(name)s\n"
+                "%(message)s\n"
+            ),
+        },
+    },
+
+    "handlers": {
+        "file": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "filename": BASE_DIR / "django_errors.log",
+            "formatter": "verbose",
+        },
+    },
+
+    "loggers": {
+        "django": {
+            "handlers": ["file"],
+            "level": "DEBUG",
+            "propagate": True,
+        },
+        "pin_app": {
+            "handlers": ["file"],
+            "level": "DEBUG",
+            "propagate": False,
+        },
+    },
+}

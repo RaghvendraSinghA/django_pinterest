@@ -1,13 +1,16 @@
 from django.contrib.auth import login, logout
-from django.shortcuts import render, redirect
-from .forms import SignupForm, LoginForm
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404
-from .forms import UserUpdateForm, ProfileUpdateForm
+from .forms import SignupForm, LoginForm, UserUpdateForm, ProfileUpdateForm
+
 from .models import Profile
 from .tasks import upload_profile_pic
+import logging
 import time
+
+
+logger = logging.getLogger(__name__)
 
 
 def signup_view(request):
@@ -18,25 +21,29 @@ def signup_view(request):
 
         if form.is_valid():
 
-            user = form.save()
+            try:
+                user = form.save()
+            except Exception:
+                logger.exception("Failed to create a new user account")
+                raise
 
             login(request, user)
-            # It creates login session for user.
+
+            logger.info(
+                "User %s signed up successfully",
+                user.id
+            )
 
             return redirect("home")
 
-        # on successful signup redirect
+        logger.warning(
+            "User submitted an invalid signup form"
+        )
 
     else:
-
         form = SignupForm()
-        # create an empty form and then return will execute.
-        # also,  The request is POST but the form is invalid → show the form
-        # again with the submitted values and validation errors using bound form technique.
 
     return render(
-        # this will also execute when there is no post method but, it is initial get method to get form fillup page,
-        # In django we even return the frontend from backend.
         request,
         "account/signup.html",
         {"form": form},
@@ -49,18 +56,24 @@ def login_view(request):
 
         form = LoginForm(request, data=request.POST)
 
-        # request is passed because, AuthenticationForm uses the request during authentication.
-
         if form.is_valid():
 
             user = form.get_user()
 
             login(request, user)
 
+            logger.info(
+                "User %s logged in successfully",
+                user.id
+            )
+
             return redirect("home")
 
-    else:
+        logger.warning(
+            "Failed login attempt"
+        )
 
+    else:
         form = LoginForm()
 
     return render(request, "account/login.html", {"form": form})
@@ -68,16 +81,27 @@ def login_view(request):
 
 def logout_view(request):
 
+    user_id = getattr(request.user, "id", None)
+
     logout(request)
+
+    logger.info(
+        "User %s logged out",
+        user_id
+    )
 
     return redirect("home")
 
 
-
-
-
 def profile_view(request, username):
+
     profile_user = get_object_or_404(User, username=username)
+
+    logger.debug(
+        "User %s accessed profile of User %s",
+        getattr(request.user, "id", None),
+        profile_user.id
+    )
 
     profile, _ = Profile.objects.get_or_create(
         user=profile_user
@@ -87,8 +111,6 @@ def profile_view(request, username):
 
     boards = profile_user.boards.all()
 
-    # The _ is a normal Python variable name that programmers conventionally use when they don't need a returned value.
-    # profile, created = Profile.objects.get_or_create(user=request.user). We ignored created .
     return render(
         request,
         "account/profile.html",
@@ -96,18 +118,25 @@ def profile_view(request, username):
             "profile_user": profile_user,
             "profile": profile,
             "boards": boards,
-            "pins" : pins,
+            "pins": pins,
         },
     )
 
 
-
 @login_required
 def edit_profile_view(request):
-    profile, _ = Profile.objects.get_or_create(user=request.user)
+
+    profile, _ = Profile.objects.get_or_create(
+        user=request.user
+    )
 
     if request.method == "POST":
-        user_form = UserUpdateForm(request.POST, instance=request.user)
+
+        user_form = UserUpdateForm(
+            request.POST,
+            instance=request.user
+        )
+
         profile_form = ProfileUpdateForm(
             request.POST,
             request.FILES,
@@ -118,38 +147,76 @@ def edit_profile_view(request):
 
             start = time.perf_counter()
 
-            user_form.save()
-            updated_profile = profile_form.save(commit=False)
-
             uploaded_image = request.FILES.get("profile_pic")
 
-            if uploaded_image:
-                updated_profile.temp_profile_pic = uploaded_image
-                updated_profile.upload_status = "pending"
+            try:
+                user_form.save()
 
-            updated_profile.save()
+                updated_profile = profile_form.save(commit=False)
 
-            print(
-                "Django save time:",
-                round(time.perf_counter() - start, 4),
-                "seconds"
+                if uploaded_image:
+                    updated_profile.temp_profile_pic = uploaded_image
+                    updated_profile.upload_status = "pending"
+
+                updated_profile.save()
+
+            except Exception:
+                logger.exception(
+                    "Failed to update profile for User %s",
+                    request.user.id
+                )
+                raise
+
+            django_save_time = round(
+                time.perf_counter() - start,
+                4
+            )
+
+            logger.info(
+                "Profile database save completed for User %s in %s seconds",
+                request.user.id,
+                django_save_time
             )
 
             if uploaded_image:
+
                 task_start = time.perf_counter()
 
-                upload_profile_pic.delay(updated_profile.id)
+                try:
+                    upload_profile_pic.delay(updated_profile.id)
 
-                print(
-                    "Celery queue time:",
-                    round(time.perf_counter() - task_start, 4),
-                    "seconds"
+                except Exception:
+                    logger.exception(
+                        "Failed to queue profile picture upload for User %s",
+                        request.user.id
+                    )
+                    raise
+
+                celery_queue_time = round(
+                    time.perf_counter() - task_start,
+                    4
                 )
+
+                logger.info(
+                    "Profile picture upload task queued for User %s in %s seconds",
+                    request.user.id,
+                    celery_queue_time
+                )
+
+            logger.info(
+                "User %s updated their profile successfully",
+                request.user.id
+            )
 
             return redirect(
                 "profile",
                 username=request.user.username
             )
+
+        logger.warning(
+            "User %s submitted invalid profile update data",
+            request.user.id
+        )
 
     else:
         user_form = UserUpdateForm(instance=request.user)
