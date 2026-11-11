@@ -1,0 +1,34 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>400 - Bad Request</title>
+    <link rel="stylesheet" href="{% static 'error_pages/css/400.css' %}">
+</head>
+
+<body>
+    <main class="error-container">
+
+        <div class="logo">Pinterest</div>
+
+        <div class="error-number">400</div>
+
+        <h1>Bad request!</h1>
+
+        <p>
+            We couldn't understand your request.
+            Something may be missing or incorrectly
+            formatted. Please try again.
+        </p>
+
+        <div class="actions">
+            <a href="/" class="primary">Go to Homepage</a>
+            <a href="javascript:history.back()" class="secondary">Go Back</a>
+        </div>
+
+    </main>
+</body>
+</html>

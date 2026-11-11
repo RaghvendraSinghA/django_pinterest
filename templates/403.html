@@ -1,0 +1,34 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>403 - Access Forbidden</title>
+    <link rel="stylesheet" href="{% static 'error_pages/css/403.css' %}">
+</head>
+
+<body>
+    <main class="error-container">
+
+        <div class="logo">Pinterest</div>
+
+        <div class="error-number">403</div>
+
+        <h1>Access denied!</h1>
+
+        <p>
+            You don't have permission to access this page.
+            It may be restricted or require additional
+            permissions.
+        </p>
+
+        <div class="actions">
+            <a href="/" class="primary">Go to Homepage</a>
+            <a href="javascript:history.back()" class="secondary">Go Back</a>
+        </div>
+
+    </main>
+</body>
+</html>

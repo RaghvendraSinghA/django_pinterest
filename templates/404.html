@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found</title>
+    <link rel="stylesheet" href="{% static 'error_pages/css/404.css' %}">
+</head>
+
+<body>
+    <main class="error-container">
+
+        <div class="logo">Pinterest</div>
+
+        <div class="error-number">404</div>
+
+        <h1>Oops! Page not found</h1>
+
+        <p>
+            Looks like this Pin has gone missing.
+            The page you're looking for doesn't exist
+            or may have been moved.
+        </p>
+
+        <div class="actions">
+            <a href="/" class="primary">Go to Homepage</a>
+            <a href="javascript:history.back()" class="secondary">Go Back</a>
+        </div>
+
+    </main>
+</body>
+</html>
