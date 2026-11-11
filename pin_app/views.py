@@ -9,6 +9,7 @@ from board_app.models import Board
 from django.views.decorators.http import require_POST
 from django.template.loader import render_to_string
 from .tasks import upload_pin_image, delete_pin_image
+from pinterest_config.search import fuzzy_search_pins
 
 
 
@@ -272,24 +273,69 @@ def follow_user(request, user_id):
     })
 
 
+# def search_pins(request):
+#     query = request.GET.get("q", "").strip()
+
+#     pins = Pin.objects.filter(
+#         Q(title__icontains=query) |
+#         Q(description__icontains=query)
+#     )[:10] if query else []
+
+#     results = [
+#         {
+#             "title": pin.title,
+#             "image": pin.image.url,
+#             "url": f"/pin/{pin.id}/",
+#         }
+#         for pin in pins
+#     ]
+
+#     return JsonResponse({"results": results})
+
+
+
 def search_pins(request):
     query = request.GET.get("q", "").strip()
 
-    pins = Pin.objects.filter(
-        Q(title__icontains=query) |
-        Q(description__icontains=query)
-    )[:10] if query else []
+    if not query:
+        return JsonResponse({"results": []})
 
-    results = [
-        {
-            "title": pin.title,
-            "image": pin.image.url,
-            "url": f"/pin/{pin.id}/",
-        }
-        for pin in pins
-    ]
+    # Search in Elasticsearch
+    search_results = fuzzy_search_pins(query)
+
+    # Extract PostgreSQL Pin IDs in Elasticsearch relevance order
+    pin_ids = []
+
+    for result in search_results:
+        pin_id = result["_source"]["id"]
+        pin_ids.append(pin_id)
+
+    # Fetch actual Pin objects from PostgreSQL
+    pins = Pin.objects.filter(id__in=pin_ids)
+
+    # Create a dictionary to find a Pin quickly using its ID
+    pins_by_id = {}
+
+    for pin in pins:
+        pins_by_id[pin.id] = pin
+
+    # Build results in Elasticsearch's relevance order
+    results = []
+
+    for pin_id in pin_ids:
+        if pin_id in pins_by_id:
+            pin = pins_by_id[pin_id]
+
+            result = {
+                "title": pin.title,
+                "image": pin.image.url if pin.image else None,
+                "url": f"/pin/{pin.id}/",
+            }
+
+            results.append(result)
 
     return JsonResponse({"results": results})
+
 
 
 @login_required
