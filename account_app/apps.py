@@ -5,8 +5,7 @@ class AccountAppConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
     name = "account_app"
 
-    def ready(self):
-        import account_app.signals
+    
 
 
 # name = "account_app" tells path of application package to whom this config belongs, sometimes application package and config file can belong to different folders/packages.
