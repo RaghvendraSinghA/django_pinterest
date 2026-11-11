@@ -8,8 +8,9 @@ from django.contrib.auth.models import User
 from board_app.models import Board
 from django.views.decorators.http import require_POST
 from django.template.loader import render_to_string
-from .tasks import upload_pin_image, delete_pin_image
+from .tasks import upload_pin_image, delete_pin_image, index_pin, delete_pin_from_elasticsearch
 from pinterest_config.search import fuzzy_search_pins
+from django.db import transaction
 
 
 
@@ -28,6 +29,10 @@ def create_pin(request):
             uploaded_image = request.FILES["image"]
             pin.temp_image = uploaded_image
             pin.save()
+
+            transaction.on_commit(
+                lambda: index_pin.delay(pin.id)
+            )
 
             upload_pin_image.delay(pin.id)
 
@@ -97,8 +102,13 @@ def delete_pin(request, pin_id):
     if request.method == "POST":
 
         image_name = pin.image.name if pin.image else None
-
+        deleted_pin_id = pin.id
         pin.delete()
+
+        # Delete the Elasticsearch document after DB commit
+        transaction.on_commit(
+            lambda: delete_pin_from_elasticsearch.delay(deleted_pin_id)
+        )
 
         if image_name:
             delete_pin_image.delay(image_name)
@@ -273,25 +283,6 @@ def follow_user(request, user_id):
     })
 
 
-# def search_pins(request):
-#     query = request.GET.get("q", "").strip()
-
-#     pins = Pin.objects.filter(
-#         Q(title__icontains=query) |
-#         Q(description__icontains=query)
-#     )[:10] if query else []
-
-#     results = [
-#         {
-#             "title": pin.title,
-#             "image": pin.image.url,
-#             "url": f"/pin/{pin.id}/",
-#         }
-#         for pin in pins
-#     ]
-
-#     return JsonResponse({"results": results})
-
 
 
 def search_pins(request):
@@ -376,6 +367,10 @@ def edit_pin_title(request, pin_id):
     pin.title = title
     pin.save(update_fields=["title"])
 
+    transaction.on_commit(
+        lambda: index_pin.delay(pin.id)
+    )
+
     return JsonResponse({
         "success": True,
         "title": pin.title
@@ -402,10 +397,16 @@ def edit_pin(request, pin_id):
             if old_image_name and old_image_name != pin.image.name:
                 pin.save()
                 pin.image.storage.delete(old_image_name)
+                transaction.on_commit(
+                    lambda: index_pin.delay(pin.id)
+                )
 
                 return redirect("pin_detail", pin_id=pin.id)
 
         pin.save()
+        transaction.on_commit(
+            lambda: index_pin.delay(pin.id)
+        )
 
         return redirect("pin_detail", pin_id=pin.id)
 

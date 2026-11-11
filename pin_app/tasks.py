@@ -2,6 +2,8 @@ from celery import shared_task
 from django.core.files import File
 from pin_app.models import Pin
 import cloudinary.uploader
+from pinterest_config.elasticsearch import es
+from elasticsearch import NotFoundError
 
 
 @shared_task
@@ -67,3 +69,44 @@ def delete_pin_image(image_name):
     if image_name:
         result = cloudinary.uploader.destroy(image_name)
         return result
+
+
+
+@shared_task
+def index_pin(pin_id):
+    try:
+        pin = Pin.objects.get(id=pin_id)
+
+        es.index(
+            index="pins",
+            id=pin.id,
+            document={
+                "id": pin.id,
+                "title": pin.title,
+                "description": pin.description
+            }
+        )
+
+        return f"Pin {pin_id} indexed successfully"
+
+    except Pin.DoesNotExist:
+        return f"Pin {pin_id} not found"
+
+
+
+@shared_task
+def delete_pin_from_elasticsearch(pin_id):
+    try:
+        es.delete(
+            index="pins",
+            id=pin_id
+        )
+
+        print(f"Pin {pin_id} deleted from Elasticsearch successfully")
+
+        return f"Pin {pin_id} deleted successfully"
+
+    except NotFoundError:
+        print(f"Pin {pin_id} was not found in Elasticsearch")
+
+        return f"Pin {pin_id} not found"
