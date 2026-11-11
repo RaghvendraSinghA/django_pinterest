@@ -7,7 +7,6 @@ from .forms import SignupForm, LoginForm, UserUpdateForm, ProfileUpdateForm
 from .models import Profile
 from .tasks import upload_profile_pic
 import logging
-import time
 
 
 logger = logging.getLogger(__name__)
@@ -29,16 +28,7 @@ def signup_view(request):
 
             login(request, user)
 
-            logger.info(
-                "User %s signed up successfully",
-                user.id
-            )
-
             return redirect("home")
-
-        logger.warning(
-            "User submitted an invalid signup form"
-        )
 
     else:
         form = SignupForm()
@@ -62,16 +52,7 @@ def login_view(request):
 
             login(request, user)
 
-            logger.info(
-                "User %s logged in successfully",
-                user.id
-            )
-
             return redirect("home")
-
-        logger.warning(
-            "Failed login attempt"
-        )
 
     else:
         form = LoginForm()
@@ -81,14 +62,7 @@ def login_view(request):
 
 def logout_view(request):
 
-    user_id = getattr(request.user, "id", None)
-
     logout(request)
-
-    logger.info(
-        "User %s logged out",
-        user_id
-    )
 
     return redirect("home")
 
@@ -96,12 +70,6 @@ def logout_view(request):
 def profile_view(request, username):
 
     profile_user = get_object_or_404(User, username=username)
-
-    logger.debug(
-        "User %s accessed profile of User %s",
-        getattr(request.user, "id", None),
-        profile_user.id
-    )
 
     profile, _ = Profile.objects.get_or_create(
         user=profile_user
@@ -145,8 +113,6 @@ def edit_profile_view(request):
 
         if user_form.is_valid() and profile_form.is_valid():
 
-            start = time.perf_counter()
-
             uploaded_image = request.FILES.get("profile_pic")
 
             try:
@@ -167,20 +133,7 @@ def edit_profile_view(request):
                 )
                 raise
 
-            django_save_time = round(
-                time.perf_counter() - start,
-                4
-            )
-
-            logger.info(
-                "Profile database save completed for User %s in %s seconds",
-                request.user.id,
-                django_save_time
-            )
-
             if uploaded_image:
-
-                task_start = time.perf_counter()
 
                 try:
                     upload_profile_pic.delay(updated_profile.id)
@@ -192,31 +145,10 @@ def edit_profile_view(request):
                     )
                     raise
 
-                celery_queue_time = round(
-                    time.perf_counter() - task_start,
-                    4
-                )
-
-                logger.info(
-                    "Profile picture upload task queued for User %s in %s seconds",
-                    request.user.id,
-                    celery_queue_time
-                )
-
-            logger.info(
-                "User %s updated their profile successfully",
-                request.user.id
-            )
-
             return redirect(
                 "profile",
                 username=request.user.username
             )
-
-        logger.warning(
-            "User %s submitted invalid profile update data",
-            request.user.id
-        )
 
     else:
         user_form = UserUpdateForm(instance=request.user)

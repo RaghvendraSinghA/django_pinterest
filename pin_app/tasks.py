@@ -21,10 +21,6 @@ def upload_pin_image(self, pin_id):
         pin = Pin.objects.get(id=pin_id)
 
         if not pin.temp_image:
-            logger.warning(
-                "No temporary image found for Pin %s",
-                pin_id
-            )
             return "No temporary image found"
 
         with pin.temp_image.open("rb") as image_file:
@@ -42,15 +38,9 @@ def upload_pin_image(self, pin_id):
             countdown=300
         )
 
-        logger.info(
-            "Image uploaded successfully for Pin %s",
-            pin_id
-        )
-
         return "Image uploaded successfully"
 
     except Pin.DoesNotExist:
-        logger.warning("Pin %s not found for image upload", pin_id)
         return "Pin not found"
 
     except Exception as exc:
@@ -91,18 +81,9 @@ def delete_temp_pin_image(self, pin_id):
             pin.temp_image = None
             pin.save(update_fields=["temp_image"])
 
-        logger.info(
-            "Temporary image deleted for Pin %s",
-            pin_id
-        )
-
         return "Temporary image deleted"
 
     except Pin.DoesNotExist:
-        logger.warning(
-            "Pin %s not found while deleting temporary image",
-            pin_id
-        )
         return "Pin not found"
 
     except Exception as exc:
@@ -128,12 +109,6 @@ def delete_pin_image(self, image_name):
 
     try:
         result = cloudinary.uploader.destroy(image_name)
-
-        logger.info(
-            "Cloudinary image deletion completed for %s: %s",
-            image_name,
-            result
-        )
 
         return result
 
@@ -168,18 +143,9 @@ def index_pin(self, pin_id):
             }
         )
 
-        logger.info(
-            "Pin %s indexed successfully in Elasticsearch",
-            pin_id
-        )
-
         return f"Pin {pin_id} indexed successfully"
 
     except Pin.DoesNotExist:
-        logger.warning(
-            "Pin %s not found for Elasticsearch indexing",
-            pin_id
-        )
         return "Pin not found"
 
     except Exception as exc:
@@ -206,19 +172,9 @@ def delete_pin_from_elasticsearch(self, pin_id):
             id=pin_id
         )
 
-        logger.info(
-            "Pin %s deleted from Elasticsearch successfully",
-            pin_id
-        )
-
         return f"Pin {pin_id} deleted successfully"
 
     except NotFoundError:
-        logger.warning(
-            "Pin %s was not found in Elasticsearch",
-            pin_id
-        )
-
         return "Pin not found"
 
     except Exception as exc:

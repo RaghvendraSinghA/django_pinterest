@@ -234,16 +234,6 @@ LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
 
-    "formatters": {
-        "verbose": {
-            "format": (
-                "\n"
-                "%(asctime)s - %(levelname)s - %(name)s\n"
-                "%(message)s\n"
-            ),
-        },
-    },
-
     "handlers": {
         "file": {
             "level": "DEBUG",
@@ -253,15 +243,39 @@ LOGGING = {
         },
     },
 
+    "formatters": {
+        "verbose": {
+            "format": (
+                "%(asctime)s - %(levelname)s - %(name)s\n"
+                "%(message)s\n"
+            ),
+        },
+    },
+
     "loggers": {
         "django": {
             "handlers": ["file"],
-            "level": "DEBUG",
-            "propagate": True,
+            "level": "ERROR",
+            "propagate": False,
         },
         "pin_app": {
             "handlers": ["file"],
-            "level": "DEBUG",
+            "level": "ERROR",
+            "propagate": False,
+        },
+        "board_app": {
+            "handlers": ["file"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+        "account_app": {
+            "handlers": ["file"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+        "home_app": {
+            "handlers": ["file"],
+            "level": "ERROR",
             "propagate": False,
         },
     },

@@ -10,6 +10,7 @@ from board_app.models import Board
 from django.views.decorators.http import require_POST
 from django.template.loader import render_to_string
 from .tasks import upload_pin_image, delete_pin_image, index_pin, delete_pin_from_elasticsearch
+
 from pinterest_config.search import fuzzy_search_pins
 from django.db import transaction
 import logging
@@ -31,11 +32,6 @@ def create_pin(request):
 
             uploaded_image = request.FILES["image"]
             pin.temp_image = uploaded_image
-
-            logger.info(
-                "User %s is creating a Pin",
-                request.user.id
-            )
 
             try:
                 pin.save()
@@ -60,18 +56,7 @@ def create_pin(request):
                 )
                 raise
 
-            logger.info(
-                "Pin %s created successfully for user %s",
-                pin.id,
-                request.user.id
-            )
-
             return redirect("home")
-
-        logger.warning(
-            "User %s submitted an invalid Pin form",
-            request.user.id
-        )
 
     else:
         form = PinForm()
@@ -83,18 +68,15 @@ def pin_detail(request, pin_id):
 
     pin = get_object_or_404(Pin, id=pin_id)
 
-    logger.debug(
-        "User %s accessed Pin %s",
-        getattr(request.user, "id", None),
-        pin.id
-    )
-
     other_pins = Pin.objects.exclude(id=pin_id)
 
     user_liked = False
 
     if request.user.is_authenticated:
-        user_liked = Like.objects.filter(user=request.user, pin=pin).exists()
+        user_liked = Like.objects.filter(
+            user=request.user,
+            pin=pin
+        ).exists()
 
     like_count = Like.objects.filter(pin=pin).count()
 
@@ -112,7 +94,8 @@ def pin_detail(request, pin_id):
 
     if request.user.is_authenticated:
         followed = Follow.objects.filter(
-            follower=request.user, following=pin.user
+            follower=request.user,
+            following=pin.user
         ).exists()
 
     return render(
@@ -137,23 +120,12 @@ def delete_pin(request, pin_id):
     pin = get_object_or_404(Pin, id=pin_id)
 
     if request.user != pin.user:
-        logger.warning(
-            "User %s attempted to delete Pin %s without permission",
-            request.user.id,
-            pin.id
-        )
         return redirect("pin_detail", pin_id=pin.id)
 
     if request.method == "POST":
 
         image_name = pin.image.name if pin.image else None
         deleted_pin_id = pin.id
-
-        logger.info(
-            "User %s is deleting Pin %s",
-            request.user.id,
-            deleted_pin_id
-        )
 
         try:
             pin.delete()
@@ -163,11 +135,6 @@ def delete_pin(request, pin_id):
                 deleted_pin_id
             )
             raise
-
-        logger.info(
-            "Pin %s deleted successfully",
-            deleted_pin_id
-        )
 
         # Delete the Elasticsearch document after DB commit
         transaction.on_commit(
@@ -204,21 +171,8 @@ def like_pin(request, pin_id):
         if not created:
             like.delete()
             liked = False
-
-            logger.info(
-                "User %s unliked Pin %s",
-                request.user.id,
-                pin.id
-            )
-
         else:
             liked = True
-
-            logger.info(
-                "User %s liked Pin %s",
-                request.user.id,
-                pin.id
-            )
 
         like_count = pin.likes.count()
 
@@ -259,13 +213,6 @@ def add_comment(request, pin_id):
             )
             raise
 
-        logger.info(
-            "User %s added Comment %s to Pin %s",
-            request.user.id,
-            comment.id,
-            pin.id
-        )
-
         html = render_to_string(
             "pin/components/comment.html",
             {
@@ -281,12 +228,6 @@ def add_comment(request, pin_id):
             "success": True,
             "html": html,
         })
-
-    logger.warning(
-        "User %s submitted an invalid comment for Pin %s",
-        request.user.id,
-        pin.id
-    )
 
     return JsonResponse({
         "success": False,
@@ -326,13 +267,6 @@ def add_reply(request, pin_id, comment_id):
             )
             raise
 
-        logger.info(
-            "User %s added Reply %s to Comment %s",
-            request.user.id,
-            reply.id,
-            parent_comment.id
-        )
-
         html = render_to_string(
             "pin/components/comment.html",
             {
@@ -348,12 +282,6 @@ def add_reply(request, pin_id, comment_id):
             "success": True,
             "html": html,
         })
-
-    logger.warning(
-        "User %s submitted an invalid reply for Comment %s",
-        request.user.id,
-        parent_comment.id
-    )
 
     return JsonResponse({
         "success": False,
@@ -381,12 +309,6 @@ def delete_comment(request, comment_id):
         )
         raise
 
-    logger.info(
-        "User %s deleted Comment %s",
-        request.user.id,
-        comment_id
-    )
-
     return JsonResponse({
         "success": True,
         "comment_id": comment_id
@@ -400,12 +322,6 @@ def follow_user(request, user_id):
     following_user = get_object_or_404(User, id=user_id)
 
     if request.user == following_user:
-
-        logger.warning(
-            "User %s attempted to follow themselves",
-            request.user.id
-        )
-
         return JsonResponse(
             {"error": "You cannot follow yourself"},
             status=400
@@ -420,21 +336,8 @@ def follow_user(request, user_id):
         if not created:
             follow.delete()
             followed = False
-
-            logger.info(
-                "User %s unfollowed User %s",
-                request.user.id,
-                following_user.id
-            )
-
         else:
             followed = True
-
-            logger.info(
-                "User %s followed User %s",
-                request.user.id,
-                following_user.id
-            )
 
         followers_count = following_user.followers.count()
 
@@ -457,17 +360,7 @@ def search_pins(request):
     query = request.GET.get("q", "").strip()
 
     if not query:
-        logger.warning(
-            "User %s submitted an empty search query",
-            getattr(request.user, "id", None)
-        )
         return JsonResponse({"results": []})
-
-    logger.info(
-        "User %s searched Pins with query: %s",
-        getattr(request.user, "id", None),
-        query
-    )
 
     # Search in Elasticsearch
     search_results = fuzzy_search_pins(query)
@@ -503,12 +396,6 @@ def search_pins(request):
 
             results.append(result)
 
-    logger.info(
-        "Search completed for query '%s'. Found %s Pins",
-        query,
-        len(results)
-    )
-
     return JsonResponse({"results": results})
 
 
@@ -536,19 +423,7 @@ def edit_comment(request, comment_id):
             )
             raise
 
-        logger.info(
-            "User %s edited Comment %s",
-            request.user.id,
-            comment.id
-        )
-
         return JsonResponse({"text": comment.text})
-
-    logger.warning(
-        "User %s submitted invalid data while editing Comment %s",
-        request.user.id,
-        comment.id
-    )
 
     return JsonResponse({"error": "Invalid comment"}, status=400)
 
@@ -566,15 +441,10 @@ def edit_pin_title(request, pin_id):
     title = request.POST.get("title", "").strip()
 
     if not title:
-        logger.warning(
-            "User %s attempted to set an empty title for Pin %s",
-            request.user.id,
-            pin.id
+        return JsonResponse(
+            {"error": "Title cannot be empty"},
+            status=400
         )
-
-        return JsonResponse({"error": "Title cannot be empty"}, status=400)
-
-    old_title = pin.title
 
     try:
         pin.title = title
@@ -585,14 +455,6 @@ def edit_pin_title(request, pin_id):
             pin.id
         )
         raise
-
-    logger.info(
-        "User %s changed Pin %s title from '%s' to '%s'",
-        request.user.id,
-        pin.id,
-        old_title,
-        title
-    )
 
     transaction.on_commit(
         lambda: index_pin.delay(pin.id)
@@ -614,8 +476,6 @@ def edit_pin(request, pin_id):
     )
 
     if request.method == "POST":
-
-        old_title = pin.title
 
         pin.title = request.POST.get("title", "").strip()
         pin.description = request.POST.get("description", "").strip()
@@ -646,12 +506,6 @@ def edit_pin(request, pin_id):
                     )
                     raise
 
-                logger.info(
-                    "User %s updated Pin %s and replaced its image",
-                    request.user.id,
-                    pin.id
-                )
-
                 transaction.on_commit(
                     lambda: index_pin.delay(pin.id)
                 )
@@ -667,14 +521,6 @@ def edit_pin(request, pin_id):
                 request.user.id
             )
             raise
-
-        logger.info(
-            "User %s updated Pin %s. Title changed from '%s' to '%s'",
-            request.user.id,
-            pin.id,
-            old_title,
-            pin.title
-        )
 
         transaction.on_commit(
             lambda: index_pin.delay(pin.id)

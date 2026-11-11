@@ -9,12 +9,6 @@ logger = logging.getLogger(__name__)
 
 
 def home(request):
-
-    logger.debug(
-        "User %s accessed the home page",
-        getattr(request.user, "id", None)
-    )
-
     try:
         pins = Pin.objects.all()
     except Exception:

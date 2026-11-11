@@ -1,4 +1,3 @@
-
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
@@ -20,11 +19,6 @@ def create_board_view(request):
         if form.is_valid():
             board = form.save(commit=False)
             board.user = request.user
-
-            logger.info(
-                "User %s is creating Board",
-                request.user.id
-            )
 
             try:
                 board.save()
@@ -54,12 +48,6 @@ def board_detail_view(request, board_id):
         id=board_id,
     )
 
-    logger.debug(
-        "User %s accessed Board %s",
-        request.user.id,
-        board.id
-    )
-
     return render(
         request,
         "board/board_detail.html",
@@ -84,13 +72,6 @@ def save_pin_to_board_view(request, pin_id):
     try:
         board.pins.add(pin)
 
-        logger.info(
-            "User %s saved Pin %s to Board %s",
-            request.user.id,
-            pin.id,
-            board.id
-        )
-
     except Exception:
         logger.exception(
             "Failed to save Pin %s to Board %s",
@@ -112,12 +93,6 @@ def delete_board_view(request, board_id):
     )
 
     username = request.user.username
-
-    logger.info(
-        "User %s is deleting Board %s",
-        request.user.id,
-        board.id
-    )
 
     try:
         board.delete()
@@ -148,13 +123,6 @@ def remove_pin_from_board_view(request, board_id, pin_id):
     try:
         board.pins.remove(pin)
 
-        logger.info(
-            "User %s removed Pin %s from Board %s",
-            request.user.id,
-            pin.id,
-            board.id
-        )
-
     except Exception:
         logger.exception(
             "Failed to remove Pin %s from Board %s",
@@ -178,30 +146,14 @@ def edit_board_name(request, board_id):
     name = request.POST.get("name", "").strip()
 
     if not name:
-        logger.warning(
-            "User %s attempted to set an empty name for Board %s",
-            request.user.id,
-            board.id
-        )
-
         return JsonResponse(
             {"error": "Board name cannot be empty"},
             status=400
         )
 
-    old_name = board.name
-
     try:
         board.name = name
         board.save(update_fields=["name"])
-
-        logger.info(
-            "User %s renamed Board %s from '%s' to '%s'",
-            request.user.id,
-            board.id,
-            old_name,
-            name
-        )
 
     except Exception:
         logger.exception(
