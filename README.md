@@ -8,12 +8,16 @@ A Pinterest-inspired web application built using Django. Users can create, edit,
 - User authentication (Signup and Login).
 - Create, edit, and delete Pins.
 - Upload and manage images using Cloudinary.
-- Create and manage Boards.
+- Create and save favourite pins on Board.
+- Nested comments.
+- Follow users.
 - Like and explore Pins.
 - Fuzzy search using Elasticsearch.
 - Asynchronous background tasks using Celery.
 - Redis as a Celery message broker.
 - Automatic synchronization between PostgreSQL and Elasticsearch.
+
+- Error-logging using in-built error logging Python's standard logging module.
 
 ## Tech Stack
 
