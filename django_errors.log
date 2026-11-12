@@ -289,3 +289,26 @@ elastic_transport.ConnectionError: Connection error caused by: ConnectionError(C
 2026-11-12 06:44:17,899 - ERROR - django.server
 "GET /pin/search/?q=niek HTTP/1.1" 500 206829
 
+2026-11-12 07:21:16,695 - ERROR - django.security.SuspiciousOperation
+Test 400
+Traceback (most recent call last):
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/home_app/tests.py", line 5, in test_400
+    raise SuspiciousOperation("Test 400")
+django.core.exceptions.SuspiciousOperation: Test 400
+2026-11-12 07:21:36,341 - ERROR - django.request
+Internal Server Error: /test-500/
+Traceback (most recent call last):
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/home_app/tests.py", line 11, in test_500
+    raise Exception("Test 500")
+Exception: Test 500
+2026-11-12 07:21:36,342 - ERROR - django.server
+"GET /test-500/ HTTP/1.1" 500 759
+
