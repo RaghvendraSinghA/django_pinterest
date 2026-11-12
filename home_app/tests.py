@@ -1,4 +1,3 @@
-from django.test import TestCase
 from django.core.exceptions import PermissionDenied, SuspiciousOperation
 
 def test_400(request):
