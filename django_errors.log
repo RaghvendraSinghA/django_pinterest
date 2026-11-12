@@ -65,3 +65,227 @@ elastic_transport.ConnectionError: Connection error caused by: ConnectionError(C
 2026-11-11 19:15:02,694 - ERROR - django.server
 "GET /pin/search/?q=tetsts HTTP/1.1" 500 207178
 
+2026-11-12 05:12:19,083 - ERROR - django.request
+Internal Server Error: /pin/search/
+Traceback (most recent call last):
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/urllib3/connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/elastic_transport/_node/_http_urllib3.py", line 167, in perform_request
+    response = self.pool.urlopen(
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/urllib3/util/retry.py", line 465, in increment
+    raise reraise(type(error), error, _stacktrace)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/urllib3/util/util.py", line 39, in reraise
+    raise value
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/urllib3/connection.py", line 500, in request
+    self.endheaders()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 1252, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 1012, in _send_output
+    self.send(msg)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 952, in send
+    self.connect()
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/urllib3/connection.py", line 331, in connect
+    self.sock = self._new_conn()
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/urllib3/connection.py", line 219, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: HTTPConnection(host='localhost', port=9200): Failed to establish a new connection: [Errno 61] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/pin_app/views.py", line 366, in search_pins
+    search_results = fuzzy_search_pins(query)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/pinterest_config/search.py", line 8, in fuzzy_search_pins
+    response = es.search(
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/elasticsearch/_sync/client/utils.py", line 455, in wrapped
+    return api(*args, **kwargs)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/elasticsearch/_sync/client/__init__.py", line 4255, in search
+    return self.perform_request(  # type: ignore[return-value]
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/elasticsearch/_sync/client/_base.py", line 271, in perform_request
+    response = self._perform_request(
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/elasticsearch/_sync/client/_base.py", line 316, in _perform_request
+    meta, resp_body = self.transport.perform_request(
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/elastic_transport/_transport.py", line 342, in perform_request
+    resp = node.perform_request(
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/elastic_transport/_node/_http_urllib3.py", line 202, in perform_request
+    raise err from e
+elastic_transport.ConnectionError: Connection error caused by: ConnectionError(Connection error caused by: NewConnectionError(HTTPConnection(host='localhost', port=9200): Failed to establish a new connection: [Errno 61] Connection refused))
+2026-11-12 05:12:19,089 - ERROR - django.server
+"GET /pin/search/?q=n HTTP/1.1" 500 207035
+
+2026-11-12 05:12:19,645 - ERROR - django.request
+Internal Server Error: /pin/search/
+Traceback (most recent call last):
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/urllib3/connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/elastic_transport/_node/_http_urllib3.py", line 167, in perform_request
+    response = self.pool.urlopen(
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/urllib3/util/retry.py", line 465, in increment
+    raise reraise(type(error), error, _stacktrace)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/urllib3/util/util.py", line 39, in reraise
+    raise value
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/urllib3/connection.py", line 500, in request
+    self.endheaders()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 1252, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 1012, in _send_output
+    self.send(msg)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 952, in send
+    self.connect()
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/urllib3/connection.py", line 331, in connect
+    self.sock = self._new_conn()
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/urllib3/connection.py", line 219, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: HTTPConnection(host='localhost', port=9200): Failed to establish a new connection: [Errno 61] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/pin_app/views.py", line 366, in search_pins
+    search_results = fuzzy_search_pins(query)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/pinterest_config/search.py", line 8, in fuzzy_search_pins
+    response = es.search(
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/elasticsearch/_sync/client/utils.py", line 455, in wrapped
+    return api(*args, **kwargs)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/elasticsearch/_sync/client/__init__.py", line 4255, in search
+    return self.perform_request(  # type: ignore[return-value]
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/elasticsearch/_sync/client/_base.py", line 271, in perform_request
+    response = self._perform_request(
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/elasticsearch/_sync/client/_base.py", line 316, in _perform_request
+    meta, resp_body = self.transport.perform_request(
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/elastic_transport/_transport.py", line 342, in perform_request
+    resp = node.perform_request(
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/elastic_transport/_node/_http_urllib3.py", line 202, in perform_request
+    raise err from e
+elastic_transport.ConnectionError: Connection error caused by: ConnectionError(Connection error caused by: NewConnectionError(HTTPConnection(host='localhost', port=9200): Failed to establish a new connection: [Errno 61] Connection refused))
+2026-11-12 05:12:19,646 - ERROR - django.server
+"GET /pin/search/?q=niek HTTP/1.1" 500 207111
+
+2026-11-12 06:27:25,173 - ERROR - django.request
+Internal Server Error: /pin/search/
+Traceback (most recent call last):
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/pin_app/views.py", line 366, in search_pins
+    search_results = fuzzy_search_pins(query)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/pinterest_config/search.py", line 8, in fuzzy_search_pins
+    response = es.search(
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/elasticsearch/_sync/client/utils.py", line 455, in wrapped
+    return api(*args, **kwargs)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/elasticsearch/_sync/client/__init__.py", line 4255, in search
+    return self.perform_request(  # type: ignore[return-value]
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/elasticsearch/_sync/client/_base.py", line 271, in perform_request
+    response = self._perform_request(
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/elasticsearch/_sync/client/_base.py", line 352, in _perform_request
+    raise HTTP_EXCEPTIONS.get(meta.status, ApiError)(
+elasticsearch.NotFoundError: NotFoundError(404, 'index_not_found_exception', 'no such index [pins]', pins, index_or_alias)
+2026-11-12 06:27:25,177 - ERROR - django.server
+"GET /pin/search/?q=nike HTTP/1.1" 500 109396
+
+2026-11-12 06:44:17,895 - ERROR - django.request
+Internal Server Error: /pin/search/
+Traceback (most recent call last):
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/urllib3/connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/elastic_transport/_node/_http_urllib3.py", line 167, in perform_request
+    response = self.pool.urlopen(
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/urllib3/util/retry.py", line 465, in increment
+    raise reraise(type(error), error, _stacktrace)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/urllib3/util/util.py", line 39, in reraise
+    raise value
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/urllib3/connection.py", line 500, in request
+    self.endheaders()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 1252, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 1012, in _send_output
+    self.send(msg)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 952, in send
+    self.connect()
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/urllib3/connection.py", line 331, in connect
+    self.sock = self._new_conn()
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/urllib3/connection.py", line 219, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: HTTPConnection(host='localhost', port=9200): Failed to establish a new connection: [Errno 61] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/pin_app/views.py", line 366, in search_pins
+    search_results = fuzzy_search_pins(query)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/pinterest_config/search.py", line 8, in fuzzy_search_pins
+    response = es.search(
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/elasticsearch/_sync/client/utils.py", line 455, in wrapped
+    return api(*args, **kwargs)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/elasticsearch/_sync/client/__init__.py", line 4255, in search
+    return self.perform_request(  # type: ignore[return-value]
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/elasticsearch/_sync/client/_base.py", line 271, in perform_request
+    response = self._perform_request(
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/elasticsearch/_sync/client/_base.py", line 316, in _perform_request
+    meta, resp_body = self.transport.perform_request(
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/elastic_transport/_transport.py", line 342, in perform_request
+    resp = node.perform_request(
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/elastic_transport/_node/_http_urllib3.py", line 202, in perform_request
+    raise err from e
+elastic_transport.ConnectionError: Connection error caused by: ConnectionError(Connection error caused by: NewConnectionError(HTTPConnection(host='localhost', port=9200): Failed to establish a new connection: [Errno 61] Connection refused))
+2026-11-12 06:44:17,899 - ERROR - django.server
+"GET /pin/search/?q=niek HTTP/1.1" 500 206829
+
