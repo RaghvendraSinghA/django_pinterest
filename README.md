@@ -8,7 +8,7 @@ A Pinterest-inspired web application built using Django. Users can create, edit,
 - User authentication (Signup and Login).
 - Create, edit, and delete Pins.
 - Upload and manage images using Cloudinary.
-- Create and save favourite pins on Board.
+- Create and save favourite pins on Board and edit board.
 - Nested comments.
 - Follow users.
 - Like and explore Pins.
