@@ -1,29 +1,28 @@
-const rowHeight = 16;
-const gap = 16;
+const ROW_HEIGHT = 16
+const GAP = 16
 
 
+//Initial loads pins of pin detail page, It sets there row-span.Home page pins have different setting in script.js
 
-
-//Initial load of pins on home page and pin detail page, It sets there row-span.
 //A page refresh reloads the whole page, so the browser throws away the old JavaScript state and runs your script again from the top. The same is true when you navigate to a new URL with a normal link, which is why the detail page runs the script fresh too.
 
 document.querySelectorAll(".pint").forEach(pin => {
 
-    const image = pin.querySelector("img");
+    const image = pin.querySelector("img")
 
     image.addEventListener("load", () => {
 
-        const height = image.getBoundingClientRect().height;
+        const height = image.getBoundingClientRect().height
 
         let span = Math.floor(
-            (height) / (rowHeight)
-        );
+            (height) / (ROW_HEIGHT)
+        )
 
         span = Math.floor(span / 2)
-        pin.style.gridRowEnd = `span ${span}`;
-    });
+        pin.style.gridRowEnd = `span ${span}`
+    })
 
-});
+})
 
 
 
@@ -32,8 +31,8 @@ document.querySelectorAll(".pint").forEach(pin => {
 
 //pin detail container fixing for 768px and below
 
-const pinDetailContainer = document.querySelector(".pin-detail-container");
-const pinPageContainer = document.querySelector(".pin-page-container");
+const pinDetailContainer = document.querySelector(".pin-detail-container")
+const pinPageContainer = document.querySelector(".pin-page-container")
 
 document.querySelectorAll(".pint").forEach(pin => {
 
@@ -43,16 +42,16 @@ document.querySelectorAll(".pint").forEach(pin => {
 
         console.log("abc")
 
-        const pinDetailContainer = document.querySelector(".pin-detail-container");
+        const pinDetailContainer = document.querySelector(".pin-detail-container")
 
         const observer = new ResizeObserver(() => {
 
             console.log("observer called")
 
-            const height = pinDetailContainer.getBoundingClientRect().height;
+            const height = pinDetailContainer.getBoundingClientRect().height
 
             let span = Math.floor(
-                (height + gap) / (rowHeight + gap)
+                (height + GAP) / (ROW_HEIGHT + GAP)
             );
 
             console.log("height", height)
@@ -61,39 +60,39 @@ document.querySelectorAll(".pint").forEach(pin => {
 
             // span = Math.ceil(span/2)
 
-            pinDetailContainer.style.gridRowEnd = `span ${span}`;
-            // pinDetailContainer.style.gridRow = `span ${span}`;
+            pinDetailContainer.style.gridRowEnd = `span ${span}`
+            
 
-        });
+        })
 
-        observer.observe(pin);
+        observer.observe(pin)
 
     } else {
 
-        const image = pin.querySelector("img");
+        const image = pin.querySelector("img")
 
         const observer = new ResizeObserver(() => {
 
             console.log("observer called")
 
-            const height = image.getBoundingClientRect().height;
+            const height = image.getBoundingClientRect().height
 
             let span = Math.floor(
-                (height + gap) / (rowHeight + gap)
-            );
+                (height + GAP) / (ROW_HEIGHT + GAP)
+            )
 
             // span = Math.ceil(span/2)
 
-            pin.style.gridRowEnd = `span ${span}`;
+            pin.style.gridRowEnd = `span ${span}`
 
             // pin.style.gridRow = `span ${span}`;
 
-        });
+        })
 
-        observer.observe(pin);
+        observer.observe(pin)
 
     }
-});
+})
 
 
 
@@ -103,12 +102,12 @@ document.querySelectorAll(".like-form").forEach((form) => {
 
     form.addEventListener("submit", async (event) => {
 
-        event.preventDefault();
+        event.preventDefault()
 
-        const url = form.action;
+        const url = form.action
         const csrfToken = form.querySelector(
             "[name=csrfmiddlewaretoken]"
-        ).value;
+        ).value
 
         try {
             // const response = await fetch(url, {
@@ -117,43 +116,43 @@ document.querySelectorAll(".like-form").forEach((form) => {
             //         "X-CSRFToken": csrfToken,
             //         "X-Requested-With": "XMLHttpRequest",
             //     },
-            // });
+            // })
 
             const response = await fetch(url, {
                 method: "POST",
                 headers: {
                     "X-CSRFToken": csrfToken,
                 },
-            });
+            })
 
             if (!response.ok) {
-                throw new Error("Failed to update like");
+                throw new Error("Failed to update like")
             }
 
-            const data = await response.json();
+            const data = await response.json()
 
             // Update like count
-            const container = form.closest(".like-count");
+            const container = form.closest(".like-count")
             //closest finds the nearest parent element of form that has the class like-count, we used this beacuse, like_count is sibling of form.
             // closest start from form and goes up till it find like-count, it can go upto last ancestor like top-most.
             container.querySelector(".like-count-text").textContent =
-                data.like_count;
+                data.like_count
 
             // Update heart icon
-            const img = form.querySelector("img");
+            const img = form.querySelector("img")
 
             if (data.liked) {
-                img.src = "/static/images/red-heart.png";
-                img.alt = "Unlike";
-                img.classList.add("red-heart");
+                img.src = "/static/images/red-heart.png"
+                img.alt = "Unlike"
+                img.classList.add("red-heart")
             } else {
-                img.src = "/static/images/heart.png";
-                img.alt = "Like";
-                img.classList.remove("red-heart");
+                img.src = "/static/images/heart.png"
+                img.alt = "Like"
+                img.classList.remove("red-heart")
             }
 
         } catch (error) {
-            console.error(error);
+            console.error(error)
         }
     });
 
@@ -168,15 +167,15 @@ document.querySelectorAll(".follow-form").forEach((form) => {
 
     form.addEventListener("submit", async (event) => {
 
-        event.preventDefault();
+        event.preventDefault()
 
-        const url = form.action;
+        const url = form.action
 
         const csrfToken = form.querySelector(
             "[name=csrfmiddlewaretoken]"
-        ).value;
+        ).value
 
-        const button = form.querySelector(".follow-btn");
+        const button = form.querySelector(".follow-btn")
 
         try {
 
@@ -186,30 +185,30 @@ document.querySelectorAll(".follow-form").forEach((form) => {
                     "X-CSRFToken": csrfToken,
                     "X-Requested-With": "XMLHttpRequest",
                 },
-            });
+            })
 
             if (!response.ok) {
-                throw new Error("Failed to update follow status");
+                throw new Error("Failed to update follow status")
             }
 
-            const data = await response.json();
+            const data = await response.json()
 
             // Update follow button
-            button.textContent = data.followed ? "Unfollow" : "+ Follow";
+            button.textContent = data.followed ? "Unfollow" : "+ Follow"
 
             // Update followers count
-            const container = form.closest(".follow-followers");
+            const container = form.closest(".follow-followers")
 
             container.querySelector(".followers-count").textContent =
-                `Followers: ${data.followers_count}`;
+                `Followers: ${data.followers_count}`
 
         } catch (error) {
-            console.error(error);
+            console.error(error)
         }
 
-    });
+    })
 
-});
+})
 
 
 
@@ -222,7 +221,7 @@ document.querySelectorAll(".add-comment-form").forEach((form) => {
 
     form.addEventListener("submit", async (event) => {
 
-        event.preventDefault();
+        event.preventDefault()
 
         try {
 
@@ -231,138 +230,138 @@ document.querySelectorAll(".add-comment-form").forEach((form) => {
                 body: new FormData(form),
             });
 
-            const data = await response.json();
+            const data = await response.json()
 
             if (!response.ok) {
-                console.error(data.errors);
+                console.error(data.errors)
                 return;
             }
 
-            const commentList = document.querySelector(".comment-list");
+            const commentList = document.querySelector(".comment-list")
 
             // Remove "No comments yet" if present
-            const emptyMessage = commentList.querySelector("p");
+            const emptyMessage = commentList.querySelector("p")
 
             if (emptyMessage && commentList.children.length === 1) {
-                emptyMessage.remove();
+                emptyMessage.remove()
             }
 
             // Insert Django-generated comment HTML
-            commentList.insertAdjacentHTML("beforeend", data.html);
+            commentList.insertAdjacentHTML("beforeend", data.html)
 
             // clear comment-box input btn value
-            form.reset();
+            form.reset()
 
         } catch (error) {
-            console.error(error);
+            console.error(error)
         }
 
-    });
+    })
 
-});
+})
 
 
 
 
 // Adding nested replies without page refresh
 
-const commentList = document.querySelector(".comment-list");
+const commentList = document.querySelector(".comment-list")
 
 commentList.addEventListener("submit", async (event) => {
 
-    const form = event.target.closest(".reply-form");
+    const form = event.target.closest(".reply-form")
 
-    if (!form) return;
+    if (!form) return
 
-    event.preventDefault();
+    event.preventDefault()
 
     try {
 
         const response = await fetch(form.action, {
             method: "POST",
             body: new FormData(form),
-        });
+        })
 
-        const data = await response.json();
+        const data = await response.json()
 
         if (!response.ok) {
-            console.error(data.errors);
-            return;
+            console.error(data.errors)
+            return
         }
 
         // Find the comment to which we are replying
-        const parentThread = form.closest(".comment-thread");
+        const parentThread = form.closest(".comment-thread")
 
         // Find its replies container
         const repliesContainer = parentThread.querySelector(
             ":scope > .current-comment-replies"
-        );
+        )
 
         // Insert the newly created reply
-        repliesContainer.insertAdjacentHTML("beforeend", data.html);
+        repliesContainer.insertAdjacentHTML("beforeend", data.html)
 
         // Clear reply textarea
-        form.reset();
+        form.reset()
 
     } catch (error) {
-        console.error("Error adding reply:", error);
+        console.error("Error adding reply:", error)
     }
 
-});
+})
 
 
 
 // adding reply with enter btn
 
 document.querySelector(".comment-list").addEventListener("keydown", (event) => {
-    if (!event.target.classList.contains("reply-textarea")) return;
+    if (!event.target.classList.contains("reply-textarea")) return
 
     if (event.key === "Enter" && !event.shiftKey) {
-        event.preventDefault();
+        event.preventDefault()
 
-        const form = event.target.closest(".reply-form");
-        form.requestSubmit();
+        const form = event.target.closest(".reply-form")
+        form.requestSubmit()
     }
-});
+})
 
 
 
 
 // deleting comment-list
 
-const commentListToDelete = document.querySelector(".comment-list");
+const commentListToDelete = document.querySelector(".comment-list")
 
 commentListToDelete.addEventListener("submit", async (event) => {
 
-    const form = event.target.closest(".delete-comment-form");
+    const form = event.target.closest(".delete-comment-form")
 
-    if (!form) return;
+    if (!form) return
 
-    event.preventDefault();
+    event.preventDefault()
 
     try {
 
         const response = await fetch(form.action, {
             method: "POST",
             body: new FormData(form),
-        });
+        })
 
-        const data = await response.json();
+        const data = await response.json()
 
         if (!response.ok) {
-            console.error(data);
-            return;
+            console.error(data)
+            return
         }
 
-        const commentThread = form.closest(".comment-thread");
+        const commentThread = form.closest(".comment-thread")
 
-        commentThread.remove();
+        commentThread.remove()
 
     } catch (error) {
-        console.error("Error deleting comment:", error);
+        console.error("Error deleting comment:", error)
     }
 
-});
+})
 
 
 
@@ -371,31 +370,31 @@ commentListToDelete.addEventListener("submit", async (event) => {
 
 document.querySelector(".comment-list").addEventListener("dblclick", (event) => {
 
-    const p = event.target.closest(".commenter-text");
+    const p = event.target.closest(".commenter-text")
 
-    if (!p || !p.dataset.editUrl) return;
+    if (!p || !p.dataset.editUrl) return
 
-    const oldText = p.textContent.trim();
+    const oldText = p.textContent.trim()
 
-    const input = document.createElement("input");
-    input.type = "text";
-    input.className = "edit-comment-input";
-    input.value = oldText;
+    const input = document.createElement("input")
+    input.type = "text"
+    input.className = "edit-comment-input"
+    input.value = oldText
 
-    p.replaceWith(input);
-    input.focus();
-    input.select();
+    p.replaceWith(input)
+    input.focus()
+    input.select()
 
     input.addEventListener("keydown", async (event) => {
 
-        if (event.key !== "Enter") return;
+        if (event.key !== "Enter") return
 
-        const formData = new FormData();
-        formData.append("text", input.value);
+        const formData = new FormData()
+        formData.append("text", input.value)
 
         const csrfToken = document.querySelector(
             "[name=csrfmiddlewaretoken]"
-        ).value;
+        ).value
 
         try {
             const response = await fetch(p.dataset.editUrl, {
@@ -404,63 +403,63 @@ document.querySelector(".comment-list").addEventListener("dblclick", (event) => 
                     "X-CSRFToken": csrfToken
                 },
                 body: formData
-            });
+            })
 
-            const data = await response.json();
+            const data = await response.json()
 
             if (!response.ok) {
-                throw new Error(data.error || "Update failed");
+                throw new Error(data.error || "Update failed")
             }
 
-            p.textContent = data.text;
-            input.replaceWith(p);
+            p.textContent = data.text
+            input.replaceWith(p)
 
         } catch (error) {
-            console.error(error);
-            input.replaceWith(p);
+            console.error(error)
+            input.replaceWith(p)
         }
-    });
-});
+    })
+})
 
 
 
 // renaming pin title
 
 
-const pinTitle = document.querySelector(".pin-title");
+const pinTitle = document.querySelector(".pin-title")
 
 pinTitle.addEventListener("dblclick", () => {
 
-    if (!pinTitle.dataset.editUrl) return;
+    if (!pinTitle.dataset.editUrl) return
 
-    const oldTitle = pinTitle.textContent.trim();
+    const oldTitle = pinTitle.textContent.trim()
 
-    const input = document.createElement("input");
-    input.type = "text";
-    input.className = "edit-pin-title-input";
-    input.value = oldTitle;
+    const input = document.createElement("input")
+    input.type = "text"
+    input.className = "edit-pin-title-input"
+    input.value = oldTitle
 
-    pinTitle.replaceWith(input);
+    pinTitle.replaceWith(input)
 
-    input.focus();
-    input.select();
+    input.focus()
+    input.select()
 
     input.addEventListener("keydown", async (event) => {
 
-        if (event.key !== "Enter") return;
+        if (event.key !== "Enter") return
 
-        const newTitle = input.value.trim();
+        const newTitle = input.value.trim()
 
-        if (!newTitle) return;
+        if (!newTitle) return
 
-        const formData = new FormData();
-        formData.append("title", newTitle);
+        const formData = new FormData()
+        formData.append("title", newTitle)
 
         try {
 
             const csrfToken = document.querySelector(
                 "[name=csrfmiddlewaretoken]"
-            ).value;
+            ).value
 
             const response = await fetch(pinTitle.dataset.editUrl, {
                 method: "POST",
@@ -468,24 +467,24 @@ pinTitle.addEventListener("dblclick", () => {
                     "X-CSRFToken": csrfToken
                 },
                 body: formData
-            });
+            })
 
-            const data = await response.json();
+            const data = await response.json()
 
             if (!response.ok) {
-                throw new Error(data.error);
+                throw new Error(data.error)
             }
 
-            pinTitle.textContent = data.title;
-            input.replaceWith(pinTitle);
+            pinTitle.textContent = data.title
+            input.replaceWith(pinTitle)
 
         } catch (error) {
-            console.error("Pin title update failed:", error);
-            input.replaceWith(pinTitle);
+            console.error("Pin title update failed:", error)
+            input.replaceWith(pinTitle)
         }
 
-    });
+    })
 
-});
+})
 
 

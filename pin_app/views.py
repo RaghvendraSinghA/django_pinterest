@@ -375,6 +375,8 @@ def search_pins(request):
     # Fetch actual Pin objects from PostgreSQL
     pins = Pin.objects.filter(id__in=pin_ids)
 
+    # Pin.objects.filter(id__in=[15, 28, 9])
+
     # Create a dictionary to find a Pin quickly using its ID
     pins_by_id = {}
 

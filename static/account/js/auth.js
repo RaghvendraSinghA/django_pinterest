@@ -1,12 +1,3 @@
-const passwordFields = document.querySelectorAll(
-    'input[type="password"]'
-);
-
-console.log(
-    `Found ${passwordFields.length} password fields`
-);
-
-
 // profile pic preview while updating profile pic
 
 const fileInput = document.getElementById("profile-pic-input")
@@ -22,6 +13,3 @@ fileInput.addEventListener("change", function () {
         }
 })
 
-
-
-console.log("auth.js")
