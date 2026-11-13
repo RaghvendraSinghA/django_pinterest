@@ -12,7 +12,6 @@ boardName.addEventListener("dblclick", () => {
     boardName.replaceWith(input)
 
     input.focus()
-    input.select()
 
     input.addEventListener("keydown", async (event) => {
 

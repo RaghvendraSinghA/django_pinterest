@@ -383,7 +383,6 @@ document.querySelector(".comment-list").addEventListener("dblclick", (event) => 
 
     p.replaceWith(input)
     input.focus()
-    input.select()
 
     input.addEventListener("keydown", async (event) => {
 
@@ -442,7 +441,6 @@ pinTitle.addEventListener("dblclick", () => {
     pinTitle.replaceWith(input)
 
     input.focus()
-    input.select()
 
     input.addEventListener("keydown", async (event) => {
 
