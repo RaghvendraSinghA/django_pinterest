@@ -312,3 +312,73 @@ Exception: Test 500
 2026-11-12 07:21:36,342 - ERROR - django.server
 "GET /test-500/ HTTP/1.1" 500 759
 
+2026-11-13 06:31:22,352 - ERROR - django.request
+Internal Server Error: /pin/23/
+Traceback (most recent call last):
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/template/smartif.py", line 179, in translate_token
+    op = OPERATORS[token]
+KeyError: 'request.user==pin.user'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/pin_app/views.py", line 101, in pin_detail
+    return render(
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/template/backends/django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/template/engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/template/engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/template/base.py", line 200, in compile_nodelist
+    return parser.parse()
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/template/base.py", line 513, in parse
+    raise self.error(token, e)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/template/base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/template/loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/template/base.py", line 513, in parse
+    raise self.error(token, e)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/template/base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/template/loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/template/base.py", line 513, in parse
+    raise self.error(token, e)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/template/base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/template/defaulttags.py", line 952, in do_if
+    condition = TemplateIfParser(parser, bits).parse()
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/template/defaulttags.py", line 885, in __init__
+    super().__init__(*args, **kwargs)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/template/smartif.py", line 170, in __init__
+    mapped_tokens.append(self.translate_token(token))
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/template/smartif.py", line 181, in translate_token
+    return self.create_var(token)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/template/defaulttags.py", line 888, in create_var
+    return TemplateLiteral(self.template_parser.compile_filter(value), value)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/template/base.py", line 600, in compile_filter
+    return FilterExpression(token, self)
+  File "/Users/apple/VsCode/django/django_pinterest_copy_fixing/.venv/lib/python3.9/site-packages/django/template/base.py", line 703, in __init__
+    raise TemplateSyntaxError(
+django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: '==pin.user' from 'request.user==pin.user'
+2026-11-13 06:31:22,381 - ERROR - django.server
+"GET /pin/23/ HTTP/1.1" 500 278325
+

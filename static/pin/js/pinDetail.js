@@ -2,9 +2,10 @@ const rowHeight = 16;
 const gap = 16;
 
 
-console.log("loaded pinDetail")
 
 
+//Initial load of pins on home page and pin detail page, It sets there row-span.
+//A page refresh reloads the whole page, so the browser throws away the old JavaScript state and runs your script again from the top. The same is true when you navigate to a new URL with a normal link, which is why the detail page runs the script fresh too.
 
 document.querySelectorAll(".pint").forEach(pin => {
 
@@ -110,11 +111,18 @@ document.querySelectorAll(".like-form").forEach((form) => {
         ).value;
 
         try {
+            // const response = await fetch(url, {
+            //     method: "POST",
+            //     headers: {
+            //         "X-CSRFToken": csrfToken,
+            //         "X-Requested-With": "XMLHttpRequest",
+            //     },
+            // });
+
             const response = await fetch(url, {
                 method: "POST",
                 headers: {
                     "X-CSRFToken": csrfToken,
-                    "X-Requested-With": "XMLHttpRequest",
                 },
             });
 
@@ -242,6 +250,7 @@ document.querySelectorAll(".add-comment-form").forEach((form) => {
             // Insert Django-generated comment HTML
             commentList.insertAdjacentHTML("beforeend", data.html);
 
+            // clear comment-box input btn value
             form.reset();
 
         } catch (error) {
