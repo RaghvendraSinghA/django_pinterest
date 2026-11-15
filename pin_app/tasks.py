@@ -30,6 +30,10 @@ def upload_pin_image(self, pin_id):
                 save=False,
             )
 
+            #pin.image is your Django model's ImageField.
+            #.save() calls Django's configured storage backend.
+            #Because you configured Cloudinary as your storage backend, Django sends the image to Cloudinary instead of saving it to your local media folder.
+
         pin.upload_status = "uploaded"
         pin.save(update_fields=["image", "upload_status"])
 

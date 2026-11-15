@@ -3,6 +3,12 @@
 
 A Pinterest-inspired web application built using Django. Users can create, edit, delete, explore, and search Pins. The application uses Elasticsearch for fuzzy search and Celery for asynchronous background tasks.
 
+
+
+#### Project demo detail video: Youtube-Link(https://youtu.be/0C6XrTxYK_U?si=8pwF7nZgNkWPQVaK) (27 minutes)
+
+#### Project demo working video (short): Youtube-Link(https://youtu.be/b0YNRL7Ec2M?si=Bkmyf_lvb9CqKXB2) (7 minutes)
+
 ## Features
 
 - User authentication (Signup and Login).
