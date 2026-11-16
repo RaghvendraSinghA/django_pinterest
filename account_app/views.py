@@ -52,6 +52,8 @@ def login_view(request):
 
             login(request, user)
 
+            # Internally, Django stores the user's ID in the session. On subsequent requests, Django can identify that user as authenticated using request.user.
+
             return redirect("home")
 
     else:
@@ -114,6 +116,11 @@ def edit_profile_view(request):
         if user_form.is_valid() and profile_form.is_valid():
 
             uploaded_image = request.FILES.get("profile_pic")
+           
+
+            # request.FILES.get("profile_pic") gets the uploaded image using the HTML form field's name attribute.
+            # image input field have attribut name = "profile_pic"
+            # uploaded_image is whole image object
 
             try:
                 user_form.save()

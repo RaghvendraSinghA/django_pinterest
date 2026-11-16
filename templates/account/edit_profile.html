@@ -32,14 +32,10 @@
 
             <!-- added hidden input button to upload image -->
 
-            <input type="file" name="{{ profile_form.profile_pic.html_name }}" id="profile-pic-input" accept="image/*"
-                hidden>
+            <input type="file" name="profile_pic" id="profile-pic-input" accept="image/*" hidden>
 
             <!-- input button till here-->
 
-            {% for error in profile_form.profile_pic.errors %}
-            <p class="field-error">{{ error }}</p>
-            {% endfor %}
 
         </div>
 
